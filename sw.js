@@ -1,14 +1,14 @@
 const CACHE_NAME = 'sbs-tracker-v1';
 const urlsToCache = [
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/amrap_history.json',
-  '/weeks_data.json',
-  '/all_programs.json',
-  '/programs_filtered.json',
-  '/program-data.js'
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './amrap_history.json',
+  './weeks_data.json',
+  './all_programs.json',
+  './programs_filtered.json',
+  './program-data.js'
 ];
 
 self.addEventListener('install', (event) => {
