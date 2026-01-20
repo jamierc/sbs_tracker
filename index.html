@@ -30,6 +30,11 @@
         .exercise-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; padding: 10px; background: #f8f9fa; border-radius: 4px; font-size: 13px; }
         .detail-label { color: #666; font-size: 11px; }
         .detail-value { font-weight: 600; color: #2c3e50; }
+        .plate-calculator { margin-top: 12px; padding: 10px; background: #e8f5e9; border-radius: 4px; border-left: 3px solid #27ae60; }
+        .plate-calculator-title { font-size: 11px; color: #27ae60; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .plate-display { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .plate-item { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: white; border-radius: 4px; font-size: 12px; font-weight: 600; border: 2px solid #27ae60; color: #27ae60; }
+        .plate-separator { color: #666; font-size: 12px; }
         .amrap-input { display: flex; align-items: center; gap: 10px; }
         .amrap-input label { font-size: 13px; font-weight: 500; color: #555; }
         .amrap-input input { flex: 1; padding: 8px; font-size: 16px; border: 2px solid #ddd; border-radius: 4px; max-width: 80px; }
@@ -373,6 +378,30 @@
                 <input type="file" id="import-file" accept=".json" style="padding: 8px;">
             </div>
             <button class="btn btn-secondary" onclick="importFromJSON()">Import Backup</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Plate Calculator</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Configure plate calculator to show which plates to load on the bar.</p>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="plate-calculator-enabled" onchange="togglePlateCalculator()" checked>
+                    Show Plate Calculator
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Barbell Weight (kg)</label>
+                <select id="barbell-weight">
+                    <option value="20" selected>20kg (Standard Olympic)</option>
+                    <option value="15">15kg (Women's Olympic)</option>
+                    <option value="10">10kg (Training Bar)</option>
+                    <option value="0">0kg (Dumbbells/Machines)</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" onclick="savePlateSettings()">Save Plate Settings</button>
         </div>
 
         <div class="settings-section">
@@ -6747,6 +6776,11 @@
                 deadlift: 'Romanian Deadlift',
                 ohp: 'DB OHP'
             },
+            plateCalculator: {
+                enabled: true,
+                barbellWeight: 20,  // kg
+                availablePlates: [25, 20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
+            },
             setupComplete: false
         };
 
@@ -7025,6 +7059,7 @@
                             <div class="detail-value">${ex.sets}</div>
                         </div>
                     </div>
+                    ${renderPlateDisplay(ex.weight)}
                     ${ex.target ? `
                     <div class="amrap-input">
                         <label>AMRAP Reps:</label>
@@ -7287,6 +7322,12 @@
                 document.getElementById('settings-deadlift-aux').value = appData.auxiliaryExercises.deadlift || 'Romanian Deadlift';
                 document.getElementById('settings-ohp-aux').value = appData.auxiliaryExercises.ohp || 'DB OHP';
             }
+
+            // Load plate calculator settings
+            if (appData.plateCalculator) {
+                document.getElementById('plate-calculator-enabled').checked = appData.plateCalculator.enabled !== false;
+                document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight || 20;
+            }
         }
 
         function jumpToWeek() {
@@ -7486,6 +7527,119 @@
             };
 
             reader.readAsText(file);
+        }
+
+        // Plate Calculator Functions
+        function calculatePlates(weight) {
+            if (!appData.plateCalculator.enabled) {
+                return null;
+            }
+
+            const barbellWeight = appData.plateCalculator.barbellWeight;
+            const availablePlates = appData.plateCalculator.availablePlates;
+
+            // Weight per side (subtract barbell, divide by 2)
+            let weightPerSide = (weight - barbellWeight) / 2;
+
+            // Handle edge cases
+            if (weightPerSide < 0) {
+                return { plates: [], perSide: 0, error: 'Weight less than barbell' };
+            }
+
+            if (weightPerSide === 0) {
+                return { plates: [], perSide: 0, error: null };
+            }
+
+            // Calculate plates using greedy algorithm
+            const plates = [];
+            let remaining = weightPerSide;
+
+            for (const plate of availablePlates) {
+                while (remaining >= plate - 0.01) { // Allow small float tolerance
+                    plates.push(plate);
+                    remaining -= plate;
+                }
+            }
+
+            // Check if we have remainder (can't load exact weight)
+            const remainder = remaining > 0.1 ? remaining : 0;
+
+            return {
+                plates: plates,
+                perSide: weightPerSide,
+                remainder: remainder,
+                error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)}kg` : null
+            };
+        }
+
+        function renderPlateDisplay(weight) {
+            const result = calculatePlates(weight);
+
+            if (!result) {
+                return '';
+            }
+
+            if (result.error === 'Weight less than barbell') {
+                return `<div class="plate-calculator">
+                    <div class="plate-calculator-title">⚠️ Weight less than barbell</div>
+                </div>`;
+            }
+
+            if (result.plates.length === 0) {
+                return `<div class="plate-calculator">
+                    <div class="plate-calculator-title">🏋️ Plates to Load</div>
+                    <div class="plate-display">
+                        <span style="color: #666; font-size: 12px;">Empty barbell (${appData.plateCalculator.barbellWeight}kg)</span>
+                    </div>
+                </div>`;
+            }
+
+            // Group plates by weight
+            const plateCounts = {};
+            result.plates.forEach(plate => {
+                plateCounts[plate] = (plateCounts[plate] || 0) + 1;
+            });
+
+            // Build display
+            let html = `<div class="plate-calculator">
+                <div class="plate-calculator-title">🏋️ Plates to Load (per side)</div>
+                <div class="plate-display">`;
+
+            Object.keys(plateCounts).sort((a, b) => parseFloat(b) - parseFloat(a)).forEach(plate => {
+                const count = plateCounts[plate];
+                html += `<span class="plate-item">${count}×${plate}kg</span>`;
+            });
+
+            html += `</div>`;
+
+            if (result.remainder) {
+                html += `<div style="font-size: 11px; color: #e67e22; margin-top: 6px;">
+                    ⚠️ ${result.error}
+                </div>`;
+            }
+
+            html += `</div>`;
+
+            return html;
+        }
+
+        function savePlateSettings() {
+            const enabled = document.getElementById('plate-calculator-enabled').checked;
+            const barbellWeight = parseFloat(document.getElementById('barbell-weight').value);
+
+            appData.plateCalculator.enabled = enabled;
+            appData.plateCalculator.barbellWeight = barbellWeight;
+
+            saveData();
+            renderWorkout();
+
+            alert('Plate calculator settings saved!');
+        }
+
+        function togglePlateCalculator() {
+            appData.plateCalculator.enabled = document.getElementById('plate-calculator-enabled').checked;
+            saveData();
+            renderWorkout();
         }
 
         function renderHistory() {
