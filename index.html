@@ -54,6 +54,35 @@
         .history-exercise:last-child { border-bottom: none; }
         .completed-badge { display: inline-block; padding: 2px 6px; background: #27ae60; color: white; border-radius: 3px; font-size: 10px; margin-left: 5px; }
 
+        /* Progress tab styles */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-value { font-size: 24px; font-weight: 700; color: #2c3e50; margin-bottom: 5px; }
+        .stat-label { font-size: 12px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card.highlight { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .stat-card.highlight .stat-value, .stat-card.highlight .stat-label { color: white; }
+        .chart-container { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .chart-title { font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 15px; }
+        .chart-canvas { width: 100%; height: 200px; position: relative; }
+        .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 100%; gap: 5px; }
+        .bar { flex: 1; background: linear-gradient(to top, #3498db, #5dade2); border-radius: 4px 4px 0 0; position: relative; min-height: 3px; transition: all 0.3s; }
+        .bar:hover { background: linear-gradient(to top, #2980b9, #3498db); }
+        .bar-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #666; white-space: nowrap; }
+        .bar-value { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 600; color: #2c3e50; }
+        .line-chart { position: relative; height: 100%; }
+        .line-path { stroke: #3498db; stroke-width: 2; fill: none; }
+        .line-dot { fill: #3498db; }
+        .line-dot:hover { fill: #2980b9; r: 5; }
+        .progress-section { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .progress-section h3 { font-size: 16px; color: #2c3e50; margin-bottom: 10px; }
+        .lift-progress { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .lift-progress:last-child { border-bottom: none; }
+        .lift-name { font-weight: 600; color: #2c3e50; margin-bottom: 5px; }
+        .lift-stats { display: flex; justify-content: space-between; font-size: 13px; color: #666; }
+        .lift-change { font-weight: 600; }
+        .lift-change.positive { color: #27ae60; }
+        .lift-change.negative { color: #e74c3c; }
+
         /* Setup overlay */
         .setup-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .setup-overlay.active { display: flex; }
@@ -205,6 +234,7 @@
 
     <div class="nav-tabs">
         <button class="nav-tab active" onclick="switchTab('workout')">Workout</button>
+        <button class="nav-tab" onclick="switchTab('progress')">Progress</button>
         <button class="nav-tab" onclick="switchTab('settings')">Settings</button>
         <button class="nav-tab" onclick="switchTab('history')">History</button>
     </div>
@@ -329,6 +359,10 @@
             <button class="btn btn-secondary" onclick="loadHistoricalData()">Load Weeks 1-15 History from Excel</button>
             <button class="btn btn-danger" onclick="resetAll()">Reset All Data</button>
         </div>
+    </div>
+
+    <div id="progress-tab" class="tab-content">
+        <div id="progress-container"></div>
     </div>
 
     <div id="history-tab" class="tab-content">
@@ -6896,6 +6930,8 @@
                 renderHistory();
             } else if (tabName === 'settings') {
                 loadAuxiliarySettings();
+            } else if (tabName === 'progress') {
+                renderProgress();
             }
         }
 
@@ -7317,6 +7353,191 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        function renderProgress() {
+            const container = document.getElementById('progress-container');
+            const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
+
+            if (weeks.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">No workout data yet. Complete some workouts to see your progress!</p>';
+                return;
+            }
+
+            // Calculate statistics
+            const stats = calculateProgressStats();
+
+            container.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card highlight">
+                        <div class="stat-value">${stats.totalVolume.toLocaleString()}</div>
+                        <div class="stat-label">Total Volume (kg)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.workoutsCompleted}</div>
+                        <div class="stat-label">Workouts Done</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.weeksCompleted}</div>
+                        <div class="stat-label">Weeks Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.avgVolumePerWeek.toLocaleString()}</div>
+                        <div class="stat-label">Avg Volume/Week</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Total Volume by Week</div>
+                    <div class="chart-canvas">
+                        <div class="bar-chart">
+                            ${stats.weeklyVolume.map(wv => {
+                                const maxVol = Math.max(...stats.weeklyVolume.map(v => v.volume));
+                                const height = (wv.volume / maxVol) * 100;
+                                return `
+                                    <div class="bar" style="height: ${height}%">
+                                        <div class="bar-value">${(wv.volume / 1000).toFixed(1)}k</div>
+                                        <div class="bar-label">W${wv.week}</div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <h3>Estimated 1RM Progress</h3>
+                    ${renderEstimated1RMs(stats)}
+                </div>
+
+                <div class="progress-section">
+                    <h3>Performance by Lift</h3>
+                    ${renderLiftBreakdown(stats)}
+                </div>
+            `;
+        }
+
+        function calculateProgressStats() {
+            const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
+            let totalVolume = 0;
+            let workoutsCompleted = 0;
+            const weeklyVolume = [];
+            const liftData = {};
+            const numDays = getNumDays();
+
+            weeks.forEach(weekNum => {
+                const weekData = appData.workouts[weekNum];
+                let weekVolume = 0;
+
+                for (let day = 1; day <= numDays; day++) {
+                    if (weekData[day]) {
+                        let dayComplete = true;
+                        weekData[day].forEach(ex => {
+                            // Calculate volume for this exercise
+                            const volume = ex.weight * ex.reps * ex.sets;
+                            weekVolume += volume;
+                            totalVolume += volume;
+
+                            // Track lift data for progress tracking
+                            if (!liftData[ex.name]) {
+                                liftData[ex.name] = [];
+                            }
+                            liftData[ex.name].push({
+                                week: weekNum,
+                                weight: ex.weight,
+                                reps: ex.reps,
+                                amrapReps: ex.amrapReps,
+                                target: ex.target,
+                                sets: ex.sets
+                            });
+
+                            // Check if AMRAP is complete
+                            if (ex.target && ex.amrapReps === undefined) {
+                                dayComplete = false;
+                            }
+                        });
+                        if (dayComplete) workoutsCompleted++;
+                    }
+                }
+
+                weeklyVolume.push({ week: weekNum, volume: weekVolume });
+            });
+
+            const avgVolumePerWeek = weeks.length > 0 ? Math.round(totalVolume / weeks.length) : 0;
+
+            return {
+                totalVolume: Math.round(totalVolume),
+                workoutsCompleted,
+                weeksCompleted: weeks.length,
+                avgVolumePerWeek,
+                weeklyVolume,
+                liftData
+            };
+        }
+
+        function renderEstimated1RMs(stats) {
+            const mainLifts = ['Squat', 'Bench Press', 'Deadlift', 'OHP'];
+            let html = '';
+
+            mainLifts.forEach(liftName => {
+                const liftHistory = stats.liftData[liftName];
+                if (!liftHistory || liftHistory.length === 0) return;
+
+                // Get first and last recorded weights
+                const firstEntry = liftHistory[0];
+                const lastEntry = liftHistory[liftHistory.length - 1];
+
+                // Estimate 1RM using Epley formula: weight × (1 + reps/30)
+                const getEstimated1RM = (entry) => {
+                    const reps = entry.amrapReps !== undefined ? entry.amrapReps : entry.reps;
+                    return entry.weight * (1 + reps / 30);
+                };
+
+                const first1RM = getEstimated1RM(firstEntry);
+                const last1RM = getEstimated1RM(lastEntry);
+                const change = last1RM - first1RM;
+                const changePercent = ((change / first1RM) * 100).toFixed(1);
+
+                html += `
+                    <div class="lift-progress">
+                        <div class="lift-name">${liftName}</div>
+                        <div class="lift-stats">
+                            <span>Est. 1RM: ${last1RM.toFixed(1)}kg</span>
+                            <span class="lift-change ${change >= 0 ? 'positive' : 'negative'}">
+                                ${change >= 0 ? '+' : ''}${change.toFixed(1)}kg (${changePercent >= 0 ? '+' : ''}${changePercent}%)
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html || '<p style="color:#666; font-size:13px;">Complete AMRAP sets to track estimated 1RM progress</p>';
+        }
+
+        function renderLiftBreakdown(stats) {
+            const lifts = Object.keys(stats.liftData);
+            if (lifts.length === 0) return '<p style="color:#666; font-size:13px;">No lift data available</p>';
+
+            let html = '';
+            lifts.forEach(liftName => {
+                const history = stats.liftData[liftName];
+                const totalVolume = history.reduce((sum, entry) => sum + (entry.weight * entry.reps * (entry.sets || 5)), 0);
+                const avgWeight = history.reduce((sum, entry) => sum + entry.weight, 0) / history.length;
+                const completedAMRAPs = history.filter(e => e.amrapReps !== undefined).length;
+
+                html += `
+                    <div class="lift-progress">
+                        <div class="lift-name">${liftName}</div>
+                        <div class="lift-stats">
+                            <span>Avg: ${avgWeight.toFixed(1)}kg</span>
+                            <span>Volume: ${(totalVolume / 1000).toFixed(1)}k kg</span>
+                            <span>AMRAPs: ${completedAMRAPs}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
         }
 
         // Setup functions
