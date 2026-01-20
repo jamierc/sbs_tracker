@@ -133,6 +133,55 @@
                 </div>
             </div>
 
+            <div class="setup-section">
+                <h3>Choose Your Auxiliary Exercises</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Select which exercises you want to use as accessories for each main lift.</p>
+
+                <div class="form-group">
+                    <label>Squat Accessory</label>
+                    <select id="setup-squat-aux">
+                        <option value="Romanian Deadlift">Romanian Deadlift</option>
+                        <option value="Leg Press">Leg Press</option>
+                        <option value="Bulgarian Split Squat">Bulgarian Split Squat</option>
+                        <option value="Front Squat">Front Squat</option>
+                        <option value="Goblet Squat">Goblet Squat</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Bench Press Accessory</label>
+                    <select id="setup-bench-aux">
+                        <option value="Incline Press">Incline Press</option>
+                        <option value="DB Bench Press">DB Bench Press</option>
+                        <option value="Close Grip Bench">Close Grip Bench</option>
+                        <option value="Dips">Dips</option>
+                        <option value="Push Ups">Push Ups</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Deadlift Accessory</label>
+                    <select id="setup-deadlift-aux">
+                        <option value="Romanian Deadlift">Romanian Deadlift</option>
+                        <option value="Sumo Deadlift">Sumo Deadlift</option>
+                        <option value="Deficit Deadlift">Deficit Deadlift</option>
+                        <option value="Trap Bar Deadlift">Trap Bar Deadlift</option>
+                        <option value="Good Mornings">Good Mornings</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>OHP Accessory</label>
+                    <select id="setup-ohp-aux">
+                        <option value="DB OHP">DB OHP</option>
+                        <option value="Incline Press">Incline Press</option>
+                        <option value="Arnold Press">Arnold Press</option>
+                        <option value="Landmine Press">Landmine Press</option>
+                        <option value="Push Press">Push Press</option>
+                    </select>
+                </div>
+            </div>
+
             <button class="btn btn-primary" onclick="completeSetup()">Start Training!</button>
         </div>
     </div>
@@ -214,6 +263,57 @@
                 </select>
             </div>
             <button class="btn btn-secondary" onclick="jumpToWeek()">Jump to Selected Week</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Auxiliary Exercises</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Choose which auxiliary exercises to use for each main lift. Changes will apply to future workouts.</p>
+
+            <div class="form-group">
+                <label>Squat Accessory</label>
+                <select id="settings-squat-aux">
+                    <option value="Romanian Deadlift">Romanian Deadlift</option>
+                    <option value="Leg Press">Leg Press</option>
+                    <option value="Bulgarian Split Squat">Bulgarian Split Squat</option>
+                    <option value="Front Squat">Front Squat</option>
+                    <option value="Goblet Squat">Goblet Squat</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Bench Press Accessory</label>
+                <select id="settings-bench-aux">
+                    <option value="Incline Press">Incline Press</option>
+                    <option value="DB Bench Press">DB Bench Press</option>
+                    <option value="Close Grip Bench">Close Grip Bench</option>
+                    <option value="Dips">Dips</option>
+                    <option value="Push Ups">Push Ups</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Deadlift Accessory</label>
+                <select id="settings-deadlift-aux">
+                    <option value="Romanian Deadlift">Romanian Deadlift</option>
+                    <option value="Sumo Deadlift">Sumo Deadlift</option>
+                    <option value="Deficit Deadlift">Deficit Deadlift</option>
+                    <option value="Trap Bar Deadlift">Trap Bar Deadlift</option>
+                    <option value="Good Mornings">Good Mornings</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>OHP Accessory</label>
+                <select id="settings-ohp-aux">
+                    <option value="DB OHP">DB OHP</option>
+                    <option value="Incline Press">Incline Press</option>
+                    <option value="Arnold Press">Arnold Press</option>
+                    <option value="Landmine Press">Landmine Press</option>
+                    <option value="Push Press">Push Press</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" onclick="saveAuxiliaryExercises()">Save Auxiliary Exercises</button>
         </div>
 
         <div class="settings-section">
@@ -6576,6 +6676,12 @@
                 deadlift: 140,
                 ohp: 50
             },
+            auxiliaryExercises: {
+                squat: 'Romanian Deadlift',
+                bench: 'Incline Press',
+                deadlift: 'Romanian Deadlift',
+                ohp: 'DB OHP'
+            },
             setupComplete: false
         };
 
@@ -6639,7 +6745,94 @@
             }
 
             // Deep copy to avoid modifying the source data
-            return JSON.parse(JSON.stringify(weekData));
+            const copiedData = JSON.parse(JSON.stringify(weekData));
+
+            // Apply user's auxiliary exercise selections
+            return applyAuxiliaryExercises(copiedData);
+        }
+
+        function applyAuxiliaryExercises(weekData) {
+            // Define which exercises are main lifts (these should never be replaced)
+            const mainLifts = ['Squat', 'Bench Press', 'Deadlift', 'OHP'];
+
+            // Define default auxiliary exercise mappings (what they replace)
+            const auxiliaryMappings = {
+                'Romanian Deadlift': ['squat', 'deadlift'], // Can be for either
+                'Leg Press': ['squat'],
+                'Bulgarian Split Squat': ['squat'],
+                'Front Squat': ['squat'],
+                'Goblet Squat': ['squat'],
+                'Incline Press': ['bench', 'ohp'], // Can be for either
+                'DB Bench Press': ['bench'],
+                'Close Grip Bench': ['bench'],
+                'Dips': ['bench'],
+                'Push Ups': ['bench'],
+                'DB OHP': ['ohp'],
+                'Arnold Press': ['ohp'],
+                'Landmine Press': ['ohp'],
+                'Push Press': ['ohp'],
+                'Sumo Deadlift': ['deadlift'],
+                'Deficit Deadlift': ['deadlift'],
+                'Trap Bar Deadlift': ['deadlift'],
+                'Good Mornings': ['deadlift']
+            };
+
+            // Process each day in the week
+            for (let day in weekData) {
+                const exercises = weekData[day];
+
+                // Track which main lifts appear on this day
+                const dayMainLifts = exercises
+                    .filter(ex => mainLifts.includes(ex.name))
+                    .map(ex => ex.name);
+
+                // Replace auxiliary exercises
+                exercises.forEach(ex => {
+                    if (!mainLifts.includes(ex.name)) {
+                        // This is an auxiliary exercise - determine which main lift it's for
+                        let replacementCategory = null;
+
+                        // Context-based replacement logic
+                        if (ex.name === 'Romanian Deadlift') {
+                            // If Squat is on this day, it's a squat accessory
+                            // If Deadlift is on this day, it's a deadlift accessory
+                            if (dayMainLifts.includes('Squat')) {
+                                replacementCategory = 'squat';
+                            } else if (dayMainLifts.includes('Deadlift')) {
+                                replacementCategory = 'deadlift';
+                            }
+                        } else if (ex.name === 'Leg Press' || ex.name === 'Bulgarian Split Squat' ||
+                                   ex.name === 'Front Squat' || ex.name === 'Goblet Squat') {
+                            replacementCategory = 'squat';
+                        } else if (ex.name === 'Incline Press') {
+                            // If Bench Press is on this day, it's a bench accessory
+                            // Otherwise it's an OHP accessory
+                            if (dayMainLifts.includes('Bench Press')) {
+                                replacementCategory = 'bench';
+                            } else if (dayMainLifts.includes('OHP')) {
+                                replacementCategory = 'ohp';
+                            }
+                        } else if (ex.name === 'DB Bench Press' || ex.name === 'Close Grip Bench' ||
+                                   ex.name === 'Dips' || ex.name === 'Push Ups') {
+                            replacementCategory = 'bench';
+                        } else if (ex.name === 'DB OHP' || ex.name === 'Arnold Press' ||
+                                   ex.name === 'Landmine Press' || ex.name === 'Push Press') {
+                            replacementCategory = 'ohp';
+                        } else if (ex.name === 'Sumo Deadlift' || ex.name === 'Deficit Deadlift' ||
+                                   ex.name === 'Trap Bar Deadlift' || ex.name === 'Good Mornings') {
+                            replacementCategory = 'deadlift';
+                        }
+
+                        // Apply the replacement if we have user preferences
+                        if (replacementCategory && appData.auxiliaryExercises &&
+                            appData.auxiliaryExercises[replacementCategory]) {
+                            ex.name = appData.auxiliaryExercises[replacementCategory];
+                        }
+                    }
+                });
+            }
+
+            return weekData;
         }
 
         function getNumDays() {
@@ -6664,6 +6857,8 @@
 
             if (tabName === 'history') {
                 renderHistory();
+            } else if (tabName === 'settings') {
+                loadAuxiliarySettings();
             }
         }
 
@@ -6945,6 +7140,37 @@
             alert('1RMs saved!');
         }
 
+        function saveAuxiliaryExercises() {
+            appData.auxiliaryExercises = {
+                squat: document.getElementById('settings-squat-aux').value,
+                bench: document.getElementById('settings-bench-aux').value,
+                deadlift: document.getElementById('settings-deadlift-aux').value,
+                ohp: document.getElementById('settings-ohp-aux').value
+            };
+
+            // Clear future workouts so they'll be regenerated with new auxiliary exercises
+            const currentWeek = appData.currentWeek;
+            for (let week = currentWeek; week <= 20; week++) {
+                delete appData.workouts[week];
+            }
+
+            // Reload current week with new auxiliary exercises
+            appData.workouts[currentWeek] = getWeekData(currentWeek);
+
+            saveData();
+            renderWorkout();
+            alert('Auxiliary exercises updated! Current and future workouts will use your new selections.');
+        }
+
+        function loadAuxiliarySettings() {
+            if (appData.auxiliaryExercises) {
+                document.getElementById('settings-squat-aux').value = appData.auxiliaryExercises.squat || 'Romanian Deadlift';
+                document.getElementById('settings-bench-aux').value = appData.auxiliaryExercises.bench || 'Incline Press';
+                document.getElementById('settings-deadlift-aux').value = appData.auxiliaryExercises.deadlift || 'Romanian Deadlift';
+                document.getElementById('settings-ohp-aux').value = appData.auxiliaryExercises.ohp || 'DB OHP';
+            }
+        }
+
         function jumpToWeek() {
             const weekNum = parseInt(document.getElementById('week-selector').value);
             appData.currentWeek = weekNum;
@@ -7062,6 +7288,12 @@
             const deadlift1RM = parseFloat(document.getElementById('setup-deadlift').value);
             const ohp1RM = parseFloat(document.getElementById('setup-ohp').value);
 
+            // Get auxiliary exercise selections
+            const squatAux = document.getElementById('setup-squat-aux').value;
+            const benchAux = document.getElementById('setup-bench-aux').value;
+            const deadliftAux = document.getElementById('setup-deadlift-aux').value;
+            const ohpAux = document.getElementById('setup-ohp-aux').value;
+
             // Validate inputs
             if (isNaN(squat1RM) || isNaN(bench1RM) || isNaN(deadlift1RM) || isNaN(ohp1RM)) {
                 alert('Please enter valid numbers for all 1RM values');
@@ -7077,6 +7309,12 @@
                 bench: bench1RM,
                 deadlift: deadlift1RM,
                 ohp: ohp1RM
+            };
+            appData.auxiliaryExercises = {
+                squat: squatAux,
+                bench: benchAux,
+                deadlift: deadliftAux,
+                ohp: ohpAux
             };
             appData.setupComplete = true;
 
@@ -7116,6 +7354,9 @@
         document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
         document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
         document.getElementById('week-selector').value = appData.currentWeek;
+
+        // Load auxiliary exercise settings
+        loadAuxiliarySettings();
     </script>
 </body>
 </html>
