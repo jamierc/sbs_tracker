@@ -1,0 +1,8121 @@
+// SBS Hypertrophy Program Data - Weeks 1-21
+// Auto-generated from hypertrophy_programs.json
+
+const HYPERTROPHY_PROGRAM_WEEKS = {
+  "2x": {
+    "1": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 342.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 227.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 325.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 160.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 367.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 140.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 272.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 202.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "3": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "7": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "8": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "9": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "10": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "11": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "12": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "13": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "14": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "15": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "16": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "17": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "18": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "19": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "20": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 405.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 267.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 387.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 190.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 432.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 165.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 325.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 240.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "21": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    }
+  },
+  "3x": {
+    "1": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 342.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 325.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 182.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 227.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 140.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 272.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 367.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 202.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 300.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 160.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "3": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "7": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "8": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "9": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "10": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "11": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "12": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "13": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "14": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "15": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "16": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "17": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "18": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "19": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "20": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 405.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 387.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 217.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 267.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 165.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 325.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 432.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 240.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 357.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 190.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "21": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    }
+  },
+  "4x": {
+    "1": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 342.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 182.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 325.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 227.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 272.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 160.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 367.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 202.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 140.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 300.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "3": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "7": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "8": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "9": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "10": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "11": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "12": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "13": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "14": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "15": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "16": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "17": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "18": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "19": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "20": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 405.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 217.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 387.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 267.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 325.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 190.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 432.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 240.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 165.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 357.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "21": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    }
+  },
+  "5x": {
+    "1": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 342.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 160.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 227.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 272.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 367.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 202.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 140.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 300.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 182.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 325.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "3": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "7": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "8": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ]
+    },
+    "9": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "10": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "11": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "12": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "13": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "14": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "15": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "16": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "17": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "18": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "19": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "20": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 405.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 190.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 267.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 325.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 432.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 240.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 165.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 357.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 217.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 387.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "21": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    }
+  },
+  "6x": {
+    "1": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 342.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 202.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 160.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 325.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 227.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 272.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 182.5,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 300.0,
+          "reps": 12,
+          "target": 15,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 367.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 140.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "3": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "7": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "8": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 355.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 210.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 165.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 337.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 235.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 282.5,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 190.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 310.0,
+          "reps": 11,
+          "target": 13,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 380.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 145.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ]
+    },
+    "9": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "10": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "11": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "12": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "13": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ]
+    },
+    "14": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    },
+    "15": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 367.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 217.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 172.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 350.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 245.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 295.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 195.0,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 322.5,
+          "reps": 10,
+          "target": 12,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 395.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 150.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ]
+    },
+    "16": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "17": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ]
+    },
+    "18": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 380.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 225.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 177.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 362.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 252.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 305.0,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 202.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 332.5,
+          "reps": 9,
+          "target": 11,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 407.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 155.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ]
+    },
+    "19": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 392.5,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 232.5,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 185.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 375.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 260.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 315.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 210.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 345.0,
+          "reps": 8,
+          "target": 10,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 420.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 160.0,
+          "reps": 6,
+          "target": 8,
+          "sets": 4
+        }
+      ]
+    },
+    "20": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 405.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 240.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 190.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 387.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 267.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 325.0,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 217.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 357.5,
+          "reps": 7,
+          "target": 9,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 432.5,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 165.0,
+          "reps": 5,
+          "target": 6,
+          "sets": 4
+        }
+      ]
+    },
+    "21": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 295.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Incline Press",
+          "weight": 170.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "2": [
+        {
+          "name": "DB OHP",
+          "weight": 135.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 275.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "3": [
+        {
+          "name": "Bench Press",
+          "weight": 195.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Leg Press",
+          "weight": 230.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "4": [
+        {
+          "name": "DB Bench",
+          "weight": 155.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        },
+        {
+          "name": "Hack Squat",
+          "weight": 252.5,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "5": [
+        {
+          "name": "Block Pulls",
+          "weight": 315.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ],
+      "6": [
+        {
+          "name": "OHP",
+          "weight": 120.0,
+          "reps": 5,
+          "target": 0,
+          "sets": 4
+        }
+      ]
+    }
+  }
+};

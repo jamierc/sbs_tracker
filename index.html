@@ -111,6 +111,13 @@
             <div class="setup-section">
                 <h3>Which program are you running?</h3>
                 <div class="form-group">
+                    <label>Program Type</label>
+                    <select id="setup-program-type" onchange="updateProgramVariants()">
+                        <option value="strength" selected>Strength Template (20 weeks)</option>
+                        <option value="hypertrophy">Hypertrophy Template (21 weeks)</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Program Variant</label>
                     <select id="setup-program">
                         <option value="2x">2x - 2 days per week</option>
@@ -369,6 +376,7 @@
         <div id="history-container"></div>
     </div>
 
+    <script src="hypertrophy-program-data.js"></script>
     <script>
         // Program data embedded from Excel
         const ALL_PROGRAMS = {
@@ -6707,7 +6715,8 @@
 
         // App state
         let appData = {
-            selectedProgram: '3x',  // 2x, 3x, 4x, or 5x
+            programType: 'strength',  // 'strength' or 'hypertrophy'
+            selectedProgram: '3x',  // 2x, 3x, 4x, 5x (or 6x for hypertrophy)
             currentWeek: 16,
             currentDay: 1,
             workouts: {},
@@ -6726,6 +6735,11 @@
             },
             setupComplete: false
         };
+
+        // Helper function to get max week based on program type
+        function getMaxWeek() {
+            return appData.programType === 'hypertrophy' ? 21 : 20;
+        }
 
         // Progression table
         function calculateProgression(amrapReps, target) {
@@ -6773,8 +6787,17 @@
         }
 
         function getWeekData(weekNum) {
-            // Get week data from embedded ALL_PROGRAMS using selected program variant
-            const programData = ALL_PROGRAMS[appData.selectedProgram];
+            // Get week data based on program type
+            const programSource = appData.programType === 'hypertrophy'
+                ? (typeof HYPERTROPHY_PROGRAM_WEEKS !== 'undefined' ? HYPERTROPHY_PROGRAM_WEEKS : null)
+                : ALL_PROGRAMS;
+
+            if (!programSource) {
+                alert('Hypertrophy program data not loaded yet. Please refresh the page.');
+                return {1: []};
+            }
+
+            const programData = programSource[appData.selectedProgram];
             if (!programData) {
                 alert(`Program ${appData.selectedProgram} not found!`);
                 return {1: []};
@@ -7160,9 +7183,10 @@
 
         function navigateWeek(direction) {
             const newWeek = appData.currentWeek + direction;
+            const maxWeek = getMaxWeek();
 
-            // Validate week range (1-20 for SBS program)
-            if (newWeek < 1 || newWeek > 20) {
+            // Validate week range (1-20 for strength, 1-21 for hypertrophy)
+            if (newWeek < 1 || newWeek > maxWeek) {
                 return;
             }
 
@@ -7182,9 +7206,10 @@
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prev-week-btn');
             const nextBtn = document.getElementById('next-week-btn');
+            const maxWeek = getMaxWeek();
 
             prevBtn.disabled = appData.currentWeek <= 1;
-            nextBtn.disabled = appData.currentWeek >= 20;
+            nextBtn.disabled = appData.currentWeek >= maxWeek;
         }
 
         function updateMarkDayButton() {
@@ -7543,14 +7568,61 @@
         // Setup functions
         function showSetup() {
             document.getElementById('setup-overlay').classList.add('active');
+            updateProgramVariants();
         }
 
         function hideSetup() {
             document.getElementById('setup-overlay').classList.remove('active');
         }
 
+        function updateProgramVariants() {
+            const programType = document.getElementById('setup-program-type').value;
+            const programSelect = document.getElementById('setup-program');
+            const currentValue = programSelect.value;
+
+            // Clear existing options
+            programSelect.innerHTML = '';
+
+            // Add base options (2x-5x)
+            const baseOptions = [
+                { value: '2x', label: '2x - 2 days per week' },
+                { value: '3x', label: '3x - 3 days per week' },
+                { value: '4x', label: '4x - 4 days per week' },
+                { value: '5x', label: '5x - 5 days per week' }
+            ];
+
+            baseOptions.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.label;
+                programSelect.appendChild(option);
+            });
+
+            // Add 6x option for hypertrophy only
+            if (programType === 'hypertrophy') {
+                const option = document.createElement('option');
+                option.value = '6x';
+                option.textContent = '6x - 6 days per week';
+                programSelect.appendChild(option);
+            }
+
+            // Restore previous selection if still valid, otherwise default to 3x
+            if (currentValue && (programType !== 'strength' || currentValue !== '6x')) {
+                programSelect.value = currentValue;
+            } else {
+                programSelect.value = '3x';
+            }
+
+            // Temporarily update appData.programType to show correct weeks in selector
+            const oldProgramType = appData.programType;
+            appData.programType = programType;
+            updateWeekSelectors();
+            appData.programType = oldProgramType;
+        }
+
         function completeSetup() {
             // Get values from setup form
+            const programType = document.getElementById('setup-program-type').value;
             const selectedProgram = document.getElementById('setup-program').value;
             const startWeek = parseInt(document.getElementById('setup-week').value);
             const squat1RM = parseFloat(document.getElementById('setup-squat').value);
@@ -7571,6 +7643,7 @@
             }
 
             // Update app data
+            appData.programType = programType;
             appData.selectedProgram = selectedProgram;
             appData.currentWeek = startWeek;
             appData.currentDay = 1;  // Reset to day 1
@@ -7595,6 +7668,7 @@
 
             // Save and update UI
             saveData();
+            updateWeekSelectors();
             hideSetup();
             renderWorkout();
 
@@ -7613,8 +7687,41 @@
             }
         }
 
+        function updateWeekSelectors() {
+            const maxWeek = getMaxWeek();
+            const selectors = ['week-selector', 'setup-week'];
+
+            selectors.forEach(selectorId => {
+                const select = document.getElementById(selectorId);
+                if (!select) return;
+
+                const currentValue = select.value;
+                select.innerHTML = '';
+
+                for (let week = 1; week <= maxWeek; week++) {
+                    const option = document.createElement('option');
+                    option.value = week;
+
+                    // Add deload labels
+                    if (week === 7 || week === 14) {
+                        option.textContent = `Week ${week} (Deload)`;
+                    } else {
+                        option.textContent = `Week ${week}`;
+                    }
+
+                    select.appendChild(option);
+                }
+
+                // Restore previous selection if still valid
+                if (currentValue && parseInt(currentValue) <= maxWeek) {
+                    select.value = currentValue;
+                }
+            });
+        }
+
         // Initialize
         loadData();
+        updateWeekSelectors();
         checkSetupNeeded();
         renderWorkout();
 
