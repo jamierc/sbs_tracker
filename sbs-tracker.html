@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBS Workout Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .week-info {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .day-btn {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .day-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exercise-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .exercise-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .detail-item {
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .amrap-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .amrap-input label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .amrap-input input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 80px;
+        }
+
+        .amrap-input input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .progression-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .progression-positive {
+            color: #27ae60;
+        }
+
+        .progression-negative {
+            color: #e74c3c;
+        }
+
+        .next-week-btn {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .next-week-btn:active {
+            background: #229954;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SBS Workout Tracker</h1>
+        <div class="week-info">Week <span id="current-week">16</span></div>
+    </div>
+
+    <div class="day-selector">
+        <button class="day-btn active" onclick="selectDay(1)">Day 1</button>
+        <button class="day-btn" onclick="selectDay(2)">Day 2</button>
+        <button class="day-btn" onclick="selectDay(3)">Day 3</button>
+    </div>
+
+    <div id="workout-container"></div>
+
+    <button class="next-week-btn" onclick="completeWeek()">Complete Week & Move to Next</button>
+    <button class="reset-btn" onclick="resetToWeek16()">Reset to Week 16</button>
+
+    <script>
+        // Program baseline from Excel (weeks 16-20)
+        const PROGRAM_BASELINE = {
+            16: {
+                1: [
+                    { name: 'Squat', weight: 87.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Romanian Deadlift', weight: 85, reps: 4, target: 8, sets: 5 },
+                    { name: 'Incline Press', weight: 72.5, reps: 4, target: 8, sets: 5 }
+                ],
+                2: [
+                    { name: 'Bench Press', weight: 90, reps: 2, target: 4, sets: 5 },
+                    { name: 'OHP', weight: 42.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Leg Press', weight: 162.5, reps: 4, target: 8, sets: 5 }
+                ],
+                3: [
+                    { name: 'Deadlift', weight: 127.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Incline Press', weight: 72.5, reps: 4, target: 8, sets: 5 },
+                    { name: 'Leg Press', weight: 167.5, reps: 4, target: 8, sets: 5 },
+                    { name: 'DB OHP', weight: 20, reps: 4, target: 8, sets: 5 }
+                ]
+            },
+            17: {
+                1: [
+                    { name: 'Squat', weight: 92.5, reps: 1, target: 2, sets: 5 },
+                    { name: 'Romanian Deadlift', weight: 90, reps: 3, target: 6, sets: 5 },
+                    { name: 'Incline Press', weight: 77.5, reps: 3, target: 6, sets: 5 }
+                ],
+                2: [
+                    { name: 'Bench Press', weight: 97.5, reps: 1, target: 2, sets: 5 },
+                    { name: 'OHP', weight: 45, reps: 1, target: 2, sets: 5 },
+                    { name: 'Leg Press', weight: 172.5, reps: 3, target: 6, sets: 5 }
+                ],
+                3: [
+                    { name: 'Deadlift', weight: 135, reps: 1, target: 2, sets: 5 },
+                    { name: 'Incline Press', weight: 77.5, reps: 3, target: 6, sets: 5 },
+                    { name: 'Leg Press', weight: 180, reps: 3, target: 6, sets: 5 },
+                    { name: 'DB OHP', weight: 20, reps: 3, target: 6, sets: 5 }
+                ]
+            },
+            18: {
+                1: [
+                    { name: 'Squat', weight: 87.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Romanian Deadlift', weight: 85, reps: 4, target: 8, sets: 5 },
+                    { name: 'Incline Press', weight: 72.5, reps: 4, target: 8, sets: 5 }
+                ],
+                2: [
+                    { name: 'Bench Press', weight: 90, reps: 2, target: 4, sets: 5 },
+                    { name: 'OHP', weight: 42.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Leg Press', weight: 162.5, reps: 4, target: 8, sets: 5 }
+                ],
+                3: [
+                    { name: 'Deadlift', weight: 127.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Incline Press', weight: 72.5, reps: 4, target: 8, sets: 5 },
+                    { name: 'Leg Press', weight: 167.5, reps: 4, target: 8, sets: 5 },
+                    { name: 'DB OHP', weight: 20, reps: 4, target: 8, sets: 5 }
+                ]
+            },
+            19: {
+                1: [
+                    { name: 'Squat', weight: 92.5, reps: 1, target: 2, sets: 5 },
+                    { name: 'Romanian Deadlift', weight: 90, reps: 3, target: 6, sets: 5 },
+                    { name: 'Incline Press', weight: 77.5, reps: 3, target: 6, sets: 5 }
+                ],
+                2: [
+                    { name: 'Bench Press', weight: 97.5, reps: 1, target: 2, sets: 5 },
+                    { name: 'OHP', weight: 45, reps: 1, target: 2, sets: 5 },
+                    { name: 'Leg Press', weight: 172.5, reps: 3, target: 6, sets: 5 }
+                ],
+                3: [
+                    { name: 'Deadlift', weight: 135, reps: 1, target: 2, sets: 5 },
+                    { name: 'Incline Press', weight: 77.5, reps: 3, target: 6, sets: 5 },
+                    { name: 'Leg Press', weight: 180, reps: 3, target: 6, sets: 5 },
+                    { name: 'DB OHP', weight: 20, reps: 3, target: 6, sets: 5 }
+                ]
+            },
+            20: {
+                1: [
+                    { name: 'Squat', weight: 97.5, reps: 1, target: 1, sets: 5 },
+                    { name: 'Romanian Deadlift', weight: 97.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Incline Press', weight: 82.5, reps: 2, target: 4, sets: 5 }
+                ],
+                2: [
+                    { name: 'Bench Press', weight: 102.5, reps: 1, target: 1, sets: 5 },
+                    { name: 'OHP', weight: 47.5, reps: 1, target: 1, sets: 5 },
+                    { name: 'Leg Press', weight: 182.5, reps: 2, target: 4, sets: 5 }
+                ],
+                3: [
+                    { name: 'Deadlift', weight: 142.5, reps: 1, target: 1, sets: 5 },
+                    { name: 'Incline Press', weight: 82.5, reps: 2, target: 4, sets: 5 },
+                    { name: 'Leg Press', weight: 190, reps: 2, target: 4, sets: 5 },
+                    { name: 'DB OHP', weight: 22.5, reps: 2, target: 4, sets: 5 }
+                ]
+            }
+        };
+
+        // Progression table from Excel
+        function calculateProgression(amrapReps, target) {
+            const diff = amrapReps - target;
+
+            if (diff <= -2) return -0.05; // -5%
+            if (diff === -1) return -0.02; // -2%
+            if (diff === 0) return 0.0;    // 0%
+            if (diff === 1) return 0.005;  // +0.5%
+            if (diff >= 2) return 0.01;    // +1%
+
+            return 0;
+        }
+
+        function roundWeight(weight) {
+            // Round to nearest 2.5kg
+            return Math.round(weight / 2.5) * 2.5;
+        }
+
+        function getBaselineForWeek(weekNum) {
+            // If we have the baseline, return it
+            if (PROGRAM_BASELINE[weekNum]) {
+                return JSON.parse(JSON.stringify(PROGRAM_BASELINE[weekNum]));
+            }
+
+            // For weeks beyond 20, use the pattern (alternating between type A and type B weeks)
+            // Week 16, 18, 20, 22... = Type A
+            // Week 17, 19, 21, 23... = Type B
+            // We'll use week 18/19 as templates and scale up
+
+            const isTypeA = weekNum % 2 === 0;
+            const templateWeek = isTypeA ? 18 : 19;
+            const weeksSinceTemplate = weekNum - templateWeek;
+            const cyclesPassed = Math.floor(weeksSinceTemplate / 2);
+
+            // Rough estimate: add 5kg to main lifts, 2.5kg to accessories per 2-week cycle
+            const baseline = JSON.parse(JSON.stringify(PROGRAM_BASELINE[templateWeek]));
+
+            for (let day = 1; day <= 3; day++) {
+                baseline[day].forEach((ex, idx) => {
+                    const isMainLift = idx === 0 || (day === 2 && idx === 0) || (day === 3 && idx === 0);
+                    const increment = isMainLift ? 5 * cyclesPassed : 2.5 * cyclesPassed;
+                    ex.weight = roundWeight(ex.weight + increment);
+                });
+            }
+
+            return baseline;
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('sbs-tracker');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            return {
+                currentWeek: 16,
+                workouts: getBaselineForWeek(16)
+            };
+        }
+
+        function saveData(data) {
+            localStorage.setItem('sbs-tracker', JSON.stringify(data));
+        }
+
+        let appData = loadData();
+        let currentDay = 1;
+
+        function selectDay(day) {
+            currentDay = day;
+
+            // Update button states
+            document.querySelectorAll('.day-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === day);
+            });
+
+            renderWorkout();
+        }
+
+        function renderWorkout() {
+            const container = document.getElementById('workout-container');
+            const exercises = appData.workouts[currentDay];
+
+            container.innerHTML = exercises.map((ex, idx) => `
+                <div class="exercise-card">
+                    <div class="exercise-name">${ex.name}</div>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Weight</div>
+                            <div class="detail-value">${ex.weight} kg</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Reps per Set</div>
+                            <div class="detail-value">${ex.reps}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Target Reps (AMRAP)</div>
+                            <div class="detail-value">${ex.target}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Total Sets</div>
+                            <div class="detail-value">${ex.sets}</div>
+                        </div>
+                    </div>
+                    <div class="amrap-input">
+                        <label>AMRAP Reps:</label>
+                        <input
+                            type="number"
+                            id="amrap-${currentDay}-${idx}"
+                            value="${ex.amrapReps !== undefined ? ex.amrapReps : ''}"
+                            onchange="updateAmrap(${currentDay}, ${idx}, this.value)"
+                            placeholder="?"
+                        >
+                    </div>
+                    <div class="progression-hint" id="hint-${currentDay}-${idx}"></div>
+                </div>
+            `).join('');
+
+            // Update hints
+            exercises.forEach((ex, idx) => {
+                if (ex.amrapReps !== undefined) {
+                    updateProgressionHint(currentDay, idx);
+                }
+            });
+
+            document.getElementById('current-week').textContent = appData.currentWeek;
+        }
+
+        function updateAmrap(day, exIdx, value) {
+            const reps = parseInt(value);
+            if (!isNaN(reps)) {
+                appData.workouts[day][exIdx].amrapReps = reps;
+                saveData(appData);
+                updateProgressionHint(day, exIdx);
+            }
+        }
+
+        function updateProgressionHint(day, exIdx) {
+            const ex = appData.workouts[day][exIdx];
+            const hint = document.getElementById(`hint-${day}-${exIdx}`);
+
+            if (ex.amrapReps === undefined) {
+                hint.textContent = '';
+                return;
+            }
+
+            const diff = ex.amrapReps - ex.target;
+            const progression = calculateProgression(ex.amrapReps, ex.target);
+
+            // Get next week's baseline weight for this exercise
+            const nextWeekBaseline = getBaselineForWeek(appData.currentWeek + 1);
+            const nextExercise = nextWeekBaseline[day][exIdx];
+            const adjustedWeight = roundWeight(nextExercise.weight * (1 + progression));
+            const change = adjustedWeight - nextExercise.weight;
+
+            let message = '';
+            if (diff < 0) {
+                hint.className = 'progression-hint progression-negative';
+                message = `${diff} from target. Next week: ${adjustedWeight}kg (${change >= 0 ? '+' : ''}${change}kg from baseline ${nextExercise.weight}kg)`;
+            } else if (diff > 0) {
+                hint.className = 'progression-hint progression-positive';
+                message = `+${diff} from target! Next week: ${adjustedWeight}kg (${change >= 0 ? '+' : ''}${change}kg from baseline ${nextExercise.weight}kg)`;
+            } else {
+                hint.className = 'progression-hint';
+                message = `Target hit! Next week: ${adjustedWeight}kg (baseline ${nextExercise.weight}kg)`;
+            }
+
+            hint.textContent = message;
+        }
+
+        function completeWeek() {
+            // Check if all AMRAP reps are entered
+            let allComplete = true;
+            for (let day = 1; day <= 3; day++) {
+                appData.workouts[day].forEach(ex => {
+                    if (ex.amrapReps === undefined) {
+                        allComplete = false;
+                    }
+                });
+            }
+
+            if (!allComplete) {
+                if (!confirm('Not all AMRAP reps are entered. Continue anyway?')) {
+                    return;
+                }
+            }
+
+            // Get next week's baseline
+            const nextWeekNum = appData.currentWeek + 1;
+            const nextWeekBaseline = getBaselineForWeek(nextWeekNum);
+
+            // Apply progressions from current week to next week's baseline
+            for (let day = 1; day <= 3; day++) {
+                for (let exIdx = 0; exIdx < appData.workouts[day].length; exIdx++) {
+                    const currentEx = appData.workouts[day][exIdx];
+                    const nextEx = nextWeekBaseline[day][exIdx];
+
+                    if (currentEx.amrapReps !== undefined) {
+                        const progression = calculateProgression(currentEx.amrapReps, currentEx.target);
+                        nextEx.weight = roundWeight(nextEx.weight * (1 + progression));
+                    }
+                }
+            }
+
+            appData.currentWeek = nextWeekNum;
+            appData.workouts = nextWeekBaseline;
+            saveData(appData);
+
+            alert(`Moving to Week ${appData.currentWeek}!`);
+            renderWorkout();
+        }
+
+        function resetToWeek16() {
+            if (confirm('Reset to Week 16? This will delete all progress.')) {
+                appData = {
+                    currentWeek: 16,
+                    workouts: getBaselineForWeek(16)
+                };
+                saveData(appData);
+                renderWorkout();
+            }
+        }
+
+        // Initial render
+        renderWorkout();
+    </script>
+</body>
+</html>
