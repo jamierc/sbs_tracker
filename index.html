@@ -362,6 +362,20 @@
         </div>
 
         <div class="settings-section">
+            <h2>Export & Backup</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Export your workout data for backup or analysis. Import to restore from a backup.</p>
+
+            <button class="btn btn-secondary" onclick="exportToJSON()">Export Full Backup (JSON)</button>
+            <button class="btn btn-secondary" onclick="exportToCSV()">Export Workout History (CSV)</button>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Import Backup (JSON)</label>
+                <input type="file" id="import-file" accept=".json" style="padding: 8px;">
+            </div>
+            <button class="btn btn-secondary" onclick="importFromJSON()">Import Backup</button>
+        </div>
+
+        <div class="settings-section">
             <h2>Data Management</h2>
             <button class="btn btn-secondary" onclick="loadHistoricalData()">Load Weeks 1-15 History from Excel</button>
             <button class="btn btn-danger" onclick="resetAll()">Reset All Data</button>
@@ -7345,6 +7359,133 @@
             }
             localStorage.removeItem('sbs-tracker-v2');
             location.reload();
+        }
+
+        // Export & Import Functions
+        function exportToJSON() {
+            // Create a full backup of app data
+            const dataStr = JSON.stringify(appData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+            // Create download link
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+
+            // Generate filename with date
+            const date = new Date().toISOString().split('T')[0];
+            const programType = appData.programType || 'strength';
+            link.download = `sbs-tracker-backup-${programType}-week${appData.currentWeek}-${date}.json`;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert('Backup exported successfully!');
+        }
+
+        function exportToCSV() {
+            // Create CSV of workout history
+            const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
+
+            if (weeks.length === 0) {
+                alert('No workout data to export!');
+                return;
+            }
+
+            // CSV headers
+            let csvContent = 'Week,Day,Exercise,Weight (kg),Reps,Target,Sets,AMRAP Reps,Completed\n';
+
+            // Add workout data
+            weeks.forEach(weekNum => {
+                const weekData = appData.workouts[weekNum];
+                Object.keys(weekData).forEach(dayNum => {
+                    const dayExercises = weekData[dayNum];
+                    dayExercises.forEach(exercise => {
+                        const amrapReps = exercise.amrapReps || '';
+                        const completed = appData.completedDays[weekNum]?.[dayNum] ? 'Yes' : 'No';
+
+                        csvContent += `${weekNum},${dayNum},"${exercise.name}",${exercise.weight},${exercise.reps},${exercise.target},${exercise.sets},${amrapReps},${completed}\n`;
+                    });
+                });
+            });
+
+            // Create download link
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+
+            const date = new Date().toISOString().split('T')[0];
+            const programType = appData.programType || 'strength';
+            link.download = `sbs-tracker-history-${programType}-${date}.csv`;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert('Workout history exported to CSV!');
+        }
+
+        function importFromJSON() {
+            const fileInput = document.getElementById('import-file');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a JSON file to import');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+
+                    // Validate required fields
+                    if (!importedData.selectedProgram || !importedData.currentWeek) {
+                        throw new Error('Invalid backup file format');
+                    }
+
+                    // Confirm import
+                    const confirmMsg = `Import backup data?\n\n` +
+                        `Program: ${importedData.programType || 'strength'} ${importedData.selectedProgram}\n` +
+                        `Current Week: ${importedData.currentWeek}\n` +
+                        `Workouts: ${Object.keys(importedData.workouts || {}).length} weeks\n\n` +
+                        `This will replace ALL current data!`;
+
+                    if (!confirm(confirmMsg)) {
+                        return;
+                    }
+
+                    // Import data
+                    appData = {...appData, ...importedData};
+                    saveData();
+
+                    // Update UI
+                    updateWeekSelectors();
+                    renderWorkout();
+
+                    // Update settings inputs
+                    document.getElementById('1rm-squat').value = appData.oneRepMaxes.squat;
+                    document.getElementById('1rm-bench').value = appData.oneRepMaxes.bench;
+                    document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
+                    document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
+                    document.getElementById('week-selector').value = appData.currentWeek;
+
+                    alert('Backup imported successfully!');
+
+                    // Clear file input
+                    fileInput.value = '';
+
+                } catch (error) {
+                    alert('Error importing backup: ' + error.message + '\n\nPlease ensure you selected a valid SBS Tracker backup file.');
+                    console.error('Import error:', error);
+                }
+            };
+
+            reader.readAsText(file);
         }
 
         function renderHistory() {
