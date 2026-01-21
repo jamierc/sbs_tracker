@@ -454,6 +454,31 @@
         </div>
 
         <div class="settings-section">
+            <h2>Change Program</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Switch between Strength and Hypertrophy templates, or change your program variant. Your workout history will be preserved.</p>
+
+            <div class="form-group">
+                <label>Program Type</label>
+                <select id="settings-program-type" onchange="updateSettingsProgramVariants()">
+                    <option value="strength">Strength Template (20 weeks)</option>
+                    <option value="hypertrophy">Hypertrophy Template (21 weeks)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Program Variant</label>
+                <select id="settings-program-variant">
+                    <option value="2x">2x Frequency</option>
+                    <option value="3x">3x Frequency</option>
+                    <option value="4x">4x Frequency</option>
+                    <option value="5x">5x Frequency</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" onclick="changeProgram()">Change Program</button>
+        </div>
+
+        <div class="settings-section">
             <h2>Data Management</h2>
             <button class="btn btn-secondary" onclick="loadHistoricalData()">Load Weeks 1-15 History from Excel</button>
             <button class="btn btn-danger" onclick="resetAll()">Reset All Data</button>
@@ -7597,6 +7622,85 @@
             document.getElementById('rest-timer-enabled').checked = appData.restTimer.enabled !== false;
             document.getElementById('rest-timer-duration').value = appData.restTimer.duration || 180;
             document.getElementById('rest-timer-autostart').checked = appData.restTimer.autoStart === true;
+
+            // Load program settings
+            document.getElementById('settings-program-type').value = appData.programType || 'strength';
+            document.getElementById('settings-program-variant').value = appData.selectedProgram || '3x';
+            updateSettingsProgramVariants();
+        }
+
+        function updateSettingsProgramVariants() {
+            const programType = document.getElementById('settings-program-type').value;
+            const programSelect = document.getElementById('settings-program-variant');
+            const currentValue = programSelect.value;
+
+            // Clear existing options
+            programSelect.innerHTML = '';
+
+            // Add standard options (2x-5x)
+            ['2x', '3x', '4x', '5x'].forEach(variant => {
+                const option = document.createElement('option');
+                option.value = variant;
+                option.textContent = `${variant} Frequency`;
+                programSelect.appendChild(option);
+            });
+
+            // Add 6x option for hypertrophy only
+            if (programType === 'hypertrophy') {
+                const option = document.createElement('option');
+                option.value = '6x';
+                option.textContent = '6x Frequency';
+                programSelect.appendChild(option);
+            }
+
+            // Restore previous selection if valid
+            if (currentValue && (programType !== 'strength' || currentValue !== '6x')) {
+                programSelect.value = currentValue;
+            }
+        }
+
+        function changeProgram() {
+            const newProgramType = document.getElementById('settings-program-type').value;
+            const newVariant = document.getElementById('settings-program-variant').value;
+            const currentProgramType = appData.programType;
+            const currentVariant = appData.selectedProgram;
+
+            // Check if anything changed
+            if (newProgramType === currentProgramType && newVariant === currentVariant) {
+                alert('No changes detected. You are already using this program.');
+                return;
+            }
+
+            const confirmMsg = `Change program from ${currentProgramType} ${currentVariant} to ${newProgramType} ${newVariant}?\n\n` +
+                `Your workout history will be preserved, but future weeks will use the new program structure.\n\n` +
+                `Current week will be reset to use the new program.`;
+
+            if (!confirm(confirmMsg)) {
+                return;
+            }
+
+            // Update program type and variant
+            appData.programType = newProgramType;
+            appData.selectedProgram = newVariant;
+
+            // Clear future weeks (preserve completed weeks)
+            const currentWeek = appData.currentWeek;
+            const maxWeek = getMaxWeek();
+            for (let week = currentWeek; week <= maxWeek; week++) {
+                if (!hasCompletedWorkouts(week)) {
+                    delete appData.workouts[week];
+                }
+            }
+
+            // Reload current week with new program
+            if (!hasCompletedWorkouts(currentWeek)) {
+                appData.workouts[currentWeek] = getWeekData(currentWeek);
+            }
+
+            saveData();
+            updateWeekSelectors();
+            renderWorkout();
+            alert(`Program changed to ${newProgramType} ${newVariant}! Current and future weeks will use the new program structure.`);
         }
 
         function saveRestTimerSettings() {
