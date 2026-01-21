@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v6'; // Fixed program names (RTF instead of Strength)
+const CACHE_VERSION = 'v7'; // Optimized update check frequency
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',

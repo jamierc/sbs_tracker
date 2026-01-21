@@ -8507,10 +8507,18 @@
                     .then((registration) => {
                         console.log('[App] ServiceWorker registered:', registration.scope);
 
-                        // Check for updates periodically (every 60 seconds)
+                        // Check for updates when user returns to the app
+                        document.addEventListener('visibilitychange', () => {
+                            if (!document.hidden) {
+                                console.log('[App] Page visible, checking for updates...');
+                                registration.update();
+                            }
+                        });
+
+                        // Also check periodically (every 30 minutes) in case app stays open
                         setInterval(() => {
                             registration.update();
-                        }, 60000);
+                        }, 1800000); // 30 minutes
 
                         // Listen for updates
                         registration.addEventListener('updatefound', () => {
