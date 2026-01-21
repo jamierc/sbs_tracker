@@ -8166,13 +8166,47 @@
     <!-- PWA Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
+            let refreshing = false;
+
+            // Reload page when new service worker takes control
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    console.log('[App] New service worker activated, reloading...');
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then((registration) => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        console.log('[App] ServiceWorker registered:', registration.scope);
+
+                        // Check for updates periodically (every 60 seconds)
+                        setInterval(() => {
+                            registration.update();
+                        }, 60000);
+
+                        // Listen for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('[App] New service worker found, installing...');
+
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New service worker available
+                                    console.log('[App] New version available!');
+
+                                    // Show update notification
+                                    if (confirm('A new version of SBS Tracker is available! Click OK to update now.')) {
+                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                    }
+                                }
+                            });
+                        });
                     })
                     .catch((error) => {
-                        console.log('ServiceWorker registration failed: ', error);
+                        console.error('[App] ServiceWorker registration failed:', error);
                     });
             });
         }
