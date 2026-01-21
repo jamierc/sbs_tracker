@@ -1,131 +1,68 @@
-# Portable Deployment Options for Gym Use
+# Deployment Guide - SBS Tracker
 
-The SBS Workout Tracker is a single HTML file that works completely offline once loaded. Here are several ways to use it at the gym without needing a laptop or local server.
+## How to Deploy Updates to PWA Users
 
-## Option 1: Save to Phone Directly (Easiest)
+When you make changes to the app and want PWA users to receive the updates, follow these steps:
 
-This is the simplest method and works on both iPhone and Android.
+### 1. Update the Service Worker Cache Version
 
-### For iPhone (iOS):
-1. Email the `sbs-tracker-v2-gen.html` file to yourself
-2. Open the email on your iPhone
-3. Tap the HTML file attachment
-4. Tap the Share button (square with up arrow)
-5. Select "Save to Files"
-6. Choose a location (e.g., "On My iPhone" > "Downloads")
-7. Open the Files app, navigate to the saved file
-8. Tap to open in Safari
-9. Bookmark it for quick access
+Edit `sw.js` and increment the `CACHE_VERSION`:
 
-**Tip:** Add to Home Screen for app-like experience:
-- While viewing the file in Safari, tap the Share button
-- Scroll down and tap "Add to Home Screen"
-- Name it "SBS Tracker" and tap "Add"
-- Now you have an icon on your home screen!
+```javascript
+// Before
+const CACHE_VERSION = 'v3';
 
-### For Android:
-1. Email or transfer the `sbs-tracker-v2-gen.html` file to your phone
-2. Download the file to your device
-3. Use a file manager app to locate it (usually in Downloads)
-4. Tap the file to open it in Chrome or your default browser
-5. Bookmark it for quick access
+// After
+const CACHE_VERSION = 'v4';
+```
 
-**Tip:** Create a shortcut:
-- In Chrome, tap the menu (3 dots)
-- Select "Add to Home screen"
-- You'll get an app icon on your home screen
+### 2. Commit and Push Changes
 
-## Option 2: GitHub Pages (Free Static Hosting)
+```bash
+git add .
+git commit -m "Your commit message"
+git push
+```
 
-Host your tracker on GitHub for access from any device, anywhere.
+### 3. What Happens for PWA Users
 
-### Steps:
-1. Create a free GitHub account at https://github.com
-2. Create a new repository named "sbs-tracker"
-3. Upload `sbs-tracker-v2-gen.html` to the repository
-4. Go to Settings > Pages
-5. Under "Source", select "main" branch
-6. Click "Save"
-7. Your tracker will be live at: `https://yourusername.github.io/sbs-tracker/sbs-tracker-v2-gen.html`
+- The app checks for updates every 60 seconds
+- When a new version is detected, users see a prompt: "A new version of SBS Tracker is available! Click OK to update now."
+- When they click OK, the page reloads with the latest version
+- Old caches are automatically cleaned up
 
-**Pros:**
-- Access from any device with internet
-- Free forever
-- Easy to update (just upload new file)
-- Works on phone, tablet, laptop
+### 4. Manual Update (If Needed)
 
-**Cons:**
-- Requires internet connection for first load (then works offline)
-- Data is stored locally per device
+If users don't see the update prompt, they can manually force an update:
 
-## Option 3: Netlify Drop (Super Easy Hosting)
+**On Mobile:**
+- Close the app completely (swipe it away)
+- Reopen the app
+- Or: Pull down to refresh within the app
 
-Netlify offers free static site hosting with drag-and-drop deployment.
+**On Desktop:**
+- Hard refresh: Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac)
+- Or: Close and reopen the PWA window
 
-### Steps:
-1. Go to https://app.netlify.com/drop
-2. Drag and drop `sbs-tracker-v2-gen.html` into the upload area
-3. Netlify will give you a random URL like `random-name-123.netlify.app`
-4. You can customize the URL in site settings
+## Testing Updates Locally
 
-**Pros:**
-- No account needed for basic use
-- Instant deployment
-- Free SSL (https)
-- Custom domain support
+1. Make your changes to `index.html` or other files
+2. Increment `CACHE_VERSION` in `sw.js`
+3. Open the app in your browser
+4. Open DevTools > Application > Service Workers
+5. Check "Update on reload"
+6. Refresh the page
+7. Verify your changes are visible
 
-## Option 4: Google Drive / Dropbox
+## Important Notes
 
-Store the HTML file in cloud storage and access it from your phone.
+- **Always increment CACHE_VERSION** when deploying updates, otherwise PWA users won't get the new version
+- The version can be anything (v4, v5, v2.1.0, 2024-01-20, etc.) as long as it's different from the previous version
+- The app is hosted on GitHub Pages, so changes pushed to `main` branch are automatically deployed
+- PWA updates typically propagate within 1-2 minutes after pushing to GitHub
 
-### Steps:
-1. Upload `sbs-tracker-v2-gen.html` to Google Drive or Dropbox
-2. On your phone, open the file in the Drive/Dropbox app
-3. Make the file "Available offline"
-4. Open it in your browser when needed
+## Current Version
 
-**Note:** Some cloud storage apps may not display HTML files correctly. Test before relying on this method.
-
-## Recommended Approach
-
-**For Best Gym Experience:**
-
-1. **Primary Method:** Save to phone directly (Option 1) - works 100% offline
-2. **Backup Method:** Host on GitHub Pages (Option 2) - accessible from any device
-
-This gives you offline access on your phone while also allowing you to check progress from your computer at home.
-
-## Data Persistence
-
-**Important Notes:**
-- All your workout data is saved in your browser's localStorage
-- Data is device-specific and browser-specific
-- If you clear your browser cache/data, you'll lose your progress
-- Data does NOT sync between devices automatically
-- Consider taking screenshots or exporting data periodically as backup
-
-## Updating the Tracker
-
-If you need to update the tracker with bug fixes:
-
-1. **Phone Storage:** Delete old file, save new file, update bookmark
-2. **GitHub Pages:** Upload new file to repository (replaces old one)
-3. **Netlify:** Drop new file (creates new deployment)
-
-**Warning:** Updating the HTML file won't delete your saved data, as data is stored separately in localStorage.
-
-## Troubleshooting
-
-**Problem:** File won't open on phone
-- Solution: Make sure it's named with `.html` extension
-- Try opening with a different browser (Chrome, Safari, Firefox)
-
-**Problem:** Data disappeared
-- Solution: You likely cleared browser cache. Use the same browser consistently.
-
-**Problem:** Can't add to home screen
-- iOS: Must open in Safari (not Chrome)
-- Android: Must open in Chrome (not Firefox or others)
-
-**Problem:** Tracker loads old version after update
-- Solution: Clear browser cache or do a "hard refresh" (varies by browser)
+- **Cache Version:** v3
+- **Last Updated:** 2026-01-21
+- **Features:** PR tracking, History tab fix, Plate calculator, Export/Backup, Progress analytics
