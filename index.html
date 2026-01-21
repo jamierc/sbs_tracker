@@ -58,6 +58,8 @@
         .history-exercise { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 13px; }
         .history-exercise:last-child { border-bottom: none; }
         .completed-badge { display: inline-block; padding: 2px 6px; background: #27ae60; color: white; border-radius: 3px; font-size: 10px; margin-left: 5px; }
+        .pr-badge { display: inline-block; padding: 3px 8px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 8px; box-shadow: 0 2px 4px rgba(245, 87, 108, 0.3); }
+        .pr-indicator { display: inline-block; font-size: 14px; margin-left: 5px; }
 
         /* Progress tab styles */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
@@ -6781,6 +6783,9 @@
                 barbellWeight: 20,  // kg
                 availablePlates: [25, 20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
             },
+            personalRecords: {
+                // Track PRs per exercise: { exerciseName: { estimated1RM, weight, reps, date, week } }
+            },
             setupComplete: false
         };
 
@@ -7038,9 +7043,21 @@
             const weekData = appData.workouts[appData.currentWeek];
             const exercises = weekData[appData.currentDay];
 
-            container.innerHTML = exercises.map((ex, idx) => `
+            // Initialize personalRecords if it doesn't exist (for backward compatibility)
+            if (!appData.personalRecords) {
+                appData.personalRecords = {};
+            }
+
+            container.innerHTML = exercises.map((ex, idx) => {
+                const currentPR = appData.personalRecords[ex.name];
+                const hasPR = currentPR !== undefined;
+
+                return `
                 <div class="exercise-card">
-                    <div class="exercise-name">${ex.name}</div>
+                    <div class="exercise-name">
+                        ${ex.name}
+                        ${hasPR ? `<span class="pr-badge">PR: ${Math.round(currentPR.estimated1RM)}kg</span>` : ''}
+                    </div>
                     <div class="exercise-details">
                         <div>
                             <div class="detail-label">Weight</div>
@@ -7073,7 +7090,8 @@
                     <div class="progression-hint" id="hint-${appData.currentDay}-${idx}"></div>
                     ` : '<div style="padding:8px; font-size:12px; color:#666;">Deload week - no AMRAP</div>'}
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             // Update hints
             exercises.forEach((ex, idx) => {
@@ -7097,10 +7115,60 @@
         function updateAmrap(day, exIdx, value) {
             const reps = parseInt(value);
             if (!isNaN(reps)) {
-                appData.workouts[appData.currentWeek][day][exIdx].amrapReps = reps;
+                const ex = appData.workouts[appData.currentWeek][day][exIdx];
+                ex.amrapReps = reps;
+
+                // Check for PR
+                const isPR = checkAndUpdatePR(ex, appData.currentWeek);
+
                 saveData();
                 updateProgressionHint(day, exIdx);
+
+                // Show PR notification if achieved
+                if (isPR) {
+                    showPRNotification(ex);
+                }
             }
+        }
+
+        function calculateEstimated1RM(weight, reps) {
+            // Epley formula: weight × (1 + reps/30)
+            return weight * (1 + reps / 30);
+        }
+
+        function checkAndUpdatePR(exercise, weekNum) {
+            // Only check PR if AMRAP reps are recorded
+            if (exercise.amrapReps === undefined) return false;
+
+            const exerciseName = exercise.name;
+            const estimated1RM = calculateEstimated1RM(exercise.weight, exercise.amrapReps);
+
+            // Initialize personalRecords if it doesn't exist (for backward compatibility)
+            if (!appData.personalRecords) {
+                appData.personalRecords = {};
+            }
+
+            const currentPR = appData.personalRecords[exerciseName];
+            const isPR = !currentPR || estimated1RM > currentPR.estimated1RM;
+
+            if (isPR) {
+                appData.personalRecords[exerciseName] = {
+                    estimated1RM: Math.round(estimated1RM * 10) / 10,
+                    weight: exercise.weight,
+                    reps: exercise.amrapReps,
+                    date: new Date().toISOString(),
+                    week: weekNum
+                };
+                return true;
+            }
+
+            return false;
+        }
+
+        function showPRNotification(exercise) {
+            const estimated1RM = calculateEstimated1RM(exercise.weight, exercise.amrapReps);
+            const message = `🎉 NEW PR! 🎉\n\n${exercise.name}\n${exercise.weight}kg × ${exercise.amrapReps} reps\nEstimated 1RM: ${Math.round(estimated1RM)}kg`;
+            alert(message);
         }
 
         function updateProgressionHint(day, exIdx) {
@@ -7748,6 +7816,11 @@
                     <h3>Performance by Lift</h3>
                     ${renderLiftBreakdown(stats)}
                 </div>
+
+                <div class="progress-section">
+                    <h3>🏆 Personal Records</h3>
+                    ${renderPersonalRecords()}
+                </div>
             `;
         }
 
@@ -7870,6 +7943,51 @@
                     </div>
                 `;
             });
+
+            return html;
+        }
+
+        function renderPersonalRecords() {
+            // Initialize personalRecords if it doesn't exist (for backward compatibility)
+            if (!appData.personalRecords) {
+                appData.personalRecords = {};
+            }
+
+            const prs = Object.keys(appData.personalRecords);
+            if (prs.length === 0) {
+                return '<p style="color:#666; font-size:13px;">Complete AMRAP sets to start tracking your personal records!</p>';
+            }
+
+            // Sort PRs by estimated 1RM descending
+            const sortedPRs = prs.map(exerciseName => ({
+                name: exerciseName,
+                ...appData.personalRecords[exerciseName]
+            })).sort((a, b) => b.estimated1RM - a.estimated1RM);
+
+            let html = '<div style="display: grid; gap: 10px;">';
+            sortedPRs.forEach(pr => {
+                const date = new Date(pr.date);
+                const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                html += `
+                    <div class="lift-progress" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">${pr.name}</div>
+                                <div style="font-size: 12px; opacity: 0.9;">
+                                    ${pr.weight}kg × ${pr.reps} reps
+                                    <span style="margin-left: 10px; font-weight: 600;">e1RM: ${Math.round(pr.estimated1RM)}kg</span>
+                                </div>
+                            </div>
+                            <div style="text-align: right; font-size: 11px; opacity: 0.8;">
+                                <div>Week ${pr.week}</div>
+                                <div>${formattedDate}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
 
             return html;
         }
