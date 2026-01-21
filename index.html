@@ -7644,30 +7644,44 @@
 
         function renderHistory() {
             const container = document.getElementById('history-container');
-            const weeks = Object.keys(appData.workouts).sort((a, b) => b - a);
+            const allWeeks = Object.keys(appData.workouts).sort((a, b) => b - a);
 
-            if (weeks.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">No workout history yet</p>';
+            // Filter to only show weeks with completed workouts
+            const completedWeeks = allWeeks.filter(weekNum => hasCompletedWorkouts(weekNum));
+
+            if (completedWeeks.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">No completed workouts yet. Complete an AMRAP set to start tracking your history!</p>';
                 return;
             }
 
             const numDays = getNumDays();
-            const days = Array.from({length: numDays}, (_, i) => i + 1);
 
-            container.innerHTML = weeks.map(weekNum => {
+            container.innerHTML = completedWeeks.map(weekNum => {
                 const weekData = appData.workouts[weekNum];
+
+                // Get only the days that have completed exercises (with AMRAP data)
+                const completedDays = [];
+                for (let day = 1; day <= numDays; day++) {
+                    if (weekData[day] && weekData[day].some(ex => ex.amrapReps !== undefined)) {
+                        completedDays.push(day);
+                    }
+                }
+
+                // Only show weeks that have at least one completed day
+                if (completedDays.length === 0) return '';
+
                 return `
                     <div class="history-week">
                         <h3>Week ${weekNum}</h3>
-                        ${days.map(day => `
+                        ${completedDays.map(day => `
                             <div style="margin-top:10px;">
                                 <strong>Day ${day}</strong>
-                                ${weekData[day] ? weekData[day].map(ex => `
+                                ${weekData[day].map(ex => `
                                     <div class="history-exercise">
                                         ${ex.name}: ${ex.weight}kg × ${ex.reps} reps × ${ex.sets} sets
                                         ${ex.amrapReps !== undefined ? `<span class="completed-badge">AMRAP: ${ex.amrapReps}</span>` : ''}
                                     </div>
-                                `).join('') : '<p style="color:#999;">No data</p>'}
+                                `).join('')}
                             </div>
                         `).join('')}
                     </div>
