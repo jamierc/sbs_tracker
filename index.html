@@ -857,9 +857,14 @@
             border-radius: 0 0 3px 3px;
         }
         .bottom-nav-icon {
-            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 2px;
             transition: transform 0.3s ease;
+        }
+        .bottom-nav-icon svg {
+            display: block;
         }
         .bottom-nav-item.active .bottom-nav-icon {
             transform: translateY(-2px);
