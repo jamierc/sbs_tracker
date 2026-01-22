@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v8'; // Add all 6 auxiliary exercises with complete options
+const CACHE_VERSION = 'v9'; // Modern UI redesign with dark mode, gradients, and improved styling
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
