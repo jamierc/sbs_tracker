@@ -1140,7 +1140,12 @@
             <!-- Day buttons will be dynamically generated -->
         </div>
         <div id="workout-container"></div>
-        <button class="btn btn-secondary" onclick="showRestTimer(); startTimer();" style="margin-top: 10px;">⏱️ Start Rest Timer</button>
+        <button class="btn btn-secondary" onclick="showRestTimer(); startTimer();" style="margin-top: 10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+                <circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 15 15"/><path d="M8 3h8M12 3v2"/>
+            </svg>
+            Start Rest Timer
+        </button>
         <button class="btn btn-primary" onclick="markDayComplete()" id="mark-day-btn">Mark Day Complete</button>
     </div>
 
@@ -1424,26 +1429,44 @@
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <button class="bottom-nav-item active" onclick="switchTab('workout')" data-tab="workout">
-            <div class="bottom-nav-icon">💪</div>
+            <div class="bottom-nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/>
+                </svg>
+            </div>
             <div class="bottom-nav-label">Workout</div>
         </button>
         <button class="bottom-nav-item" onclick="switchTab('progress')" data-tab="progress">
-            <div class="bottom-nav-icon">📊</div>
+            <div class="bottom-nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="7" y2="13"/><line x1="12" y1="17" x2="12" y2="9"/><line x1="17" y1="17" x2="17" y2="5"/>
+                </svg>
+            </div>
             <div class="bottom-nav-label">Progress</div>
         </button>
         <button class="bottom-nav-item" onclick="switchTab('settings')" data-tab="settings">
-            <div class="bottom-nav-icon">⚙️</div>
+            <div class="bottom-nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v10M5.6 5.6l4.2 4.2m4.2 4.2l4.2 4.2M1 12h6m6 0h10M5.6 18.4l4.2-4.2m4.2-4.2l4.2-4.2"/>
+                </svg>
+            </div>
             <div class="bottom-nav-label">Settings</div>
         </button>
         <button class="bottom-nav-item" onclick="switchTab('history')" data-tab="history">
-            <div class="bottom-nav-icon">📜</div>
+            <div class="bottom-nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="13" y2="18"/>
+                </svg>
+            </div>
             <div class="bottom-nav-label">History</div>
         </button>
     </nav>
 
     <!-- Floating Action Buttons -->
     <button class="timer-fab" onclick="showRestTimer(); startTimer();" title="Start rest timer">
-        ⏱️
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 15 15"/><path d="M8 3h8M12 3v2"/>
+        </svg>
     </button>
 
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle" title="Toggle dark mode">
@@ -9145,7 +9168,11 @@
             if (weeks.length === 0) {
                 container.innerHTML = `
                     <div style="text-align: center; padding: var(--spacing-xl) var(--spacing-lg);">
-                        <div style="font-size: 64px; margin-bottom: var(--spacing-md);">📊</div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3;">
+                                <line x1="7" y1="17" x2="7" y2="13"/><line x1="12" y1="17" x2="12" y2="9"/><line x1="17" y1="17" x2="17" y2="5"/>
+                            </svg>
+                        </div>
                         <h3 style="color: var(--text-primary); margin-bottom: var(--spacing-sm);">No Progress Data Yet</h3>
                         <p style="color: var(--text-secondary); max-width: 300px; margin: 0 auto;">Complete some workouts to see your progress, stats, and personal records here!</p>
                     </div>

@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v14'; // Fix: History tab text colors now readable in dark mode
+const CACHE_VERSION = 'v15'; // Replace emoji icons with minimal line-based SVG icons
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
