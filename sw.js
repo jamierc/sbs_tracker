@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v12'; // Fix: Redesigned plate calculator - collapsible, minimal, correct plate order
+const CACHE_VERSION = 'v13'; // Simplified plate calculator - text-only display, removed visual barbell
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',

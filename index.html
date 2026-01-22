@@ -289,11 +289,6 @@
             font-size: 16px;
             margin-top: 2px;
         }
-        .plate-calculator { margin-top: 12px; padding: 10px; background: #e8f5e9; border-radius: 4px; border-left: 3px solid #27ae60; }
-        .plate-calculator-title { font-size: 11px; color: #27ae60; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .plate-display { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .plate-item { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: white; border-radius: 4px; font-size: 12px; font-weight: 600; border: 2px solid #27ae60; color: #27ae60; }
-        .plate-separator { color: #666; font-size: 12px; }
         /* AMRAP Input with Steppers */
         .amrap-input {
             display: flex;
@@ -670,101 +665,16 @@
             color: white;
         }
 
-        /* Plate Calculator - Collapsible & Minimal */
+        /* Plate Calculator - Simple Text Display */
         .plate-calculator {
             margin-top: var(--spacing-md);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: var(--bg-primary);
-        }
-        .plate-toggle {
-            width: 100%;
             padding: var(--spacing-sm) var(--spacing-md);
             background: var(--bg-secondary);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid #10B981;
         }
-        .plate-toggle:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-        .plate-toggle-icon {
-            transition: transform 0.3s ease;
-            font-size: 14px;
-        }
-        .plate-toggle-icon.expanded {
-            transform: rotate(180deg);
-        }
-        .plate-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        .plate-content.expanded {
-            max-height: 300px;
-        }
-
-        /* Minimal Barbell Visualization */
-        .visual-barbell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--spacing-lg) var(--spacing-md);
-            overflow-x: auto;
-        }
-        .barbell-sleeve {
-            width: 3px;
-            height: 16px;
-            background: #9CA3AF;
-        }
-        .barbell-bar {
-            height: 8px;
-            background: #D1D5DB;
-            min-width: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 7px;
-            font-weight: 700;
-            color: #6B7280;
-        }
-        .barbell-plates {
-            display: flex;
-            align-items: center;
-        }
-        .plate {
-            /* Minimal flat design - no text, no borders, just colored bars */
-        }
-        /* Flat IPF standard colors - larger plates are taller */
-        .plate-25 { background: #DC2626; height: 60px; width: 8px; }
-        .plate-20 { background: #2563EB; height: 50px; width: 8px; }
-        .plate-15 { background: #FBBF24; height: 42px; width: 6px; }
-        .plate-10 { background: #10B981; height: 34px; width: 6px; }
-        .plate-5 { background: #E5E7EB; height: 26px; width: 5px; }
-        .plate-2-5 { background: #F87171; height: 20px; width: 4px; }
-        .plate-1-25 { background: #9CA3AF; height: 16px; width: 3px; }
-        .plate-collar {
-            width: 5px;
-            height: 18px;
-            background: #374151;
-            margin: 0 1px;
-        }
-
-        /* Plate Summary */
         .plate-summary {
-            padding: var(--spacing-md);
             font-size: 12px;
-            color: var(--text-secondary);
-            text-align: center;
-            border-top: 1px solid var(--border-color);
         }
         .plate-summary-label {
             font-weight: 600;
@@ -777,6 +687,7 @@
         .plate-summary-value {
             color: var(--text-primary);
             font-weight: 600;
+            font-size: 13px;
         }
 
         /* Empty States */
@@ -9019,24 +8930,6 @@
         }
 
         // Plate Calculator Functions
-        // Toggle plate calculator visibility
-        function togglePlateCalc(id) {
-            const content = document.getElementById(`content-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-
-            if (content && icon) {
-                const isExpanded = content.classList.contains('expanded');
-
-                if (isExpanded) {
-                    content.classList.remove('expanded');
-                    icon.classList.remove('expanded');
-                } else {
-                    content.classList.add('expanded');
-                    icon.classList.add('expanded');
-                }
-            }
-        }
-
         function calculatePlates(weight) {
             if (!appData.plateCalculator.enabled) {
                 return null;
@@ -9079,7 +8972,7 @@
             };
         }
 
-        function renderPlateDisplay(weight, uniqueId = Math.random().toString(36).substr(2, 9)) {
+        function renderPlateDisplay(weight) {
             const result = calculatePlates(weight);
 
             if (!result) {
@@ -9087,7 +8980,7 @@
             }
 
             if (result.error === 'Weight less than barbell') {
-                return `<div style="padding: 8px; font-size: 12px; color: #e67e22;">⚠️ Weight less than barbell</div>`;
+                return `<div style="padding: 8px; font-size: 12px; color: var(--text-tertiary);">⚠️ Weight less than barbell</div>`;
             }
 
             const barbellWeight = appData.plateCalculator.barbellWeight;
@@ -9105,68 +8998,23 @@
                 Object.keys(plateCounts).sort((a, b) => parseFloat(b) - parseFloat(a)).forEach(plate => {
                     summaryParts.push(`${plateCounts[plate]}×${plate}kg`);
                 });
-                summaryText = summaryParts.join(' + ') + ' per side';
+                summaryText = summaryParts.join(', ');
             }
 
-            // IMPORTANT: Reverse plate order - largest plates go INSIDE (closest to center bar)
-            const reversedPlates = result.plates.slice().reverse();
-
-            // Build collapsible plate calculator
+            // Simple text-only display
             let html = `
                 <div class="plate-calculator">
-                    <button class="plate-toggle" onclick="togglePlateCalc('${uniqueId}')">
-                        <span>🏋️ ${summaryText}</span>
-                        <span class="plate-toggle-icon" id="icon-${uniqueId}">▼</span>
-                    </button>
-                    <div class="plate-content" id="content-${uniqueId}">
-                        <div class="visual-barbell">
-                            <div class="barbell-sleeve"></div>
-                            <div class="barbell-plates">`;
-
-            // Render left side - plates go from CENTER outward (largest first = reversed)
-            if (reversedPlates.length > 0) {
-                reversedPlates.forEach(plate => {
-                    const plateClass = `plate-${String(plate).replace('.', '-')}`;
-                    html += `<div class="plate ${plateClass}"></div>`;
-                });
-                html += `<div class="plate-collar"></div>`;
-            }
-
-            // Center bar
-            html += `</div>
-                        <div class="barbell-bar"></div>
-                        <div class="barbell-plates">`;
-
-            // Render right side - mirror of left (plates go outward from center)
-            if (reversedPlates.length > 0) {
-                html += `<div class="plate-collar"></div>`;
-                reversedPlates.slice().reverse().forEach(plate => {
-                    const plateClass = `plate-${String(plate).replace('.', '-')}`;
-                    html += `<div class="plate ${plateClass}"></div>`;
-                });
-            }
-
-            html += `</div>
-                        <div class="barbell-sleeve"></div>
-                    </div>`;
-
-            // Add summary at bottom
-            if (result.plates.length > 0) {
-                html += `<div class="plate-summary">
-                    <div class="plate-summary-label">Plates Per Side</div>
-                    <div class="plate-summary-value">${summaryText.replace(' per side', '')}</div>
+                    <div class="plate-summary">
+                        <div class="plate-summary-label">🏋️ Plates per side</div>
+                        <div class="plate-summary-value">${summaryText}</div>
+                    </div>
                 </div>`;
-            }
-
-            html += `</div>`;
 
             if (result.remainder) {
-                html += `<div style="font-size: 11px; color: #e67e22; padding: 8px;">
+                html += `<div style="font-size: 11px; color: #e67e22; padding: 8px; margin-top: -8px;">
                     ⚠️ ${result.error}
                 </div>`;
             }
-
-            html += `</div>`;
 
             return html;
         }
