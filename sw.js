@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v16'; // Fix SVG icon display styling
+const CACHE_VERSION = 'v17'; // Minimalist redesign: dark blue theme, flat design, simplified animations
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
