@@ -294,10 +294,67 @@
         .plate-display { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .plate-item { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: white; border-radius: 4px; font-size: 12px; font-weight: 600; border: 2px solid #27ae60; color: #27ae60; }
         .plate-separator { color: #666; font-size: 12px; }
-        .amrap-input { display: flex; align-items: center; gap: 10px; }
-        .amrap-input label { font-size: 13px; font-weight: 500; color: #555; }
-        .amrap-input input { flex: 1; padding: 8px; font-size: 16px; border: 2px solid #ddd; border-radius: 4px; max-width: 80px; }
-        .amrap-input input:focus { outline: none; border-color: #3498db; }
+        /* AMRAP Input with Steppers */
+        .amrap-input {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        .amrap-input label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .stepper-control {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 4px;
+            border: 2px solid var(--border-color);
+        }
+        .stepper-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stepper-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        .stepper-btn:active {
+            transform: scale(0.95);
+        }
+        .stepper-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        .stepper-value {
+            min-width: 48px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            padding: 0 var(--spacing-sm);
+        }
+        .stepper-value.empty {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
         .progression-hint { font-size: 11px; color: #666; margin-top: 5px; font-style: italic; }
         .progression-positive { color: var(--color-success); }
         .progression-negative { color: var(--color-danger); }
@@ -611,6 +668,182 @@
         .stat-card.highlight .stat-value,
         .stat-card.highlight .stat-label {
             color: white;
+        }
+
+        /* Visual Plate Calculator - Barbell View */
+        .visual-barbell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg) 0;
+            overflow-x: auto;
+            margin: var(--spacing-md) 0;
+        }
+        .barbell-sleeve {
+            width: 8px;
+            height: 30px;
+            background: linear-gradient(to bottom, #b8b8b8, #7a7a7a);
+            border-radius: 2px;
+        }
+        .barbell-bar {
+            height: 25px;
+            background: linear-gradient(to bottom, #dcdcdc, #969696);
+            min-width: 80px;
+            border-radius: 2px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #555;
+        }
+        .barbell-plates {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .plate {
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        /* Standard gym plate colors */
+        .plate-25 { background: linear-gradient(135deg, #E63946, #C41E3A); height: 120px; width: 16px; }
+        .plate-20 { background: linear-gradient(135deg, #3A86FF, #1D4ED8); height: 100px; width: 16px; }
+        .plate-15 { background: linear-gradient(135deg, #FFD60A, #F59E0B); height: 80px; width: 14px; }
+        .plate-10 { background: linear-gradient(135deg, #38B000, #22C55E); height: 60px; width: 12px; }
+        .plate-5 { background: linear-gradient(135deg, #F8F9FA, #DEE2E6); height: 45px; width: 10px; color: #333; }
+        .plate-2-5 { background: linear-gradient(135deg, #FCA5A5, #EF4444); height: 35px; width: 8px; font-size: 8px; }
+        .plate-1-25 { background: linear-gradient(135deg, #C0C0C0, #9CA3AF); height: 28px; width: 6px; font-size: 7px; }
+        .plate-collar {
+            width: 10px;
+            height: 32px;
+            background: linear-gradient(to bottom, #4b5563, #1f2937);
+            border-radius: 2px;
+            margin: 0 2px;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-lg);
+            color: var(--text-secondary);
+        }
+        .empty-state-icon {
+            font-size: 72px;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+        .empty-state-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.3px;
+        }
+        .empty-state-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 320px;
+            margin: 0 auto var(--spacing-lg);
+            line-height: 1.5;
+        }
+        .empty-state-action {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .empty-state-action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Plate calculator info */
+        .plate-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            margin-top: var(--spacing-md);
+            font-size: 12px;
+        }
+        .plate-info-label {
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+        .plate-info-value {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Progress Rings */
+        .progress-ring-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto var(--spacing-md);
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .progress-ring-bg {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 8;
+        }
+        [data-theme="dark"] .progress-ring-bg {
+            stroke: var(--border-color-light);
+        }
+        .progress-ring-fill {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+        .progress-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .progress-ring-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        .progress-ring-label {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Stat card with ring */
+        .stat-card.with-ring {
+            padding: var(--spacing-lg) var(--spacing-md);
         }
 
         /* Bottom Navigation Bar - Mobile First */
@@ -7958,12 +8191,13 @@
                     ${ex.target ? `
                     <div class="amrap-input">
                         <label>AMRAP Reps:</label>
-                        <input
-                            type="number"
-                            value="${ex.amrapReps !== undefined ? ex.amrapReps : ''}"
-                            onchange="updateAmrap(${appData.currentDay}, ${idx}, this.value)"
-                            placeholder="?"
-                        >
+                        <div class="stepper-control">
+                            <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, -1)" ${ex.amrapReps <= 0 ? 'disabled' : ''}>−</button>
+                            <div class="stepper-value ${ex.amrapReps === undefined ? 'empty' : ''}" id="amrap-${appData.currentDay}-${idx}">
+                                ${ex.amrapReps !== undefined ? ex.amrapReps : '?'}
+                            </div>
+                            <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, 1)">+</button>
+                        </div>
                     </div>
                     <div class="progression-hint" id="hint-${appData.currentDay}-${idx}"></div>
                     ` : '<div style="padding:8px; font-size:12px; color:#666;">Deload week - no AMRAP</div>'}
@@ -7988,6 +8222,22 @@
             updateDayButtons();
             updateNavigationButtons();
             updateMarkDayButton();
+        }
+
+        // Adjust AMRAP reps with stepper buttons
+        function adjustAmrap(day, exIdx, delta) {
+            const ex = appData.workouts[appData.currentWeek][day][exIdx];
+            const currentReps = ex.amrapReps !== undefined ? ex.amrapReps : 0;
+            const newReps = Math.max(0, currentReps + delta);
+
+            updateAmrap(day, exIdx, newReps);
+
+            // Re-render to update button states
+            const valueEl = document.getElementById(`amrap-${day}-${exIdx}`);
+            if (valueEl) {
+                valueEl.textContent = newReps;
+                valueEl.classList.remove('empty');
+            }
         }
 
         function updateAmrap(day, exIdx, value) {
@@ -8776,30 +9026,67 @@
                 </div>`;
             }
 
-            if (result.plates.length === 0) {
-                return `<div class="plate-calculator">
-                    <div class="plate-calculator-title">🏋️ Plates to Load</div>
-                    <div class="plate-display">
-                        <span style="color: #666; font-size: 12px;">Empty barbell (${appData.plateCalculator.barbellWeight}kg)</span>
-                    </div>
+            const barbellWeight = appData.plateCalculator.barbellWeight;
+
+            // Build visual barbell
+            let barbellHTML = `
+                <div class="plate-calculator">
+                    <div class="plate-calculator-title">🏋️ Loaded Barbell</div>
+                    <div class="visual-barbell">
+                        <div class="barbell-sleeve"></div>
+                        <div class="barbell-plates">`;
+
+            // Render plates from largest to smallest (on left side)
+            if (result.plates.length > 0) {
+                result.plates.forEach(plate => {
+                    const plateClass = `plate-${String(plate).replace('.', '-')}`;
+                    barbellHTML += `<div class="plate ${plateClass}">${plate}</div>`;
+                });
+                barbellHTML += `<div class="plate-collar"></div>`;
+            }
+
+            // Center bar with weight
+            barbellHTML += `</div>
+                        <div class="barbell-bar">${barbellWeight}kg</div>
+                        <div class="barbell-plates">`;
+
+            // Render plates on right side (same as left)
+            if (result.plates.length > 0) {
+                barbellHTML += `<div class="plate-collar"></div>`;
+                result.plates.slice().reverse().forEach(plate => {
+                    const plateClass = `plate-${String(plate).replace('.', '-')}`;
+                    barbellHTML += `<div class="plate ${plateClass}">${plate}</div>`;
+                });
+            }
+
+            barbellHTML += `</div>
+                        <div class="barbell-sleeve"></div>
+                    </div>`;
+
+            // Add plate info summary
+            if (result.plates.length > 0) {
+                const plateCounts = {};
+                result.plates.forEach(plate => {
+                    plateCounts[plate] = (plateCounts[plate] || 0) + 1;
+                });
+
+                barbellHTML += `<div class="plate-info">
+                    <span class="plate-info-label">Per Side:</span>
+                    <span class="plate-info-value">`;
+
+                Object.keys(plateCounts).sort((a, b) => parseFloat(b) - parseFloat(a)).forEach((plate, idx) => {
+                    if (idx > 0) barbellHTML += ', ';
+                    barbellHTML += `${plateCounts[plate]}×${plate}kg`;
+                });
+
+                barbellHTML += `</span></div>`;
+            } else {
+                barbellHTML += `<div class="plate-info">
+                    <span class="plate-info-value" style="margin: 0 auto;">Empty barbell (${barbellWeight}kg)</span>
                 </div>`;
             }
 
-            // Group plates by weight
-            const plateCounts = {};
-            result.plates.forEach(plate => {
-                plateCounts[plate] = (plateCounts[plate] || 0) + 1;
-            });
-
-            // Build display
-            let html = `<div class="plate-calculator">
-                <div class="plate-calculator-title">🏋️ Plates to Load (per side)</div>
-                <div class="plate-display">`;
-
-            Object.keys(plateCounts).sort((a, b) => parseFloat(b) - parseFloat(a)).forEach(plate => {
-                const count = plateCounts[plate];
-                html += `<span class="plate-item">${count}×${plate}kg</span>`;
-            });
+            let html = barbellHTML;
 
             html += `</div>`;
 
@@ -8841,7 +9128,15 @@
             const completedWeeks = allWeeks.filter(weekNum => hasCompletedWorkouts(weekNum));
 
             if (completedWeeks.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">No completed workouts yet. Complete an AMRAP set to start tracking your history!</p>';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📜</div>
+                        <h3 class="empty-state-title">No Workout History Yet</h3>
+                        <p class="empty-state-description">
+                            Complete your first AMRAP set to start building your workout history and track your progress over time!
+                        </p>
+                    </div>
+                `;
                 return;
             }
 
@@ -8880,31 +9175,86 @@
             }).join('');
         }
 
+        // Helper: Create progress ring SVG
+        function createProgressRing(percentage, gradient, size = 120, strokeWidth = 8) {
+            const radius = (size - strokeWidth) / 2;
+            const circumference = radius * 2 * Math.PI;
+            const offset = circumference - (percentage / 100) * circumference;
+
+            return `
+                <div class="progress-ring-container" style="width: ${size}px; height: ${size}px;">
+                    <svg class="progress-ring" width="${size}" height="${size}">
+                        <circle class="progress-ring-bg" cx="${size/2}" cy="${size/2}" r="${radius}"></circle>
+                        <circle
+                            class="progress-ring-fill"
+                            cx="${size/2}"
+                            cy="${size/2}"
+                            r="${radius}"
+                            stroke="url(#${gradient})"
+                            stroke-dasharray="${circumference}"
+                            stroke-dashoffset="${offset}"
+                        ></circle>
+                        <defs>
+                            <linearGradient id="gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradient-success" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00B894;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00cec9;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradient-bench" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4FACFE;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00F2FE;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradient-squat" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#FF8E53;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="progress-ring-text">
+                        <div class="progress-ring-value">${Math.round(percentage)}%</div>
+                    </div>
+                </div>
+            `;
+        }
+
         function renderProgress() {
             const container = document.getElementById('progress-container');
             const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
 
             if (weeks.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">No workout data yet. Complete some workouts to see your progress!</p>';
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--spacing-xl) var(--spacing-lg);">
+                        <div style="font-size: 64px; margin-bottom: var(--spacing-md);">📊</div>
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--spacing-sm);">No Progress Data Yet</h3>
+                        <p style="color: var(--text-secondary); max-width: 300px; margin: 0 auto;">Complete some workouts to see your progress, stats, and personal records here!</p>
+                    </div>
+                `;
                 return;
             }
 
             // Calculate statistics
             const stats = calculateProgressStats();
 
+            // Calculate program completion percentage
+            const maxWeeks = appData.programType === 'hypertrophy' ? 21 : 20;
+            const completionPercentage = (stats.weeksCompleted / maxWeeks) * 100;
+
             container.innerHTML = `
                 <div class="stats-grid">
-                    <div class="stat-card highlight">
+                    <div class="stat-card with-ring">
+                        ${createProgressRing(completionPercentage, 'gradient-primary', 100, 6)}
+                        <div class="stat-label" style="margin-top: var(--spacing-sm);">Program Complete</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-value">${stats.totalVolume.toLocaleString()}</div>
                         <div class="stat-label">Total Volume (kg)</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.workoutsCompleted}</div>
                         <div class="stat-label">Workouts Done</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${stats.weeksCompleted}</div>
-                        <div class="stat-label">Weeks Completed</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.avgVolumePerWeek.toLocaleString()}</div>
