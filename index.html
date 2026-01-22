@@ -489,6 +489,40 @@
             transform: scale(0.95) rotate(0deg);
         }
 
+        /* Floating Action Button for Rest Timer */
+        .timer-fab {
+            position: fixed;
+            bottom: 90px;
+            right: var(--spacing-lg);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-bench);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 998;
+            animation: pulse 2s infinite;
+        }
+        .timer-fab:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+            animation: none;
+        }
+        .timer-fab:active {
+            transform: scale(0.95);
+        }
+        @media (max-width: 768px) {
+            .timer-fab {
+                bottom: 150px;
+            }
+        }
+
         /* Improved Settings & Forms */
         .settings-section {
             background: var(--bg-primary);
@@ -577,6 +611,120 @@
         .stat-card.highlight .stat-value,
         .stat-card.highlight .stat-label {
             color: white;
+        }
+
+        /* Bottom Navigation Bar - Mobile First */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--spacing-xs) 0;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        [data-theme="dark"] .bottom-nav {
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .bottom-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-xs);
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            position: relative;
+        }
+        .bottom-nav-item:active {
+            transform: scale(0.95);
+        }
+        .bottom-nav-item.active {
+            color: #667eea;
+        }
+        .bottom-nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 0 0 3px 3px;
+        }
+        .bottom-nav-icon {
+            font-size: 22px;
+            margin-bottom: 2px;
+            transition: transform 0.3s ease;
+        }
+        .bottom-nav-item.active .bottom-nav-icon {
+            transform: translateY(-2px);
+        }
+        .bottom-nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        /* Hide top tabs on mobile, show bottom nav */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                display: none;
+            }
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+        /* On larger screens, hide bottom nav, show top tabs */
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none;
+            }
+        }
+
+        /* Compact header */
+        .header {
+            padding: 12px var(--spacing-lg);
+        }
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* Page transition animations */
+        .tab-content {
+            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Adjust theme toggle position for bottom nav */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                bottom: 80px;
+            }
         }
     </style>
 
@@ -1081,7 +1229,31 @@
         <div id="history-container"></div>
     </div>
 
-    <!-- Dark Mode Toggle Button -->
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item active" onclick="switchTab('workout')" data-tab="workout">
+            <div class="bottom-nav-icon">💪</div>
+            <div class="bottom-nav-label">Workout</div>
+        </button>
+        <button class="bottom-nav-item" onclick="switchTab('progress')" data-tab="progress">
+            <div class="bottom-nav-icon">📊</div>
+            <div class="bottom-nav-label">Progress</div>
+        </button>
+        <button class="bottom-nav-item" onclick="switchTab('settings')" data-tab="settings">
+            <div class="bottom-nav-icon">⚙️</div>
+            <div class="bottom-nav-label">Settings</div>
+        </button>
+        <button class="bottom-nav-item" onclick="switchTab('history')" data-tab="history">
+            <div class="bottom-nav-icon">📜</div>
+            <div class="bottom-nav-label">History</div>
+        </button>
+    </nav>
+
+    <!-- Floating Action Buttons -->
+    <button class="timer-fab" onclick="showRestTimer(); startTimer();" title="Start rest timer">
+        ⏱️
+    </button>
+
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle" title="Toggle dark mode">
         <span id="theme-icon">🌙</span>
     </button>
@@ -7684,16 +7856,28 @@
 
         // UI Functions
         function switchTab(tabName) {
+            // Update top tabs
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            // Find and activate the clicked tab
+            // Update bottom nav
+            document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+
+            // Find and activate the clicked tab (top)
             const clickedTab = Array.from(document.querySelectorAll('.nav-tab')).find(
                 tab => tab.textContent.toLowerCase().includes(tabName.toLowerCase())
             );
             if (clickedTab) {
                 clickedTab.classList.add('active');
             }
+
+            // Find and activate the bottom nav item
+            const clickedBottomNavItem = document.querySelector(`.bottom-nav-item[data-tab="${tabName}"]`);
+            if (clickedBottomNavItem) {
+                clickedBottomNavItem.classList.add('active');
+            }
+
+            // Show the tab content
             document.getElementById(`${tabName}-tab`).classList.add('active');
 
             if (tabName === 'history') {

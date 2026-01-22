@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v9'; // Modern UI redesign with dark mode, gradients, and improved styling
+const CACHE_VERSION = 'v10'; // Phase 2: Bottom navigation, compact header, FAB, smooth transitions
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
