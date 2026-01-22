@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v11'; // Phase 3: Progress rings, visual plate calculator, stepper controls, empty states
+const CACHE_VERSION = 'v12'; // Fix: Redesigned plate calculator - collapsible, minimal, correct plate order
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
