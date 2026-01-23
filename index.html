@@ -74,7 +74,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--bg-tertiary);
-            padding-bottom: 80px;
+            padding-bottom: max(80px, env(safe-area-inset-bottom));
             color: var(--text-primary);
             transition: background-color 0.3s ease, color 0.3s ease;
             -webkit-font-smoothing: antialiased;
@@ -254,13 +254,16 @@
         .amrap-input {
             display: flex;
             align-items: center;
-            gap: var(--spacing-md);
+            gap: var(--spacing-sm);
             margin-top: var(--spacing-md);
+            max-width: 100%;
         }
         .amrap-input label {
             font-size: 13px;
             font-weight: 600;
             color: var(--text-secondary);
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         .stepper-control {
             display: flex;
@@ -270,10 +273,13 @@
             border-radius: var(--radius-md);
             padding: 4px;
             border: 2px solid var(--border-color);
+            flex: 0 1 auto;
+            min-width: 0;
         }
         .stepper-btn {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
             border: none;
             background: var(--bg-primary);
             color: var(--text-primary);
@@ -290,6 +296,10 @@
             background: var(--color-primary);
             color: white;
             opacity: 0.9;
+        }
+        .stepper-btn:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
         }
         .stepper-btn:disabled {
             opacity: 0.3;
@@ -337,7 +347,10 @@
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.2s ease;
+            transition: all 0.2s ease;
+        }
+        .btn:active {
+            transform: scale(0.98);
         }
         .btn-primary {
             background: var(--color-primary);
@@ -346,6 +359,9 @@
         }
         .btn-primary:hover {
             opacity: 0.9;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
         }
         .btn-secondary {
             background: var(--bg-secondary);
@@ -683,6 +699,7 @@
             display: flex;
             justify-content: space-around;
             padding: var(--spacing-xs) 0;
+            padding-bottom: max(var(--spacing-xs), env(safe-area-inset-bottom));
             z-index: 100;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
@@ -760,6 +777,68 @@
             to {
                 opacity: 1;
                 transform: translateX(0);
+            }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: max(90px, calc(90px + env(safe-area-inset-bottom)));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            pointer-events: none;
+            width: 90%;
+            max-width: 400px;
+        }
+        .toast {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            animation: toastSlideIn 0.3s ease;
+            pointer-events: auto;
+        }
+        .toast.toast-error {
+            border-left: 4px solid var(--color-danger);
+        }
+        .toast.toast-success {
+            border-left: 4px solid var(--color-success);
+        }
+        .toast.toast-info {
+            border-left: 4px solid var(--color-info);
+        }
+        .toast-message {
+            flex: 1;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -7788,7 +7867,12 @@
         }
 
         function saveData() {
-            localStorage.setItem('sbs-tracker-v2', JSON.stringify(appData));
+            try {
+                localStorage.setItem('sbs-tracker-v2', JSON.stringify(appData));
+            } catch (error) {
+                console.error('Failed to save data:', error);
+                showToast('Failed to save data. Storage may be full.', 'error', 5000);
+            }
         }
 
         function getWeekData(weekNum) {
@@ -8179,12 +8263,70 @@
             updateMarkDayButton();
         }
 
+        // Haptic Feedback Utility
+        function hapticFeedback(pattern = 'light') {
+            if (!navigator.vibrate) return; // Check if vibration API is supported
+
+            const patterns = {
+                'light': 10,           // Quick tap for buttons
+                'medium': 20,          // Slightly longer for confirmations
+                'success': [10, 50, 10, 50, 10],  // Success pattern
+                'error': [100, 50, 100]  // Error pattern
+            };
+
+            navigator.vibrate(patterns[pattern] || patterns.light);
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+
+            const messageEl = document.createElement('div');
+            messageEl.className = 'toast-message';
+            messageEl.textContent = message;
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'toast-close';
+            closeBtn.innerHTML = '×';
+            closeBtn.onclick = () => removeToast(toast);
+
+            toast.appendChild(messageEl);
+            toast.appendChild(closeBtn);
+            container.appendChild(toast);
+
+            // Auto-remove after duration
+            setTimeout(() => removeToast(toast), duration);
+
+            // Haptic feedback for errors
+            if (type === 'error') {
+                hapticFeedback('error');
+            }
+        }
+
+        function removeToast(toast) {
+            if (!toast || !toast.parentNode) return;
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }
+
         // Debounce timer for PR notifications
         let prDebounceTimer = null;
         let pendingPR = null;
 
         // Adjust AMRAP reps with stepper buttons
         function adjustAmrap(day, exIdx, delta) {
+            // Haptic feedback on button press
+            hapticFeedback('light');
+
             const ex = appData.workouts[appData.currentWeek][day][exIdx];
             const currentReps = ex.amrapReps !== undefined ? ex.amrapReps : 0;
             const newReps = Math.max(0, currentReps + delta);
@@ -8274,6 +8416,9 @@
         }
 
         function showPRNotification(exercise) {
+            // Haptic feedback for PR achievement
+            hapticFeedback('success');
+
             const estimated1RM = calculateEstimated1RM(exercise.weight, exercise.amrapReps);
             const message = `🎉 NEW PR! 🎉\n\n${exercise.name}\n${exercise.weight}kg × ${exercise.amrapReps} reps\nEstimated 1RM: ${Math.round(estimated1RM)}kg`;
             alert(message);
@@ -8438,6 +8583,9 @@
         }
 
         function markDayComplete() {
+            // Haptic feedback for completion
+            hapticFeedback('success');
+
             const currentDay = appData.currentDay;
             const currentWeek = appData.currentWeek;
 
@@ -9676,5 +9824,9 @@
             });
         }
     </script>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
 </body>
 </html>
