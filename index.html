@@ -8280,6 +8280,10 @@
                 if (ex.amrapReps !== undefined && ex.target) {
                     updateProgressionHint(appData.currentDay, idx);
                 }
+                // Update PR beat hint for exercises with existing PRs
+                if (ex.target && appData.personalRecords[ex.name]) {
+                    updatePRBeatHint(appData.currentDay, idx);
+                }
             });
 
             // Update week displays
