@@ -302,8 +302,25 @@
             font-weight: 700;
             color: var(--text-primary);
             padding: 0 var(--spacing-sm);
+            border: none;
+            background: transparent;
+            outline: none;
+            cursor: text;
+        }
+        /* Remove number input spinners */
+        .stepper-value::-webkit-outer-spin-button,
+        .stepper-value::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .stepper-value[type=number] {
+            -moz-appearance: textfield;
         }
         .stepper-value.empty {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+        .stepper-value::placeholder {
             color: var(--text-tertiary);
             font-weight: 400;
         }
@@ -8125,9 +8142,15 @@
                         <label>AMRAP Reps:</label>
                         <div class="stepper-control">
                             <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, -1)" ${ex.amrapReps <= 0 ? 'disabled' : ''}>−</button>
-                            <div class="stepper-value ${ex.amrapReps === undefined ? 'empty' : ''}" id="amrap-${appData.currentDay}-${idx}">
-                                ${ex.amrapReps !== undefined ? ex.amrapReps : '?'}
-                            </div>
+                            <input type="number"
+                                   class="stepper-value ${ex.amrapReps === undefined ? 'empty' : ''}"
+                                   id="amrap-${appData.currentDay}-${idx}"
+                                   value="${ex.amrapReps !== undefined ? ex.amrapReps : ''}"
+                                   placeholder="?"
+                                   min="0"
+                                   inputmode="numeric"
+                                   onchange="updateAmrapDirect(${appData.currentDay}, ${idx}, this.value)"
+                                   onblur="updateAmrapDirect(${appData.currentDay}, ${idx}, this.value)">
                             <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, 1)">+</button>
                         </div>
                     </div>
@@ -8156,6 +8179,10 @@
             updateMarkDayButton();
         }
 
+        // Debounce timer for PR notifications
+        let prDebounceTimer = null;
+        let pendingPR = null;
+
         // Adjust AMRAP reps with stepper buttons
         function adjustAmrap(day, exIdx, delta) {
             const ex = appData.workouts[appData.currentWeek][day][exIdx];
@@ -8167,8 +8194,16 @@
             // Re-render to update button states
             const valueEl = document.getElementById(`amrap-${day}-${exIdx}`);
             if (valueEl) {
-                valueEl.textContent = newReps;
+                valueEl.value = newReps;
                 valueEl.classList.remove('empty');
+            }
+        }
+
+        // Direct input handler for tapping/typing reps
+        function updateAmrapDirect(day, exIdx, value) {
+            const reps = parseInt(value);
+            if (!isNaN(reps) && reps >= 0) {
+                updateAmrap(day, exIdx, reps);
             }
         }
 
@@ -8178,15 +8213,22 @@
                 const ex = appData.workouts[appData.currentWeek][day][exIdx];
                 ex.amrapReps = reps;
 
-                // Check for PR
+                // Check for PR (but don't show notification yet)
                 const isPR = checkAndUpdatePR(ex, appData.currentWeek);
 
                 saveData();
                 updateProgressionHint(day, exIdx);
 
-                // Show PR notification if achieved
+                // Debounce PR notification - wait 2 seconds after last change
                 if (isPR) {
-                    showPRNotification(ex);
+                    pendingPR = ex;
+                    clearTimeout(prDebounceTimer);
+                    prDebounceTimer = setTimeout(() => {
+                        if (pendingPR) {
+                            showPRNotification(pendingPR);
+                            pendingPR = null;
+                        }
+                    }, 2000); // Wait 2 seconds after last change
                 }
 
                 // Auto-start rest timer if enabled

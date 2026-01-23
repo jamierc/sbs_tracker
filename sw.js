@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v20'; // Added theme toggle button, removed unused import button
+const CACHE_VERSION = 'v21'; // Improved AMRAP input UX - tap to edit, debounced PR notifications
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
