@@ -460,6 +460,23 @@
             outline: none;
             border-color: var(--color-primary);
         }
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
 
         /* Improved Progress Stats */
         .stats-grid {
@@ -1226,6 +1243,49 @@
             <h2>Data Management</h2>
             <button class="btn btn-secondary" onclick="loadHistoricalData()">Load Weeks 1-15 History from Excel</button>
             <button class="btn btn-danger" onclick="resetAll()">Reset All Data</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Contact & Feedback</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Send feedback, report bugs, or request features. We'll get back to you via email.</p>
+
+            <form id="contact-form" onsubmit="handleContactFormSubmit(event)">
+                <!-- Hidden fields for Web3Forms -->
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                <input type="hidden" name="subject" value="SBS Tracker">
+                <input type="checkbox" name="botcheck" style="display: none;">
+
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" name="name" required placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Topic *</label>
+                    <select name="topic" required>
+                        <option value="">Select a topic...</option>
+                        <option value="Bug Report">Bug Report</option>
+                        <option value="Feature Request">Feature Request</option>
+                        <option value="General Feedback">General Feedback</option>
+                        <option value="Help/Support">Help/Support</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea name="message" required rows="5" placeholder="Describe your feedback, bug, or question..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="contact-submit-btn">Send Message</button>
+
+                <div id="contact-form-message" style="margin-top: 15px; display: none;"></div>
+            </form>
         </div>
     </div>
 
@@ -2584,8 +2644,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 115.0,
+                                                "name": "Hack Squat",
+                                                "weight": 125.0,
                                                 "reps": 7,
                                                 "target": 14,
                                                 "sets": 5
@@ -2639,8 +2699,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 127.5,
+                                                "name": "Hack Squat",
+                                                "weight": 138.59,
                                                 "reps": 6,
                                                 "target": 12,
                                                 "sets": 5
@@ -2662,8 +2722,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 120.0,
+                                                "name": "Hack Squat",
+                                                "weight": 130.44,
                                                 "reps": 6,
                                                 "target": 12,
                                                 "sets": 5
@@ -2740,8 +2800,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 140.0,
+                                                "name": "Hack Squat",
+                                                "weight": 152.18,
                                                 "reps": 5,
                                                 "target": 10,
                                                 "sets": 5
@@ -2818,8 +2878,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 130.0,
+                                                "name": "Hack Squat",
+                                                "weight": 141.31,
                                                 "reps": 7,
                                                 "target": 13,
                                                 "sets": 5
@@ -2896,8 +2956,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 142.5,
+                                                "name": "Hack Squat",
+                                                "weight": 154.9,
                                                 "reps": 6,
                                                 "target": 11,
                                                 "sets": 5
@@ -2974,8 +3034,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 155.0,
+                                                "name": "Hack Squat",
+                                                "weight": 168.48,
                                                 "reps": 5,
                                                 "target": 9,
                                                 "sets": 5
@@ -3052,8 +3112,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 107.5,
+                                                "name": "Hack Squat",
+                                                "weight": 116.85,
                                                 "reps": 5,
                                                 "target": null,
                                                 "sets": 5
@@ -3130,8 +3190,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 140.0,
+                                                "name": "Hack Squat",
+                                                "weight": 152.18,
                                                 "reps": 6,
                                                 "target": 12,
                                                 "sets": 5
@@ -3208,8 +3268,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 157.5,
+                                                "name": "Hack Squat",
+                                                "weight": 171.2,
                                                 "reps": 5,
                                                 "target": 10,
                                                 "sets": 5
@@ -3286,8 +3346,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 167.5,
+                                                "name": "Hack Squat",
+                                                "weight": 182.07,
                                                 "reps": 4,
                                                 "target": 8,
                                                 "sets": 5
@@ -3364,8 +3424,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 150.0,
+                                                "name": "Hack Squat",
+                                                "weight": 163.05,
                                                 "reps": 6,
                                                 "target": 11,
                                                 "sets": 5
@@ -3442,8 +3502,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 162.5,
+                                                "name": "Hack Squat",
+                                                "weight": 176.64,
                                                 "reps": 5,
                                                 "target": 9,
                                                 "sets": 5
@@ -3520,8 +3580,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 175.0,
+                                                "name": "Hack Squat",
+                                                "weight": 190.22,
                                                 "reps": 4,
                                                 "target": 7,
                                                 "sets": 5
@@ -3598,8 +3658,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 112.5,
+                                                "name": "Hack Squat",
+                                                "weight": 122.29,
                                                 "reps": 5,
                                                 "target": null,
                                                 "sets": 5
@@ -3676,8 +3736,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 157.5,
+                                                "name": "Hack Squat",
+                                                "weight": 171.2,
                                                 "reps": 5,
                                                 "target": 10,
                                                 "sets": 5
@@ -3754,8 +3814,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 167.5,
+                                                "name": "Hack Squat",
+                                                "weight": 182.07,
                                                 "reps": 4,
                                                 "target": 8,
                                                 "sets": 5
@@ -3832,8 +3892,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 180.0,
+                                                "name": "Hack Squat",
+                                                "weight": 195.66,
                                                 "reps": 3,
                                                 "target": 6,
                                                 "sets": 5
@@ -3910,8 +3970,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 167.5,
+                                                "name": "Hack Squat",
+                                                "weight": 182.07,
                                                 "reps": 4,
                                                 "target": 8,
                                                 "sets": 5
@@ -3988,8 +4048,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 180.0,
+                                                "name": "Hack Squat",
+                                                "weight": 195.66,
                                                 "reps": 3,
                                                 "target": 6,
                                                 "sets": 5
@@ -4066,8 +4126,8 @@
                                                 "sets": 5
                                         },
                                         {
-                                                "name": "Leg Press",
-                                                "weight": 190.0,
+                                                "name": "Hack Squat",
+                                                "weight": 206.53,
                                                 "reps": 2,
                                                 "target": 4,
                                                 "sets": 5
@@ -7752,6 +7812,63 @@
                 'DB OHP': 'ohp-aux'
             };
 
+            // Define 1RM values for auxiliary exercises
+            // These are from the SBS Hypertrophy Template Excel file
+            // For exercises not in the template, we use estimated multipliers relative to main lifts
+            const auxiliary1RMs = {
+                // Squat auxiliaries (from template)
+                'Leg Press': 420,
+                'Hack Squat': 460,
+                // Squat auxiliaries (estimated as % of squat 1RM)
+                'Front Squat': appData.oneRepMaxes.squat * 0.85,
+                'Paused Squat': appData.oneRepMaxes.squat * 0.88,
+                'High Bar Squat': appData.oneRepMaxes.squat * 0.98,
+                'Beltless Squat': appData.oneRepMaxes.squat * 0.90,
+                'Wider Stance Squat': appData.oneRepMaxes.squat * 0.95,
+                'Narrower Stance Squat': appData.oneRepMaxes.squat * 0.95,
+                'Box Squat': appData.oneRepMaxes.squat * 0.90,
+                'Pin Squat': appData.oneRepMaxes.squat * 0.85,
+                'Half Squat': appData.oneRepMaxes.squat * 1.15,
+                'Good Morning': appData.oneRepMaxes.squat * 0.50,
+                'Squat With Slow Eccentric': appData.oneRepMaxes.squat * 0.85,
+                'Bulgarian Split Squat': appData.oneRepMaxes.squat * 0.55,
+                'Lunges': appData.oneRepMaxes.squat * 0.50,
+
+                // Bench auxiliaries (from template)
+                'Incline Press': 310,
+                'DB Bench': 280,
+                // Bench auxiliaries (estimated as % of bench 1RM)
+                'Close Grip Bench': appData.oneRepMaxes.bench * 0.88,
+                'Long Pause Bench': appData.oneRepMaxes.bench * 0.88,
+                'Spoto Press': appData.oneRepMaxes.bench * 0.85,
+                'Wider Grip Bench': appData.oneRepMaxes.bench * 0.95,
+                'Board Press': appData.oneRepMaxes.bench * 1.05,
+                'Pin Press': appData.oneRepMaxes.bench * 0.85,
+                'Slingshot Bench': appData.oneRepMaxes.bench * 1.10,
+                'Bench With Feet Up': appData.oneRepMaxes.bench * 0.85,
+                'Bench With Slow Eccentric': appData.oneRepMaxes.bench * 0.85,
+
+                // Deadlift/Block Pull auxiliaries (from template)
+                'Romanian Deadlift': 500,
+                // Deadlift auxiliaries (estimated as % of deadlift 1RM)
+                'Sumo Deadlift': appData.oneRepMaxes.deadlift * 0.95,
+                'Conventional Deadlift': appData.oneRepMaxes.deadlift * 1.00,
+                'Block Pull': appData.oneRepMaxes.deadlift * 1.05,
+                'Rack Pull': appData.oneRepMaxes.deadlift * 1.10,
+                'Deficit Deadlift': appData.oneRepMaxes.deadlift * 0.85,
+                'Stiff Leg Deadlift': appData.oneRepMaxes.deadlift * 0.75,
+                'Snatch Grip Deadlift': appData.oneRepMaxes.deadlift * 0.80,
+                'Trap Bar Deadlift': appData.oneRepMaxes.deadlift * 1.05,
+                'Paused Deadlift': appData.oneRepMaxes.deadlift * 0.88,
+
+                // OHP auxiliaries (from template)
+                'DB OHP': 245,
+                // OHP auxiliaries (estimated as % of OHP 1RM)
+                'Push Press': appData.oneRepMaxes.ohp * 1.15,
+                'Behind The Neck OHP': appData.oneRepMaxes.ohp * 0.85,
+                'Seated OHP': appData.oneRepMaxes.ohp * 0.95
+            };
+
             // Process each day in the week
             for (let day in weekData) {
                 const exercises = weekData[day];
@@ -7759,12 +7876,26 @@
                 // Replace auxiliary exercises based on default name mapping
                 exercises.forEach(ex => {
                     if (!mainLifts.includes(ex.name)) {
+                        // Store the original exercise name for weight calculation
+                        const originalExerciseName = ex.name;
+
                         // Check if this is a default auxiliary exercise
                         const auxCategory = defaultAuxiliaryMap[ex.name];
 
                         // Apply the replacement if we have user preferences for this category
                         if (auxCategory && appData.auxiliaryExercises && appData.auxiliaryExercises[auxCategory]) {
-                            ex.name = appData.auxiliaryExercises[auxCategory];
+                            const newExerciseName = appData.auxiliaryExercises[auxCategory];
+
+                            // Calculate weight adjustment ratio
+                            const originalRM = auxiliary1RMs[originalExerciseName];
+                            const newRM = auxiliary1RMs[newExerciseName];
+
+                            if (originalRM && newRM && originalExerciseName !== newExerciseName) {
+                                const weightRatio = newRM / originalRM;
+                                ex.weight = Math.round(ex.weight * weightRatio * 4) / 4; // Round to nearest 0.25kg
+                            }
+
+                            ex.name = newExerciseName;
                         }
                         // Also check old format for backwards compatibility
                         else if (appData.auxiliaryExercises) {
@@ -7780,7 +7911,18 @@
 
                             const oldCategory = oldCategoryMap[ex.name];
                             if (oldCategory && appData.auxiliaryExercises[oldCategory]) {
-                                ex.name = appData.auxiliaryExercises[oldCategory];
+                                const newExerciseName = appData.auxiliaryExercises[oldCategory];
+
+                                // Calculate weight adjustment ratio
+                                const originalRM = auxiliary1RMs[originalExerciseName];
+                                const newRM = auxiliary1RMs[newExerciseName];
+
+                                if (originalRM && newRM && originalExerciseName !== newExerciseName) {
+                                    const weightRatio = newRM / originalRM;
+                                    ex.weight = Math.round(ex.weight * weightRatio * 4) / 4; // Round to nearest 0.25kg
+                                }
+
+                                ex.name = newExerciseName;
                             }
                         }
                     }
@@ -8624,6 +8766,52 @@
             }
             localStorage.removeItem('sbs-tracker-v2');
             location.reload();
+        }
+
+        // Contact Form Handler
+        async function handleContactFormSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const submitBtn = document.getElementById('contact-submit-btn');
+            const messageDiv = document.getElementById('contact-form-message');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            messageDiv.style.display = 'none';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Show success message
+                    messageDiv.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+                    messageDiv.style.color = '#00B894';
+                    messageDiv.style.display = 'block';
+
+                    // Reset form
+                    form.reset();
+                } else {
+                    throw new Error(result.message || 'Failed to send message');
+                }
+            } catch (error) {
+                // Show error message
+                messageDiv.textContent = 'Failed to send message. Please try again or email directly.';
+                messageDiv.style.color = '#D63031';
+                messageDiv.style.display = 'block';
+                console.error('Contact form error:', error);
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
         }
 
         // Export & Import Functions

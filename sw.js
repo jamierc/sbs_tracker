@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v17'; // Minimalist redesign: dark blue theme, flat design, simplified animations
+const CACHE_VERSION = 'v19'; // Fixed auxiliary exercise weight calculations and program data
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
