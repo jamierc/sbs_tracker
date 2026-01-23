@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v19'; // Fixed auxiliary exercise weight calculations and program data
+const CACHE_VERSION = 'v20'; // Added theme toggle button, removed unused import button
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
