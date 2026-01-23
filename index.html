@@ -316,6 +316,8 @@
             background: transparent;
             outline: none;
             cursor: text;
+            /* Prevent iOS auto-zoom - font must be 16px minimum */
+            font-size: 20px !important;
         }
         /* Remove number input spinners */
         .stepper-value::-webkit-outer-spin-button,
@@ -337,6 +339,27 @@
         .progression-hint { font-size: 11px; color: #666; margin-top: 5px; font-style: italic; }
         .progression-positive { color: var(--color-success); }
         .progression-negative { color: var(--color-danger); }
+
+        /* PR Beat Indicator */
+        .pr-beat-hint {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--color-warning);
+            color: var(--text-secondary);
+        }
+        .pr-beat-hint.beating {
+            border-left-color: var(--color-success);
+            color: var(--color-success);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
         /* Buttons - Modern with gradients */
         .btn {
@@ -8196,6 +8219,15 @@
                 const currentPR = appData.personalRecords[ex.name];
                 const hasPR = currentPR !== undefined;
 
+                // Calculate reps needed to beat PR
+                let prBeatText = '';
+                if (hasPR && ex.target) {
+                    const repsNeededToBeatPR = calculateRepsNeededToBeatPR(ex.weight, currentPR.estimated1RM);
+                    if (repsNeededToBeatPR > 0) {
+                        prBeatText = `<div class="pr-beat-hint" id="pr-beat-${appData.currentDay}-${idx}">🎯 Beat PR: Need ${repsNeededToBeatPR}+ reps</div>`;
+                    }
+                }
+
                 return `
                 <div class="exercise-card">
                     <div class="exercise-name">
@@ -8238,6 +8270,7 @@
                             <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, 1)">+</button>
                         </div>
                     </div>
+                    ${prBeatText}
                     <div class="progression-hint" id="hint-${appData.currentDay}-${idx}"></div>
                     ` : '<div style="padding:8px; font-size:12px; color:#666;">Deload week - no AMRAP</div>'}
                 </div>
@@ -8360,6 +8393,7 @@
 
                 saveData();
                 updateProgressionHint(day, exIdx);
+                updatePRBeatHint(day, exIdx); // Update PR beat indicator
 
                 // Debounce PR notification - wait 2 seconds after last change
                 if (isPR) {
@@ -8384,6 +8418,47 @@
         function calculateEstimated1RM(weight, reps) {
             // Epley formula: weight × (1 + reps/30)
             return weight * (1 + reps / 30);
+        }
+
+        function calculateRepsNeededToBeatPR(weight, currentPR1RM) {
+            // Inverse Epley formula to find reps needed to achieve target 1RM
+            // currentPR1RM = weight × (1 + reps/30)
+            // reps = 30 × (currentPR1RM/weight - 1)
+            const repsToMatchPR = 30 * (currentPR1RM / weight - 1);
+            // Need to beat it, so add 1 rep
+            return Math.max(1, Math.ceil(repsToMatchPR) + 1);
+        }
+
+        function updatePRBeatHint(day, exIdx) {
+            const ex = appData.workouts[appData.currentWeek][day][exIdx];
+            const currentPR = appData.personalRecords[ex.name];
+            const hintEl = document.getElementById(`pr-beat-${day}-${exIdx}`);
+
+            if (!hintEl || !currentPR) return;
+
+            if (ex.amrapReps === undefined || ex.amrapReps === 0) {
+                // No reps entered yet
+                const repsNeeded = calculateRepsNeededToBeatPR(ex.weight, currentPR.estimated1RM);
+                hintEl.textContent = `🎯 Beat PR: Need ${repsNeeded}+ reps`;
+                hintEl.className = 'pr-beat-hint';
+            } else {
+                // Reps entered - check if beating PR
+                const currentEst1RM = calculateEstimated1RM(ex.weight, ex.amrapReps);
+                if (currentEst1RM > currentPR.estimated1RM) {
+                    const improvement = Math.round(currentEst1RM - currentPR.estimated1RM);
+                    hintEl.textContent = `🎉 NEW PR! +${improvement}kg on estimated 1RM!`;
+                    hintEl.className = 'pr-beat-hint beating';
+                } else {
+                    const repsNeeded = calculateRepsNeededToBeatPR(ex.weight, currentPR.estimated1RM);
+                    const repsShort = repsNeeded - ex.amrapReps;
+                    if (repsShort === 1) {
+                        hintEl.textContent = `💪 Just 1 more rep to beat PR!`;
+                    } else {
+                        hintEl.textContent = `🎯 ${repsShort} more reps to beat PR`;
+                    }
+                    hintEl.className = 'pr-beat-hint';
+                }
+            }
         }
 
         function checkAndUpdatePR(exercise, weekNum) {

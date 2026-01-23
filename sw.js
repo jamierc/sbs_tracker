@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v22'; // Major UX overhaul: safe area insets, haptic feedback, toast errors, animations
+const CACHE_VERSION = 'v23'; // Fixed iOS zoom bug, added PR beat indicator
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
