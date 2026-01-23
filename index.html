@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SBS Workout Tracker</title>
     <style>
         /* CSS Variables for Theming */
@@ -308,7 +308,7 @@
         .stepper-value {
             min-width: 48px;
             text-align: center;
-            font-size: 20px;
+            font-size: 20px !important; /* Prevent iOS auto-zoom - font must be 16px minimum */
             font-weight: 700;
             color: var(--text-primary);
             padding: 0 var(--spacing-sm);
@@ -316,8 +316,6 @@
             background: transparent;
             outline: none;
             cursor: text;
-            /* Prevent iOS auto-zoom - font must be 16px minimum */
-            font-size: 20px !important;
         }
         /* Remove number input spinners */
         .stepper-value::-webkit-outer-spin-button,
