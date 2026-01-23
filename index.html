@@ -1370,6 +1370,16 @@
         </div>
 
         <div class="settings-section">
+            <h2>App Info</h2>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                <p><strong>Version:</strong> <span id="app-version">Loading...</span></p>
+                <p style="margin-top: 8px; font-size: 12px; color: var(--text-tertiary);">
+                    SBS Workout Tracker - Built for Stronger By Science programs
+                </p>
+            </div>
+        </div>
+
+        <div class="settings-section">
             <h2>Contact & Feedback</h2>
             <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Send feedback, report bugs, or request features. We'll get back to you via email.</p>
 
@@ -9860,6 +9870,23 @@
             });
 
             window.addEventListener('load', () => {
+                // Fetch and display app version
+                fetch('./sw.js')
+                    .then(response => response.text())
+                    .then(swContent => {
+                        const versionMatch = swContent.match(/CACHE_VERSION = '([^']+)'/);
+                        if (versionMatch) {
+                            const version = versionMatch[1];
+                            const versionEl = document.getElementById('app-version');
+                            if (versionEl) {
+                                versionEl.textContent = version;
+                            }
+                            // Store version for later use
+                            window.appVersion = version;
+                        }
+                    })
+                    .catch(err => console.error('[App] Failed to fetch version:', err));
+
                 navigator.serviceWorker.register('./sw.js')
                     .then((registration) => {
                         console.log('[App] ServiceWorker registered:', registration.scope);
@@ -9887,10 +9914,26 @@
                                     // New service worker available
                                     console.log('[App] New version available!');
 
-                                    // Show update notification
-                                    if (confirm('A new version of SBS Tracker is available! Click OK to update now.')) {
-                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                                    }
+                                    // Fetch new version number from updated service worker
+                                    fetch('./sw.js?' + Date.now()) // Cache bust
+                                        .then(response => response.text())
+                                        .then(swContent => {
+                                            const versionMatch = swContent.match(/CACHE_VERSION = '([^']+)'/);
+                                            const newVersion = versionMatch ? versionMatch[1] : 'unknown';
+                                            const currentVersion = window.appVersion || 'unknown';
+
+                                            // Show update notification with version numbers
+                                            const message = `🎉 New version available!\n\nCurrent: ${currentVersion}\nNew: ${newVersion}\n\nClick OK to update now.`;
+                                            if (confirm(message)) {
+                                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                            }
+                                        })
+                                        .catch(() => {
+                                            // Fallback if fetch fails
+                                            if (confirm('A new version of SBS Tracker is available! Click OK to update now.')) {
+                                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                            }
+                                        });
                                 }
                             });
                         });

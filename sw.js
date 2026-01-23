@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v25'; // Fixed viewport zoom + PR indicator now updates on page load
+const CACHE_VERSION = 'v26'; // Added version display in Settings + version numbers in update notifications
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
