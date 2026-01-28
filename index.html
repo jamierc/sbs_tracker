@@ -334,6 +334,67 @@
             color: var(--text-tertiary);
             font-weight: 400;
         }
+        /* Set Progress Circles */
+        .set-circles {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        .set-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-tertiary);
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1px;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+            flex-shrink: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .set-circle:active {
+            transform: scale(0.88);
+        }
+        .set-circle.completed {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+        .set-circle.amrap-circle {
+            border-style: dashed;
+            border-color: var(--color-accent);
+            color: var(--text-secondary);
+            cursor: default;
+        }
+        .set-circle.amrap-circle .circle-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+            line-height: 1;
+            font-weight: 600;
+        }
+        .set-circle.amrap-circle.has-value {
+            background: var(--color-accent);
+            border-style: solid;
+            border-color: var(--color-accent);
+            color: white;
+        }
+        .set-circle.amrap-circle.has-value .circle-label {
+            opacity: 0.85;
+        }
+
         .progression-hint { font-size: 11px; color: #666; margin-top: 5px; font-style: italic; }
         .progression-positive { color: var(--color-success); }
         .progression-negative { color: var(--color-danger); }
@@ -9909,6 +9970,13 @@
                 const currentPR = appData.personalRecords[ex.name];
                 const hasPR = currentPR !== undefined;
 
+                // Initialize completedSets if not present
+                const hasAmrap = !!ex.target;
+                const clickableCount = hasAmrap ? ex.sets - 1 : ex.sets;
+                if (!ex.completedSets || ex.completedSets.length !== clickableCount) {
+                    ex.completedSets = new Array(clickableCount).fill(false);
+                }
+
                 // Calculate reps needed to beat PR
                 let prBeatText = '';
                 if (hasPR && ex.target) {
@@ -9942,10 +10010,11 @@
                             <div class="detail-value">${ex.sets}</div>
                         </div>
                     </div>
+                    ${renderSetCircles(ex, appData.currentDay, idx)}
                     ${renderPlateDisplay(ex.weight)}
                     ${ex.target ? `
                     <div class="amrap-input">
-                        <label>AMRAP Reps:</label>
+                        <label>Log AMRAP Reps:</label>
                         <div class="stepper-control">
                             <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, -1)" ${ex.amrapReps <= 0 ? 'disabled' : ''}>−</button>
                             <input type="number"
@@ -10049,7 +10118,22 @@
         let prDebounceTimer = null;
         let pendingPR = null;
 
-        // Adjust AMRAP reps with stepper buttons
+        function toggleSetComplete(day, exIdx, setIdx) {
+            hapticFeedback('light');
+            const ex = appData.workouts[appData.currentWeek][day][exIdx];
+            if (!ex.completedSets) {
+                const hasAmrap = !!ex.target;
+                ex.completedSets = new Array(hasAmrap ? ex.sets - 1 : ex.sets).fill(false);
+            }
+            ex.completedSets[setIdx] = !ex.completedSets[setIdx];
+            // Update circle directly
+            const circle = document.querySelector(`[data-set="${day}-${exIdx}-${setIdx}"]`);
+            if (circle) {
+                circle.classList.toggle('completed', ex.completedSets[setIdx]);
+            }
+            saveData();
+        }
+
         function adjustAmrap(day, exIdx, delta) {
             // Haptic feedback on button press
             hapticFeedback('light');
@@ -10081,6 +10165,13 @@
             if (!isNaN(reps)) {
                 const ex = appData.workouts[appData.currentWeek][day][exIdx];
                 ex.amrapReps = reps;
+
+                // Update AMRAP circle
+                const amrapCircle = document.querySelector(`[data-set="${day}-${exIdx}-amrap"]`);
+                if (amrapCircle) {
+                    amrapCircle.classList.toggle('has-value', reps > 0);
+                    amrapCircle.querySelector('span').textContent = reps > 0 ? reps : '?';
+                }
 
                 // Check for PR (but don't show notification yet)
                 const isPR = checkAndUpdatePR(ex, appData.currentWeek);
@@ -10948,6 +11039,23 @@
                 remainder: remainder,
                 error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)}kg` : null
             };
+        }
+
+        function renderSetCircles(ex, day, idx) {
+            const hasAmrap = !!ex.target;
+            const clickableSets = hasAmrap ? ex.sets - 1 : ex.sets;
+            const completedSets = ex.completedSets || [];
+            let html = '<div class="set-circles">';
+            for (let i = 0; i < clickableSets; i++) {
+                const done = completedSets[i] === true;
+                html += `<button class="set-circle ${done ? 'completed' : ''}" onclick="toggleSetComplete(${day}, ${idx}, ${i})" data-set="${day}-${idx}-${i}">${ex.reps}</button>`;
+            }
+            if (hasAmrap) {
+                const hasVal = ex.amrapReps !== undefined && ex.amrapReps > 0;
+                html += `<button class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap"><span>${hasVal ? ex.amrapReps : '?'}</span><span class="circle-label">AMRAP</span></button>`;
+            }
+            html += '</div>';
+            return html;
         }
 
         function renderPlateDisplay(weight) {
