@@ -383,6 +383,9 @@
             border-color: var(--color-accent);
             color: white;
         }
+        .set-circle.amrap-circle span {
+            font-size: 10px;
+        }
 
 
         .progression-hint { font-size: 11px; color: #666; margin-top: 5px; font-style: italic; }
@@ -1368,7 +1371,15 @@
             </div>
 
             <div class="form-group">
-                <label>Barbell Weight (kg)</label>
+                <label>Weight Unit</label>
+                <select id="plate-unit" onchange="updateBarbellWeightOptions()">
+                    <option value="kg" selected>Kilograms (kg)</option>
+                    <option value="lbs">Pounds (lbs)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Barbell Weight</label>
                 <select id="barbell-weight">
                     <option value="20" selected>20kg (Standard Olympic)</option>
                     <option value="15">15kg (Women's Olympic)</option>
@@ -9560,6 +9571,7 @@
             },
             plateCalculator: {
                 enabled: true,
+                unit: 'kg',  // 'kg' or 'lbs'
                 barbellWeight: 20,  // kg
                 availablePlates: [20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
             },
@@ -10628,7 +10640,10 @@
             // Load plate calculator settings
             if (appData.plateCalculator) {
                 document.getElementById('plate-calculator-enabled').checked = appData.plateCalculator.enabled !== false;
-                document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight || 20;
+                const unit = appData.plateCalculator.unit || 'kg';
+                document.getElementById('plate-unit').value = unit;
+                updateBarbellWeightOptions();
+                document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight || (unit === 'kg' ? 20 : 45);
             }
 
             // Load rest timer settings
@@ -10996,6 +11011,7 @@
 
             const barbellWeight = appData.plateCalculator.barbellWeight;
             const availablePlates = appData.plateCalculator.availablePlates;
+            const unit = appData.plateCalculator.unit || 'kg';
 
             // Weight per side (subtract barbell, divide by 2)
             let weightPerSide = (weight - barbellWeight) / 2;
@@ -11027,7 +11043,7 @@
                 plates: plates,
                 perSide: weightPerSide,
                 remainder: remainder,
-                error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)}kg` : null
+                error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)}${unit}` : null
             };
         }
 
@@ -11060,11 +11076,12 @@
             }
 
             const barbellWeight = appData.plateCalculator.barbellWeight;
+            const unit = appData.plateCalculator.unit || 'kg';
 
             // Calculate summary text
             let summaryText = '';
             if (result.plates.length === 0) {
-                summaryText = `Empty bar (${barbellWeight}kg)`;
+                summaryText = `Empty bar (${barbellWeight}${unit})`;
             } else {
                 const plateCounts = {};
                 result.plates.forEach(plate => {
@@ -11072,7 +11089,7 @@
                 });
                 const summaryParts = [];
                 Object.keys(plateCounts).sort((a, b) => parseFloat(b) - parseFloat(a)).forEach(plate => {
-                    summaryParts.push(`${plateCounts[plate]}×${plate}kg`);
+                    summaryParts.push(`${plateCounts[plate]}×${plate}${unit}`);
                 });
                 summaryText = summaryParts.join(', ');
             }
@@ -11095,12 +11112,42 @@
             return html;
         }
 
+        function updateBarbellWeightOptions() {
+            const unit = document.getElementById('plate-unit').value;
+            const barbellWeightSelect = document.getElementById('barbell-weight');
+
+            if (unit === 'kg') {
+                barbellWeightSelect.innerHTML = `
+                    <option value="20" selected>20kg (Standard Olympic)</option>
+                    <option value="15">15kg (Women's Olympic)</option>
+                    <option value="10">10kg (Training Bar)</option>
+                    <option value="0">0kg (Dumbbells/Machines)</option>
+                `;
+            } else {
+                barbellWeightSelect.innerHTML = `
+                    <option value="45" selected>45lbs (Standard Olympic)</option>
+                    <option value="35">35lbs (Women's Olympic)</option>
+                    <option value="15">15lbs (Training Bar)</option>
+                    <option value="0">0lbs (Dumbbells/Machines)</option>
+                `;
+            }
+        }
+
         function savePlateSettings() {
             const enabled = document.getElementById('plate-calculator-enabled').checked;
+            const unit = document.getElementById('plate-unit').value;
             const barbellWeight = parseFloat(document.getElementById('barbell-weight').value);
 
             appData.plateCalculator.enabled = enabled;
+            appData.plateCalculator.unit = unit;
             appData.plateCalculator.barbellWeight = barbellWeight;
+
+            // Update available plates based on unit
+            if (unit === 'kg') {
+                appData.plateCalculator.availablePlates = [20, 15, 10, 5, 2.5, 1.25];
+            } else {
+                appData.plateCalculator.availablePlates = [45, 35, 25, 10, 5, 2.5];
+            }
 
             saveData();
             renderWorkout();

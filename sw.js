@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v31'; // Fix AMRAP circle duplicate text and question mark on reset
+const CACHE_VERSION = 'v32'; // Add kg/lbs unit selection, fix AMRAP text size
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
