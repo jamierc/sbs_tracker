@@ -9571,7 +9571,7 @@
             plateCalculator: {
                 enabled: true,
                 barbellWeight: 20,  // kg
-                availablePlates: [25, 20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
+                availablePlates: [20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
             },
             personalRecords: {
                 // Track PRs per exercise: { exerciseName: { estimated1RM, weight, reps, date, week } }
@@ -11052,7 +11052,7 @@
             }
             if (hasAmrap) {
                 const hasVal = ex.amrapReps !== undefined && ex.amrapReps > 0;
-                html += `<button class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap"><span>${hasVal ? ex.amrapReps : '?'}</span><span class="circle-label">AMRAP</span></button>`;
+                html += `<button class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap"><span>${hasVal ? ex.amrapReps : 'AMRAP'}</span><span class="circle-label">AMRAP</span></button>`;
             }
             html += '</div>';
             return html;
