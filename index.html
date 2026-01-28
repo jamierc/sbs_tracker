@@ -1050,7 +1050,6 @@
                         <option value="Push Press">Push Press</option>
                         <option value="Behind The Neck OHP">Behind The Neck OHP</option>
                         <option value="Seated OHP">Seated OHP</option>
-                        <option value="Incline Press">Incline Press</option>
                         <option value="DB OHP" selected>DB OHP</option>
                     </select>
                 </div>
@@ -1258,7 +1257,6 @@
                     <option value="Push Press">Push Press</option>
                     <option value="Behind The Neck OHP">Behind The Neck OHP</option>
                     <option value="Seated OHP">Seated OHP</option>
-                    <option value="Incline Press">Incline Press</option>
                     <option value="DB OHP" selected>DB OHP</option>
                 </select>
             </div>
@@ -9633,14 +9631,16 @@
                 'DB OHP': 'ohp-aux'
             };
 
-            // Define 1RM values for auxiliary exercises
-            // These are from the SBS Hypertrophy Template Excel file
-            // For exercises not in the template, we use estimated multipliers relative to main lifts
+            // Define 1RM values for auxiliary exercises - all relative to user's main lift 1RMs.
+            // Template default exercises use multipliers derived from their respective Excel templates.
+            // Strength: Squat=100, Bench=100, Deadlift=140, OHP=50, LegPress=190, Incline=90, RDL=100, DBOHP=25
+            // Hypertrophy: Squat=490, Bench=325, BlockPulls=525, OHP=200, LegPress=420, HackSquat=460, Incline=310, DBBench=280, RDL=500, DBOHP=245
+            const isHypertrophy = appData.programType === 'hypertrophy';
             const auxiliary1RMs = {
-                // Squat auxiliaries (from template)
-                'Leg Press': 420,
-                'Hack Squat': 460,
-                // Squat auxiliaries (estimated as % of squat 1RM)
+                // Squat auxiliaries - template defaults (multiplier differs by program)
+                'Leg Press': appData.oneRepMaxes.squat * (isHypertrophy ? 0.857 : 1.90),
+                'Hack Squat': appData.oneRepMaxes.squat * (isHypertrophy ? 0.939 : 1.10),
+                // Squat auxiliaries - user-selectable options (% of squat 1RM)
                 'Front Squat': appData.oneRepMaxes.squat * 0.85,
                 'Paused Squat': appData.oneRepMaxes.squat * 0.88,
                 'High Bar Squat': appData.oneRepMaxes.squat * 0.98,
@@ -9655,10 +9655,10 @@
                 'Bulgarian Split Squat': appData.oneRepMaxes.squat * 0.55,
                 'Lunges': appData.oneRepMaxes.squat * 0.50,
 
-                // Bench auxiliaries (from template)
-                'Incline Press': 310,
-                'DB Bench': 280,
-                // Bench auxiliaries (estimated as % of bench 1RM)
+                // Bench auxiliaries - template defaults
+                'Incline Press': appData.oneRepMaxes.bench * (isHypertrophy ? 0.954 : 0.90),
+                'DB Bench': appData.oneRepMaxes.bench * (isHypertrophy ? 0.862 : 0.85),
+                // Bench auxiliaries - user-selectable options (% of bench 1RM)
                 'Close Grip Bench': appData.oneRepMaxes.bench * 0.88,
                 'Long Pause Bench': appData.oneRepMaxes.bench * 0.88,
                 'Spoto Press': appData.oneRepMaxes.bench * 0.85,
@@ -9669,9 +9669,9 @@
                 'Bench With Feet Up': appData.oneRepMaxes.bench * 0.85,
                 'Bench With Slow Eccentric': appData.oneRepMaxes.bench * 0.85,
 
-                // Deadlift/Block Pull auxiliaries (from template)
-                'Romanian Deadlift': 500,
-                // Deadlift auxiliaries (estimated as % of deadlift 1RM)
+                // Deadlift auxiliaries - template defaults
+                'Romanian Deadlift': appData.oneRepMaxes.deadlift * (isHypertrophy ? 0.952 : 0.714),
+                // Deadlift auxiliaries - user-selectable options (% of deadlift 1RM)
                 'Sumo Deadlift': appData.oneRepMaxes.deadlift * 0.95,
                 'Conventional Deadlift': appData.oneRepMaxes.deadlift * 1.00,
                 'Block Pull': appData.oneRepMaxes.deadlift * 1.05,
@@ -9682,9 +9682,9 @@
                 'Trap Bar Deadlift': appData.oneRepMaxes.deadlift * 1.05,
                 'Paused Deadlift': appData.oneRepMaxes.deadlift * 0.88,
 
-                // OHP auxiliaries (from template)
-                'DB OHP': 245,
-                // OHP auxiliaries (estimated as % of OHP 1RM)
+                // OHP auxiliaries - template defaults
+                'DB OHP': appData.oneRepMaxes.ohp * (isHypertrophy ? 1.225 : 0.50),
+                // OHP auxiliaries - user-selectable options (% of OHP 1RM)
                 'Push Press': appData.oneRepMaxes.ohp * 1.15,
                 'Behind The Neck OHP': appData.oneRepMaxes.ohp * 0.85,
                 'Seated OHP': appData.oneRepMaxes.ohp * 0.95

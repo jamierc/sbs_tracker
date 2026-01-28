@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v27'; // Fix Hack Squat incorrectly appearing in strength template 3x variant
+const CACHE_VERSION = 'v28'; // Fix auxiliary exercise weight scaling - use program-type-aware 1RM multipliers
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
