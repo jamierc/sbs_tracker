@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v26'; // Added version display in Settings + version numbers in update notifications
+const CACHE_VERSION = 'v27'; // Fix Hack Squat incorrectly appearing in strength template 3x variant
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
