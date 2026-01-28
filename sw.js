@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v32'; // Add kg/lbs unit selection, fix AMRAP text size
+const CACHE_VERSION = 'v33'; // Add global kg/lbs unit setting for all weights
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',

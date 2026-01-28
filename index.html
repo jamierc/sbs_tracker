@@ -984,21 +984,21 @@
             </div>
 
             <div class="setup-section">
-                <h3>Enter your 1RM maxes (kg)</h3>
+                <h3 id="setup-1rm-header">Enter your 1RM maxes (kg)</h3>
                 <div class="form-group">
-                    <label>Squat 1RM</label>
+                    <label id="setup-label-squat">Squat 1RM</label>
                     <input type="number" id="setup-squat" value="100" step="2.5" placeholder="e.g. 100">
                 </div>
                 <div class="form-group">
-                    <label>Bench Press 1RM</label>
+                    <label id="setup-label-bench">Bench Press 1RM</label>
                     <input type="number" id="setup-bench" value="100" step="2.5" placeholder="e.g. 100">
                 </div>
                 <div class="form-group">
-                    <label>Deadlift 1RM</label>
+                    <label id="setup-label-deadlift">Deadlift 1RM</label>
                     <input type="number" id="setup-deadlift" value="140" step="2.5" placeholder="e.g. 140">
                 </div>
                 <div class="form-group">
-                    <label>OHP 1RM</label>
+                    <label id="setup-label-ohp">OHP 1RM</label>
                     <input type="number" id="setup-ohp" value="50" step="2.5" placeholder="e.g. 50">
                 </div>
             </div>
@@ -1160,21 +1160,33 @@
 
     <div id="settings-tab" class="tab-content">
         <div class="settings-section">
+            <h2>Weight Unit</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Choose your preferred weight unit. All weights throughout the app will display in this unit.</p>
+            <div class="form-group">
+                <label>Unit</label>
+                <select id="weight-unit" onchange="updateWeightUnit()">
+                    <option value="kg" selected>Kilograms (kg)</option>
+                    <option value="lbs">Pounds (lbs)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="settings-section">
             <h2>1RM Settings</h2>
             <div class="form-group">
-                <label>Squat 1RM (kg)</label>
+                <label id="label-squat-1rm">Squat 1RM (kg)</label>
                 <input type="number" id="1rm-squat" value="100" step="2.5">
             </div>
             <div class="form-group">
-                <label>Bench Press 1RM (kg)</label>
+                <label id="label-bench-1rm">Bench Press 1RM (kg)</label>
                 <input type="number" id="1rm-bench" value="100" step="2.5">
             </div>
             <div class="form-group">
-                <label>Deadlift 1RM (kg)</label>
+                <label id="label-deadlift-1rm">Deadlift 1RM (kg)</label>
                 <input type="number" id="1rm-deadlift" value="140" step="2.5">
             </div>
             <div class="form-group">
-                <label>OHP 1RM (kg)</label>
+                <label id="label-ohp-1rm">OHP 1RM (kg)</label>
                 <input type="number" id="1rm-ohp" value="50" step="2.5">
             </div>
             <button class="btn btn-secondary" onclick="save1RMs()">Save 1RMs</button>
@@ -1371,15 +1383,7 @@
             </div>
 
             <div class="form-group">
-                <label>Weight Unit</label>
-                <select id="plate-unit" onchange="updateBarbellWeightOptions()">
-                    <option value="kg" selected>Kilograms (kg)</option>
-                    <option value="lbs">Pounds (lbs)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Barbell Weight</label>
+                <label id="label-barbell-weight">Barbell Weight</label>
                 <select id="barbell-weight">
                     <option value="20" selected>20kg (Standard Olympic)</option>
                     <option value="15">15kg (Women's Olympic)</option>
@@ -9553,6 +9557,7 @@
             selectedProgram: '3x',  // 2x, 3x, 4x, 5x (or 6x for hypertrophy)
             currentWeek: 16,
             currentDay: 1,
+            weightUnit: 'kg',  // 'kg' or 'lbs' - global setting for all weights
             workouts: {},
             completedDays: {}, // Track completed days per week: { weekNum: { 1: true, 2: false, 3: true } }
             oneRepMaxes: {
@@ -9571,9 +9576,8 @@
             },
             plateCalculator: {
                 enabled: true,
-                unit: 'kg',  // 'kg' or 'lbs'
-                barbellWeight: 20,  // kg
-                availablePlates: [20, 15, 10, 5, 2.5, 1.25]  // kg, sorted descending
+                barbellWeight: 20,  // stored in same unit as weightUnit
+                availablePlates: [20, 15, 10, 5, 2.5, 1.25]  // stored in same unit as weightUnit
             },
             personalRecords: {
                 // Track PRs per exercise: { exerciseName: { estimated1RM, weight, reps, date, week } }
@@ -9627,6 +9631,31 @@
         }
 
         // Load/save data
+        // Weight conversion and display helpers
+        const KG_TO_LBS = 2.20462;
+        const LBS_TO_KG = 1 / KG_TO_LBS;
+
+        function kgToLbs(kg) {
+            return kg * KG_TO_LBS;
+        }
+
+        function lbsToKg(lbs) {
+            return lbs * LBS_TO_KG;
+        }
+
+        function displayWeight(kg) {
+            const unit = appData.weightUnit || 'kg';
+            if (unit === 'lbs') {
+                const lbs = kgToLbs(kg);
+                return `${Math.round(lbs * 2) / 2} lbs`; // Round to nearest 0.5 lbs
+            }
+            return `${kg} kg`;
+        }
+
+        function getWeightUnit() {
+            return appData.weightUnit || 'kg';
+        }
+
         function loadData() {
             const saved = localStorage.getItem('sbs-tracker-v2');
             if (saved) {
@@ -9992,12 +10021,12 @@
                 <div class="exercise-card">
                     <div class="exercise-name">
                         ${ex.name}
-                        ${hasPR ? `<span class="pr-badge">PR: ${Math.round(currentPR.estimated1RM)}kg</span>` : ''}
+                        ${hasPR ? `<span class="pr-badge">PR: ${Math.round(currentPR.estimated1RM)} ${getWeightUnit()}</span>` : ''}
                     </div>
                     <div class="exercise-details">
                         <div>
                             <div class="detail-label">Weight</div>
-                            <div class="detail-value">${ex.weight} kg</div>
+                            <div class="detail-value">${ex.weight} ${getWeightUnit()}</div>
                         </div>
                         <div>
                             <div class="detail-label">Reps per Set</div>
@@ -10233,7 +10262,7 @@
                 const currentEst1RM = calculateEstimated1RM(ex.weight, ex.amrapReps);
                 if (currentEst1RM > currentPR.estimated1RM) {
                     const improvement = Math.round(currentEst1RM - currentPR.estimated1RM);
-                    hintEl.textContent = `🎉 NEW PR! +${improvement}kg on estimated 1RM!`;
+                    hintEl.textContent = `🎉 NEW PR! +${improvement} ${getWeightUnit()} on estimated 1RM!`;
                     hintEl.className = 'pr-beat-hint beating';
                 } else {
                     const repsNeeded = calculateRepsNeededToBeatPR(ex.weight, currentPR.estimated1RM);
@@ -10282,7 +10311,7 @@
             hapticFeedback('success');
 
             const estimated1RM = calculateEstimated1RM(exercise.weight, exercise.amrapReps);
-            const message = `🎉 NEW PR! 🎉\n\n${exercise.name}\n${exercise.weight}kg × ${exercise.amrapReps} reps\nEstimated 1RM: ${Math.round(estimated1RM)}kg`;
+            const message = `🎉 NEW PR! 🎉\n\n${exercise.name}\n${exercise.weight} ${getWeightUnit()} × ${exercise.amrapReps} reps\nEstimated 1RM: ${Math.round(estimated1RM)} ${getWeightUnit()}`;
             alert(message);
         }
 
@@ -10434,13 +10463,13 @@
 
             if (diff < 0) {
                 hint.className = 'progression-hint progression-negative';
-                hint.textContent = `${diff} from target. Next week: ~${nextWeight}kg (${change >= 0 ? '+' : ''}${change}kg)`;
+                hint.textContent = `${diff} from target. Next week: ~${nextWeight} ${getWeightUnit()} (${change >= 0 ? '+' : ''}${change} ${getWeightUnit()})`;
             } else if (diff > 0) {
                 hint.className = 'progression-hint progression-positive';
-                hint.textContent = `+${diff} from target! Next week: ~${nextWeight}kg (+${change}kg)`;
+                hint.textContent = `+${diff} from target! Next week: ~${nextWeight} ${getWeightUnit()} (+${change} ${getWeightUnit()})`;
             } else {
                 hint.className = 'progression-hint';
-                hint.textContent = `Target hit! Next week: ~${nextWeight}kg`;
+                hint.textContent = `Target hit! Next week: ~${nextWeight} ${getWeightUnit()}`;
             }
         }
 
@@ -10637,11 +10666,14 @@
                 document.getElementById('settings-ohp-aux').value = appData.auxiliaryExercises['ohp-aux'] || appData.auxiliaryExercises.ohp || 'DB OHP';
             }
 
+            // Load weight unit setting
+            const unit = appData.weightUnit || 'kg';
+            document.getElementById('weight-unit').value = unit;
+            updateWeightUnitLabels();
+
             // Load plate calculator settings
             if (appData.plateCalculator) {
                 document.getElementById('plate-calculator-enabled').checked = appData.plateCalculator.enabled !== false;
-                const unit = appData.plateCalculator.unit || 'kg';
-                document.getElementById('plate-unit').value = unit;
                 updateBarbellWeightOptions();
                 document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight || (unit === 'kg' ? 20 : 45);
             }
@@ -10910,7 +10942,7 @@
             }
 
             // CSV headers
-            let csvContent = 'Week,Day,Exercise,Weight (kg),Reps,Target,Sets,AMRAP Reps,Completed\n';
+            let csvContent = `Week,Day,Exercise,Weight (${getWeightUnit()}),Reps,Target,Sets,AMRAP Reps,Completed\n`;
 
             // Add workout data
             weeks.forEach(weekNum => {
@@ -11011,7 +11043,7 @@
 
             const barbellWeight = appData.plateCalculator.barbellWeight;
             const availablePlates = appData.plateCalculator.availablePlates;
-            const unit = appData.plateCalculator.unit || 'kg';
+            const unit = appData.weightUnit || 'kg';
 
             // Weight per side (subtract barbell, divide by 2)
             let weightPerSide = (weight - barbellWeight) / 2;
@@ -11043,7 +11075,7 @@
                 plates: plates,
                 perSide: weightPerSide,
                 remainder: remainder,
-                error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)}${unit}` : null
+                error: remainder > 0.1 ? `Closest: ${(weight - remainder * 2).toFixed(1)} ${unit}` : null
             };
         }
 
@@ -11076,12 +11108,12 @@
             }
 
             const barbellWeight = appData.plateCalculator.barbellWeight;
-            const unit = appData.plateCalculator.unit || 'kg';
+            const unit = appData.weightUnit || 'kg';
 
             // Calculate summary text
             let summaryText = '';
             if (result.plates.length === 0) {
-                summaryText = `Empty bar (${barbellWeight}${unit})`;
+                summaryText = `Empty bar (${barbellWeight} ${unit})`;
             } else {
                 const plateCounts = {};
                 result.plates.forEach(plate => {
@@ -11112,20 +11144,95 @@
             return html;
         }
 
+        function updateWeightUnitLabels() {
+            const unit = appData.weightUnit || 'kg';
+            const unitText = unit === 'kg' ? 'kg' : 'lbs';
+            const step = unit === 'kg' ? '2.5' : '5';
+
+            // Update 1RM labels in settings
+            document.getElementById('label-squat-1rm').textContent = `Squat 1RM (${unitText})`;
+            document.getElementById('label-bench-1rm').textContent = `Bench Press 1RM (${unitText})`;
+            document.getElementById('label-deadlift-1rm').textContent = `Deadlift 1RM (${unitText})`;
+            document.getElementById('label-ohp-1rm').textContent = `OHP 1RM (${unitText})`;
+
+            // Update step values
+            document.getElementById('1rm-squat').step = step;
+            document.getElementById('1rm-bench').step = step;
+            document.getElementById('1rm-deadlift').step = step;
+            document.getElementById('1rm-ohp').step = step;
+
+            // Update quick setup labels
+            if (document.getElementById('setup-1rm-header')) {
+                document.getElementById('setup-1rm-header').textContent = `Enter your 1RM maxes (${unitText})`;
+            }
+            if (document.getElementById('setup-squat')) {
+                document.getElementById('setup-squat').step = step;
+                document.getElementById('setup-bench').step = step;
+                document.getElementById('setup-deadlift').step = step;
+                document.getElementById('setup-ohp').step = step;
+            }
+
+            // Update barbell weight label
+            document.getElementById('label-barbell-weight').textContent = `Barbell Weight (${unitText})`;
+        }
+
+        function updateWeightUnit() {
+            const newUnit = document.getElementById('weight-unit').value;
+            const oldUnit = appData.weightUnit || 'kg';
+
+            if (newUnit !== oldUnit) {
+                // Convert all weights
+                const conversionFactor = newUnit === 'lbs' ? KG_TO_LBS : LBS_TO_KG;
+                const roundTo = newUnit === 'lbs' ? 0.5 : 0.25;
+
+                // Convert 1RMs
+                appData.oneRepMaxes.squat = Math.round((appData.oneRepMaxes.squat * conversionFactor) / roundTo) * roundTo;
+                appData.oneRepMaxes.bench = Math.round((appData.oneRepMaxes.bench * conversionFactor) / roundTo) * roundTo;
+                appData.oneRepMaxes.deadlift = Math.round((appData.oneRepMaxes.deadlift * conversionFactor) / roundTo) * roundTo;
+                appData.oneRepMaxes.ohp = Math.round((appData.oneRepMaxes.ohp * conversionFactor) / roundTo) * roundTo;
+
+                // Update 1RM inputs
+                document.getElementById('1rm-squat').value = appData.oneRepMaxes.squat;
+                document.getElementById('1rm-bench').value = appData.oneRepMaxes.bench;
+                document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
+                document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
+
+                // Convert plate calculator barbell weight
+                appData.plateCalculator.barbellWeight = Math.round((appData.plateCalculator.barbellWeight * conversionFactor) / roundTo) * roundTo;
+
+                // Update available plates based on unit
+                if (newUnit === 'kg') {
+                    appData.plateCalculator.availablePlates = [20, 15, 10, 5, 2.5, 1.25];
+                } else {
+                    appData.plateCalculator.availablePlates = [45, 35, 25, 10, 5, 2.5];
+                }
+
+                appData.weightUnit = newUnit;
+                updateWeightUnitLabels();
+                updateBarbellWeightOptions();
+                document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight;
+
+                saveData();
+                renderWorkout();
+
+                alert(`Weight unit changed to ${newUnit}. All weights have been converted.`);
+            }
+        }
+
         function updateBarbellWeightOptions() {
-            const unit = document.getElementById('plate-unit').value;
+            const unit = appData.weightUnit || 'kg';
             const barbellWeightSelect = document.getElementById('barbell-weight');
 
             if (unit === 'kg') {
                 barbellWeightSelect.innerHTML = `
-                    <option value="20" selected>20kg (Standard Olympic)</option>
+                    <option value="20">20kg (Standard Olympic)</option>
                     <option value="15">15kg (Women's Olympic)</option>
                     <option value="10">10kg (Training Bar)</option>
                     <option value="0">0kg (Dumbbells/Machines)</option>
                 `;
             } else {
                 barbellWeightSelect.innerHTML = `
-                    <option value="45" selected>45lbs (Standard Olympic)</option>
+                    <option value="45">45lbs (Standard Olympic)</option>
                     <option value="35">35lbs (Women's Olympic)</option>
                     <option value="15">15lbs (Training Bar)</option>
                     <option value="0">0lbs (Dumbbells/Machines)</option>
@@ -11135,19 +11242,10 @@
 
         function savePlateSettings() {
             const enabled = document.getElementById('plate-calculator-enabled').checked;
-            const unit = document.getElementById('plate-unit').value;
             const barbellWeight = parseFloat(document.getElementById('barbell-weight').value);
 
             appData.plateCalculator.enabled = enabled;
-            appData.plateCalculator.unit = unit;
             appData.plateCalculator.barbellWeight = barbellWeight;
-
-            // Update available plates based on unit
-            if (unit === 'kg') {
-                appData.plateCalculator.availablePlates = [20, 15, 10, 5, 2.5, 1.25];
-            } else {
-                appData.plateCalculator.availablePlates = [45, 35, 25, 10, 5, 2.5];
-            }
 
             saveData();
             renderWorkout();
@@ -11205,7 +11303,7 @@
                                 <strong>Day ${day}</strong>
                                 ${weekData[day].map(ex => `
                                     <div class="history-exercise">
-                                        ${ex.name}: ${ex.weight}kg × ${ex.reps} reps × ${ex.sets} sets
+                                        ${ex.name}: ${ex.weight} ${getWeightUnit()} × ${ex.reps} reps × ${ex.sets} sets
                                         ${ex.amrapReps !== undefined ? `<span class="completed-badge">AMRAP: ${ex.amrapReps}</span>` : ''}
                                     </div>
                                 `).join('')}
@@ -11291,7 +11389,7 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.totalVolume.toLocaleString()}</div>
-                        <div class="stat-label">Total Volume (kg)</div>
+                        <div class="stat-label">Total Volume (${getWeightUnit()})</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.workoutsCompleted}</div>
@@ -11423,9 +11521,9 @@
                     <div class="lift-progress">
                         <div class="lift-name">${liftName}</div>
                         <div class="lift-stats">
-                            <span>Est. 1RM: ${last1RM.toFixed(1)}kg</span>
+                            <span>Est. 1RM: ${last1RM.toFixed(1)} ${getWeightUnit()}</span>
                             <span class="lift-change ${change >= 0 ? 'positive' : 'negative'}">
-                                ${change >= 0 ? '+' : ''}${change.toFixed(1)}kg (${changePercent >= 0 ? '+' : ''}${changePercent}%)
+                                ${change >= 0 ? '+' : ''}${change.toFixed(1)} ${getWeightUnit()} (${changePercent >= 0 ? '+' : ''}${changePercent}%)
                             </span>
                         </div>
                     </div>
@@ -11450,8 +11548,8 @@
                     <div class="lift-progress">
                         <div class="lift-name">${liftName}</div>
                         <div class="lift-stats">
-                            <span>Avg: ${avgWeight.toFixed(1)}kg</span>
-                            <span>Volume: ${(totalVolume / 1000).toFixed(1)}k kg</span>
+                            <span>Avg: ${avgWeight.toFixed(1)} ${getWeightUnit()}</span>
+                            <span>Volume: ${(totalVolume / 1000).toFixed(1)}k ${getWeightUnit()}</span>
                             <span>AMRAPs: ${completedAMRAPs}</span>
                         </div>
                     </div>
@@ -11489,8 +11587,8 @@
                             <div>
                                 <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">${pr.name}</div>
                                 <div style="font-size: 12px; opacity: 0.9;">
-                                    ${pr.weight}kg × ${pr.reps} reps
-                                    <span style="margin-left: 10px; font-weight: 600;">e1RM: ${Math.round(pr.estimated1RM)}kg</span>
+                                    ${pr.weight} ${getWeightUnit()} × ${pr.reps} reps
+                                    <span style="margin-left: 10px; font-weight: 600;">e1RM: ${Math.round(pr.estimated1RM)} ${getWeightUnit()}</span>
                                 </div>
                             </div>
                             <div style="text-align: right; font-size: 11px; opacity: 0.8;">
