@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v30'; // Fix AMRAP circle text and remove 25kg plate
+const CACHE_VERSION = 'v31'; // Fix AMRAP circle duplicate text and question mark on reset
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
