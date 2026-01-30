@@ -41,3 +41,7 @@ Apply the polished UI from `SBS_Codex_preview/index.html` across `sbs_tracker/in
 - Removed the plate calculator emoji from the header label.
 - Refined AMRAP circle sizing/border and fixed AMRAP input/visual sync when reps are cleared or set to 0.
 - Updated service worker to use network-first for HTML and bumped cache version to reduce stale UI after deploys.
+- Simplified plate calculator UI (chips only) and fixed per-side precision display.
+- Redesigned AMRAP display as a stacked chip (circle + label) and fixed decrement button state sync.
+- Replaced update confirm dialog with an update-available toast action.
+- Bumped service worker cache version to v35.

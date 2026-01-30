@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v34'; // Network-first HTML to avoid stale UI
+const CACHE_VERSION = 'v35'; // Update toast + caching tweaks
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',

@@ -873,13 +873,19 @@ select:focus-visible {
     color: #fff;
 }
 
+.amrap-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
 .set-circle.amrap-circle {
     position: relative;
     border: 2px dashed rgba(14, 165, 164, 0.55);
     background: rgba(14, 165, 164, 0.08);
     color: var(--accent);
     cursor: default;
-    overflow: visible;
 }
 
 .set-circle.amrap-circle:hover {
@@ -896,24 +902,6 @@ select:focus-visible {
     border: 1px solid rgba(14, 165, 164, 0.25);
 }
 
-.set-circle.amrap-circle::before {
-    content: 'AMRAP';
-    position: absolute;
-    bottom: -16px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--text-soft);
-    background: #fff;
-    padding: 2px 6px;
-    border-radius: 999px;
-    border: 1px solid rgba(14, 165, 164, 0.25);
-    box-shadow: var(--shadow-xs);
-    white-space: nowrap;
-}
-
 .set-circle.amrap-circle.has-value {
     background: linear-gradient(140deg, rgba(14, 165, 164, 0.95), rgba(29, 78, 216, 0.9));
     border-style: solid;
@@ -925,16 +913,29 @@ select:focus-visible {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-.set-circle.amrap-circle.has-value::before {
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(15, 23, 42, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
 .amrap-value {
     font-size: 19px;
     font-weight: 800;
     line-height: 1;
+}
+
+.amrap-label {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    background: #fff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(14, 165, 164, 0.25);
+    box-shadow: var(--shadow-xs);
+    white-space: nowrap;
+}
+
+.amrap-chip.has-value .amrap-label {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(15, 23, 42, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .rest-timer {
@@ -1396,6 +1397,21 @@ select:focus-visible {
 
 .toast-close:hover {
     color: var(--text);
+}
+
+.toast-action {
+    background: var(--brand-contrast);
+    color: var(--brand-strong);
+    border: 1px solid rgba(29, 78, 216, 0.25);
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.toast-action:hover {
+    background: rgba(29, 78, 216, 0.12);
 }
 
 .toast-info {
@@ -10664,6 +10680,38 @@ select:focus-visible {
             }
         }
 
+        function showUpdateToast(message, onAction, actionLabel = 'Update', duration = 10000) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-info';
+
+            const messageEl = document.createElement('div');
+            messageEl.className = 'toast-message';
+            messageEl.textContent = message;
+
+            const actionBtn = document.createElement('button');
+            actionBtn.className = 'toast-action';
+            actionBtn.textContent = actionLabel;
+            actionBtn.onclick = () => {
+                if (onAction) onAction();
+                removeToast(toast);
+            };
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'toast-close';
+            closeBtn.innerHTML = '×';
+            closeBtn.onclick = () => removeToast(toast);
+
+            toast.appendChild(messageEl);
+            toast.appendChild(actionBtn);
+            toast.appendChild(closeBtn);
+            container.appendChild(toast);
+
+            setTimeout(() => removeToast(toast), duration);
+        }
+
         function removeToast(toast) {
             if (!toast || !toast.parentNode) return;
             toast.style.opacity = '0';
@@ -10708,6 +10756,13 @@ select:focus-visible {
             // Re-render to update button states
             const valueEl = document.getElementById(`amrap-${day}-${exIdx}`);
             if (valueEl) {
+                const stepper = valueEl.closest('.stepper-control');
+                if (stepper) {
+                    const decBtn = stepper.querySelector('.stepper-btn');
+                    if (decBtn) {
+                        decBtn.disabled = newReps <= 0;
+                    }
+                }
                 if (newReps <= 0) {
                     valueEl.value = '';
                     valueEl.classList.add('empty');
@@ -10729,7 +10784,16 @@ select:focus-visible {
             const reps = parseInt(value);
             if (!isNaN(reps) && reps >= 0) {
                 updateAmrap(day, exIdx, reps);
-                if (inputEl) inputEl.classList.remove('empty');
+                if (inputEl) inputEl.classList.toggle('empty', reps <= 0);
+                if (inputEl) {
+                    const stepper = inputEl.closest('.stepper-control');
+                    if (stepper) {
+                        const decBtn = stepper.querySelector('.stepper-btn');
+                        if (decBtn) {
+                            decBtn.disabled = reps <= 0;
+                        }
+                    }
+                }
             }
         }
 
@@ -10743,14 +10807,18 @@ select:focus-visible {
                     ex.amrapReps = reps;
                 }
 
-                // Update AMRAP circle
-                const amrapCircle = document.querySelector(`[data-set="${day}-${exIdx}-amrap"]`);
-                if (amrapCircle) {
-                    const hasValue = reps > 0;
-                    amrapCircle.classList.toggle('has-value', hasValue);
-                    const valueEl = amrapCircle.querySelector('.amrap-value');
-                    if (valueEl) valueEl.textContent = hasValue ? reps : '?';
+            // Update AMRAP circle
+            const amrapChip = document.querySelector(`[data-set="${day}-${exIdx}-amrap"]`);
+            if (amrapChip) {
+                const hasValue = reps > 0;
+                amrapChip.classList.toggle('has-value', hasValue);
+                const circle = amrapChip.querySelector('.amrap-circle');
+                if (circle) {
+                    circle.classList.toggle('has-value', hasValue);
                 }
+                const valueEl = amrapChip.querySelector('.amrap-value');
+                if (valueEl) valueEl.textContent = hasValue ? reps : '?';
+            }
 
                 // Check for PR (but don't show notification yet)
                 const isPR = checkAndUpdatePR(ex, appData.currentWeek);
@@ -11639,9 +11707,12 @@ select:focus-visible {
             }
             if (hasAmrap) {
                 const hasVal = ex.amrapReps !== undefined && ex.amrapReps > 0;
-                html += `<button class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap">
-                    <span class="amrap-value">${hasVal ? ex.amrapReps : '?'}</span>
-                </button>`;
+                html += `<div class="amrap-chip ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap">
+                    <div class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}">
+                        <span class="amrap-value">${hasVal ? ex.amrapReps : '?'}</span>
+                    </div>
+                    <span class="amrap-label">AMRAP</span>
+                </div>`;
             }
             html += '</div>';
             return html;
@@ -11666,7 +11737,7 @@ select:focus-visible {
             let chipsHtml = '';
             if (result.plates.length === 0) {
                 summaryText = `Empty bar (${barbellWeight} ${unit})`;
-                chipsHtml = `<div class="plate-empty">No plates needed</div>`;
+                chipsHtml = `<div class="plate-empty">${summaryText}</div>`;
             } else {
                 const plateCounts = {};
                 result.plates.forEach(plate => {
@@ -11682,13 +11753,16 @@ select:focus-visible {
                 chipsHtml = `<div class="plate-chips">${chipParts.join('')}</div>`;
             }
 
+            const perSideText = result.perSide % 1 === 0
+                ? result.perSide.toString()
+                : result.perSide.toFixed(2).replace(/\.?0+$/, '');
+
             let html = `
                 <div class="plate-calculator">
                     <div class="plate-calculator-header">
                         <div class="plate-summary-label">Plates per side</div>
                         <div class="plate-total">Total: ${weight} ${unit}</div>
                     </div>
-                    <div class="plate-summary-value">${summaryText}</div>
                     ${chipsHtml}
                     <div class="plate-info">
                         <div>
@@ -11697,7 +11771,7 @@ select:focus-visible {
                         </div>
                         <div>
                             <div class="plate-info-label">Per side</div>
-                            <div class="plate-info-value">${result.perSide.toFixed(1)} ${unit}</div>
+                            <div class="plate-info-value">${perSideText} ${unit}</div>
                         </div>
                     </div>
                 </div>`;
@@ -12414,16 +12488,20 @@ select:focus-visible {
                                             const newVersion = versionMatch ? versionMatch[1] : 'unknown';
                                             const currentVersion = window.appVersion || 'unknown';
 
-                                            // Show update notification with version numbers
-                                            const message = `🎉 New version available!\n\nCurrent: ${currentVersion}\nNew: ${newVersion}\n\nClick OK to update now.`;
-                                            if (confirm(message)) {
-                                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                            if (!window.updateToastShown) {
+                                                window.updateToastShown = true;
+                                                const message = `Update available: ${currentVersion} → ${newVersion}`;
+                                                showUpdateToast(message, () => {
+                                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                                });
                                             }
                                         })
                                         .catch(() => {
-                                            // Fallback if fetch fails
-                                            if (confirm('A new version of SBS Tracker is available! Click OK to update now.')) {
-                                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                            if (!window.updateToastShown) {
+                                                window.updateToastShown = true;
+                                                showUpdateToast('A new version of SBS Tracker is available.', () => {
+                                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                                });
                                             }
                                         });
                                 }
