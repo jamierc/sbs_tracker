@@ -40,3 +40,4 @@ Apply the polished UI from `SBS_Codex_preview/index.html` across `sbs_tracker/in
 - Restyled AMRAP circle to remove overlapping text and added an external AMRAP badge.
 - Removed the plate calculator emoji from the header label.
 - Refined AMRAP circle sizing/border and fixed AMRAP input/visual sync when reps are cleared or set to 0.
+- Updated service worker to use network-first for HTML and bumped cache version to reduce stale UI after deploys.

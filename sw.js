@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v33'; // Add global kg/lbs unit setting for all weights
+const CACHE_VERSION = 'v34'; // Network-first HTML to avoid stale UI
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
@@ -34,25 +34,41 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const acceptsHtml = request.headers.get('accept') && request.headers.get('accept').includes('text/html');
+
+  // Network-first for HTML to avoid stale UI after deploys
+  if (request.mode === 'navigate' || acceptsHtml) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, responseToCache));
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Cache-first for static assets
   event.respondWith(
-    caches.match(event.request)
+    caches.match(request)
       .then((response) => {
         if (response) {
           return response;
         }
-        return fetch(event.request).then(
-          (response) => {
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+        return fetch(request).then((response) => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
-        );
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then((cache) => {
+              cache.put(request, responseToCache);
+            });
+          return response;
+        });
       })
   );
 });
