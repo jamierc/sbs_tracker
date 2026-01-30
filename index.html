@@ -924,6 +924,40 @@ select:focus-visible {
     line-height: 1;
 }
 
+.amrap-helper {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-soft);
+}
+
+.set-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.set-action-btn {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.set-action-btn:hover {
+    color: var(--text);
+    border-color: rgba(29, 78, 216, 0.4);
+}
+
+.completed-badge.muted {
+    background: rgba(15, 23, 42, 0.08);
+    color: var(--text-muted);
+}
+
 .rest-timer {
     position: fixed;
     bottom: 90px;
@@ -1871,6 +1905,14 @@ select:focus-visible {
                 <input type="file" id="import-file" accept=".json" class="file-input">
             </div>
             <button class="btn btn-secondary" onclick="importFromJSON()">Import Backup</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Diagnostics</h2>
+            <p class="helper-text">Generate a debug snapshot if you need to share details for troubleshooting.</p>
+
+            <button class="btn btn-secondary" onclick="copyDebugSnapshot()">Copy Debug Snapshot</button>
+            <button class="btn btn-secondary" onclick="downloadDebugSnapshot()">Download Debug JSON</button>
         </div>
 
         <div class="settings-section">
@@ -10081,7 +10123,9 @@ select:focus-visible {
         };
 
         // App state
+        const DATA_VERSION = 2;
         let appData = {
+            version: DATA_VERSION,
             programType: 'strength',  // 'strength' or 'hypertrophy'
             selectedProgram: '3x',  // 2x, 3x, 4x, 5x (or 6x for hypertrophy)
             currentWeek: 16,
@@ -10185,10 +10229,61 @@ select:focus-visible {
             return appData.weightUnit || 'kg';
         }
 
+        function isDayComplete(weekNum, dayNum) {
+            const completed = appData.completedDays?.[weekNum]?.[dayNum] === true;
+            const weekData = appData.workouts?.[weekNum];
+            if (!weekData || !weekData[dayNum]) return completed;
+            const hasAmraps = weekData[dayNum].some(ex => ex.amrapReps !== undefined);
+            return completed || hasAmraps;
+        }
+
+        function migrateData(data) {
+            const migrated = {...data};
+            if (!migrated.version) {
+                migrated.version = 1;
+            }
+
+            if (!migrated.completedDays) migrated.completedDays = {};
+            if (!migrated.workouts) migrated.workouts = {};
+            if (!migrated.personalRecords) migrated.personalRecords = {};
+            if (!migrated.restTimer) {
+                migrated.restTimer = { enabled: true, duration: 180, autoStart: false };
+            }
+            if (!migrated.plateCalculator) {
+                migrated.plateCalculator = {
+                    enabled: true,
+                    barbellWeight: migrated.weightUnit === 'kg' ? 20 : 45,
+                    availablePlates: migrated.weightUnit === 'kg'
+                        ? [20, 15, 10, 5, 2.5, 1.25]
+                        : [45, 35, 25, 10, 5, 2.5]
+                };
+            }
+
+            migrated.version = DATA_VERSION;
+            return migrated;
+        }
+
+        function ensureDayState(weekNum, dayNum) {
+            const weekData = appData.workouts[weekNum];
+            if (!weekData || !weekData[dayNum]) return;
+
+            weekData[dayNum].forEach(ex => {
+                const hasAmrap = !!ex.target;
+                const clickableCount = hasAmrap ? ex.sets - 1 : ex.sets;
+                if (!ex.completedSets || ex.completedSets.length !== clickableCount) {
+                    ex.completedSets = new Array(clickableCount).fill(false);
+                }
+            });
+        }
+
+        function prepareCurrentDay() {
+            ensureDayState(appData.currentWeek, appData.currentDay);
+        }
+
         function loadData() {
             const saved = localStorage.getItem('sbs-tracker-v2');
             if (saved) {
-                const data = JSON.parse(saved);
+                const data = migrateData(JSON.parse(saved));
                 appData = {...appData, ...data};
             }
 
@@ -10196,6 +10291,7 @@ select:focus-visible {
             if (!appData.workouts[appData.currentWeek]) {
                 appData.workouts[appData.currentWeek] = getWeekData(appData.currentWeek);
             }
+            ensureDayState(appData.currentWeek, appData.currentDay);
         }
 
         function saveData() {
@@ -10214,19 +10310,19 @@ select:focus-visible {
                 : ALL_PROGRAMS;
 
             if (!programSource) {
-                alert('Hypertrophy program data not loaded yet. Please refresh the page.');
+                showToast('Hypertrophy program data not loaded yet. Please refresh.', 'error', 5000);
                 return {1: []};
             }
 
             const programData = programSource[appData.selectedProgram];
             if (!programData) {
-                alert(`Program ${appData.selectedProgram} not found!`);
+                showToast(`Program ${appData.selectedProgram} not found.`, 'error', 5000);
                 return {1: []};
             }
 
             const weekData = programData[weekNum.toString()];
             if (!weekData) {
-                alert(`Week ${weekNum} data not found for ${appData.selectedProgram}!`);
+                showToast(`Week ${weekNum} data not found for ${appData.selectedProgram}.`, 'error', 5000);
                 return {1: []};
             }
 
@@ -10388,20 +10484,8 @@ select:focus-visible {
 
             const weekData = appData.workouts[weekNum];
 
-            // Check if any day has AMRAP data
             for (let day = 1; day <= getNumDays(); day++) {
-                if (weekData[day]) {
-                    const hasAmrap = weekData[day].some(ex => ex.amrapReps !== undefined);
-                    if (hasAmrap) {
-                        return true;
-                    }
-                }
-            }
-
-            // Check if any day is marked as completed
-            if (appData.completedDays[weekNum]) {
-                const completedDaysInWeek = Object.values(appData.completedDays[weekNum]);
-                if (completedDaysInWeek.some(completed => completed === true)) {
+                if (weekData[day] && isDayComplete(weekNum, day)) {
                     return true;
                 }
             }
@@ -10503,16 +10587,16 @@ select:focus-visible {
 
         function selectDay(day) {
             appData.currentDay = day;
+            ensureDayState(appData.currentWeek, appData.currentDay);
             updateDayButtons();
             renderWorkout();
         }
 
         function updateDayButtons() {
-            const completedDaysForWeek = appData.completedDays[appData.currentWeek] || {};
             document.querySelectorAll('.day-btn').forEach((btn, idx) => {
                 const dayNum = idx + 1;
                 btn.classList.toggle('active', dayNum === appData.currentDay);
-                btn.classList.toggle('completed', completedDaysForWeek[dayNum] === true);
+                btn.classList.toggle('completed', isDayComplete(appData.currentWeek, dayNum));
             });
         }
 
@@ -10529,13 +10613,6 @@ select:focus-visible {
             container.innerHTML = exercises.map((ex, idx) => {
                 const currentPR = appData.personalRecords[ex.name];
                 const hasPR = currentPR !== undefined;
-
-                // Initialize completedSets if not present
-                const hasAmrap = !!ex.target;
-                const clickableCount = hasAmrap ? ex.sets - 1 : ex.sets;
-                if (!ex.completedSets || ex.completedSets.length !== clickableCount) {
-                    ex.completedSets = new Array(clickableCount).fill(false);
-                }
 
                 // Calculate reps needed to beat PR
                 let prBeatText = '';
@@ -10571,6 +10648,10 @@ select:focus-visible {
                         </div>
                     </div>
                     ${renderSetCircles(ex, appData.currentDay, idx)}
+                    <div class="set-actions">
+                        <button class="set-action-btn" onclick="completeAllSets(${appData.currentDay}, ${idx})">Complete sets</button>
+                        <button class="set-action-btn" onclick="resetSets(${appData.currentDay}, ${idx})">Reset sets</button>
+                    </div>
                     ${renderPlateDisplay(ex.weight)}
                     ${ex.target ? `
                     <div class="amrap-input">
@@ -10589,6 +10670,7 @@ select:focus-visible {
                             <button class="stepper-btn" onclick="adjustAmrap(${appData.currentDay}, ${idx}, 1)">+</button>
                         </div>
                     </div>
+                    <div class="amrap-helper">AMRAP is required to track progress and PRs.</div>
                     ${prBeatText}
                     <div class="progression-hint" id="hint-${appData.currentDay}-${idx}"></div>
                     ` : '<div class="note note-muted">Deload week - no AMRAP</div>'}
@@ -10727,6 +10809,24 @@ select:focus-visible {
                 circle.classList.toggle('completed', ex.completedSets[setIdx]);
             }
             saveData();
+        }
+
+        function completeAllSets(day, exIdx) {
+            const ex = appData.workouts[appData.currentWeek][day][exIdx];
+            const hasAmrap = !!ex.target;
+            const clickableCount = hasAmrap ? ex.sets - 1 : ex.sets;
+            ex.completedSets = new Array(clickableCount).fill(true);
+            saveData();
+            renderWorkout();
+        }
+
+        function resetSets(day, exIdx) {
+            const ex = appData.workouts[appData.currentWeek][day][exIdx];
+            const hasAmrap = !!ex.target;
+            const clickableCount = hasAmrap ? ex.sets - 1 : ex.sets;
+            ex.completedSets = new Array(clickableCount).fill(false);
+            saveData();
+            renderWorkout();
         }
 
         function adjustAmrap(day, exIdx, delta) {
@@ -10905,12 +11005,9 @@ select:focus-visible {
         }
 
         function showPRNotification(exercise) {
-            // Haptic feedback for PR achievement
             hapticFeedback('success');
-
             const estimated1RM = calculateEstimated1RM(exercise.weight, exercise.amrapReps);
-            const message = `🎉 NEW PR! 🎉\n\n${exercise.name}\n${exercise.weight} ${getWeightUnit()} × ${exercise.amrapReps} reps\nEstimated 1RM: ${Math.round(estimated1RM)} ${getWeightUnit()}`;
-            alert(message);
+            showToast(`New PR: ${exercise.name} · e1RM ${Math.round(estimated1RM)} ${getWeightUnit()}`, 'success', 6000);
         }
 
         // Rest Timer Functions
@@ -11003,10 +11100,7 @@ select:focus-visible {
             // Play audio notification
             playTimerSound();
 
-            // Show alert
-            setTimeout(() => {
-                alert('Rest period complete! Ready for your next set.');
-            }, 100);
+            showToast('Rest period complete! Ready for your next set.', 'success', 5000);
 
             // Update button visibility
             document.getElementById('start-timer-btn').style.display = 'inline-block';
@@ -11077,6 +11171,24 @@ select:focus-visible {
 
             const currentDay = appData.currentDay;
             const currentWeek = appData.currentWeek;
+            const dayExercises = appData.workouts[currentWeek]?.[currentDay] || [];
+            const missingAmraps = dayExercises.filter(ex => ex.target && ex.amrapReps === undefined);
+
+            if (missingAmraps.length > 0) {
+                showUpdateToast(
+                    `AMRAP missing for ${missingAmraps.length} exercise${missingAmraps.length > 1 ? 's' : ''}.`,
+                    () => finalizeDayComplete(currentWeek, currentDay),
+                    'Complete anyway',
+                    8000
+                );
+                return;
+            }
+
+            finalizeDayComplete(currentWeek, currentDay);
+        }
+
+        function finalizeDayComplete(currentWeek, currentDay) {
+            const numDays = getNumDays();
 
             // Initialize completedDays for this week if not exists
             if (!appData.completedDays[currentWeek]) {
@@ -11087,7 +11199,6 @@ select:focus-visible {
             appData.completedDays[currentWeek][currentDay] = true;
 
             // Check if all days are complete
-            const numDays = getNumDays();
             const allDaysComplete = Array.from({length: numDays}, (_, i) => i + 1)
                 .every(day => appData.completedDays[currentWeek][day] === true);
 
@@ -11099,7 +11210,7 @@ select:focus-visible {
                 if (confirm(`All days complete! Move to Week ${currentWeek + 1}?`)) {
                     advanceWeekWithProgression();
                 } else {
-                    alert(`Day ${currentDay} marked complete!`);
+                    showToast(`Day ${currentDay} marked complete!`, 'success');
                 }
             } else {
                 // Move to next incomplete day
@@ -11112,10 +11223,11 @@ select:focus-visible {
                 }
                 if (nextDay !== currentDay) {
                     appData.currentDay = nextDay;
+                    ensureDayState(currentWeek, nextDay);
                     saveData();
                     renderWorkout();
                 }
-                alert(`Day ${currentDay} marked complete!`);
+                showToast(`Day ${currentDay} marked complete!`, 'success');
             }
         }
 
@@ -11162,8 +11274,9 @@ select:focus-visible {
             appData.currentWeek = nextWeek;
             appData.currentDay = 1; // Reset to day 1
             saveData();
+            prepareCurrentDay();
             renderWorkout();
-            alert(`Moved to Week ${nextWeek}! Weights adjusted based on your AMRAP performance.`);
+            showToast(`Moved to Week ${nextWeek}. Weights adjusted based on AMRAP performance.`, 'success', 5000);
         }
 
         function navigateWeek(direction) {
@@ -11185,6 +11298,7 @@ select:focus-visible {
 
             saveData();
             document.getElementById('week-selector').value = appData.currentWeek;
+            prepareCurrentDay();
             renderWorkout();
         }
 
@@ -11199,10 +11313,9 @@ select:focus-visible {
 
         function updateMarkDayButton() {
             const btn = document.getElementById('mark-day-btn');
-            const completedDaysForWeek = appData.completedDays[appData.currentWeek] || {};
-            const isDayComplete = completedDaysForWeek[appData.currentDay] === true;
+            const dayComplete = isDayComplete(appData.currentWeek, appData.currentDay);
 
-            if (isDayComplete) {
+            if (dayComplete) {
                 btn.textContent = `Day ${appData.currentDay} Already Complete ✓`;
                 btn.style.opacity = '0.6';
             } else {
@@ -11220,7 +11333,7 @@ select:focus-visible {
                 ohp: parseFloat(document.getElementById('1rm-ohp').value)
             };
             saveData();
-            alert('1RMs saved!');
+            showToast('1RMs saved.', 'success');
         }
 
         function saveAuxiliaryExercises() {
@@ -11249,8 +11362,9 @@ select:focus-visible {
             }
 
             saveData();
+            prepareCurrentDay();
             renderWorkout();
-            alert('Auxiliary exercises updated! Current and future workouts will use your new selections.');
+            showToast('Auxiliary exercises updated.', 'success', 4000);
         }
 
         function loadAuxiliarySettings() {
@@ -11332,7 +11446,7 @@ select:focus-visible {
 
             // Check if anything changed
             if (newProgramType === currentProgramType && newVariant === currentVariant) {
-                alert('No changes detected. You are already using this program.');
+                showToast('No changes detected. You are already using this program.', 'info', 4000);
                 return;
             }
 
@@ -11364,8 +11478,9 @@ select:focus-visible {
 
             saveData();
             updateWeekSelectors();
+            prepareCurrentDay();
             renderWorkout();
-            alert(`Program changed to ${newProgramType} ${newVariant}! Current and future weeks will use the new program structure.`);
+            showToast(`Program changed to ${newProgramType} ${newVariant}.`, 'success', 5000);
         }
 
         function saveRestTimerSettings() {
@@ -11374,7 +11489,7 @@ select:focus-visible {
             const autoStart = document.getElementById('rest-timer-autostart').checked;
 
             if (isNaN(duration) || duration < 30 || duration > 600) {
-                alert('Please enter a valid duration between 30 and 600 seconds');
+                showToast('Enter a duration between 30 and 600 seconds.', 'error', 5000);
                 return;
             }
 
@@ -11385,7 +11500,7 @@ select:focus-visible {
             };
 
             saveData();
-            alert('Rest timer settings saved!');
+            showToast('Rest timer settings saved.', 'success');
         }
 
         function jumpToWeek() {
@@ -11401,6 +11516,7 @@ select:focus-visible {
 
             saveData();
             switchTab('workout');
+            prepareCurrentDay();
             renderWorkout();
         }
 
@@ -11444,10 +11560,11 @@ select:focus-visible {
             }
 
             saveData();
-            alert('Historical data loaded for weeks 1-15!');
+            showToast('Historical data loaded for weeks 1-15.', 'success', 5000);
 
             // If we're viewing a week with loaded history, refresh the view
             if (appData.currentWeek <= 15) {
+                prepareCurrentDay();
                 renderWorkout();
             }
         }
@@ -11508,6 +11625,44 @@ select:focus-visible {
         }
 
         // Export & Import Functions
+        function getDebugSnapshot() {
+            return {
+                meta: {
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    version: appData.version || 'unknown',
+                    weightUnit: appData.weightUnit || 'kg'
+                },
+                appData: appData
+            };
+        }
+
+        function copyDebugSnapshot() {
+            const snapshot = JSON.stringify(getDebugSnapshot(), null, 2);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(snapshot)
+                    .then(() => showToast('Debug snapshot copied to clipboard.', 'success'))
+                    .catch(() => showToast('Unable to copy debug snapshot.', 'error'));
+            } else {
+                showToast('Clipboard not available. Use Download Debug JSON.', 'info', 5000);
+            }
+        }
+
+        function downloadDebugSnapshot() {
+            const dataStr = JSON.stringify(getDebugSnapshot(), null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            const date = new Date().toISOString().split('T')[0];
+            link.download = `sbs-tracker-debug-${date}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showToast('Debug snapshot downloaded.', 'success');
+        }
+
         function exportToJSON() {
             // Create a full backup of app data
             const dataStr = JSON.stringify(appData, null, 2);
@@ -11528,7 +11683,7 @@ select:focus-visible {
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
 
-            alert('Backup exported successfully!');
+            showToast('Backup exported successfully.', 'success');
         }
 
         function exportToCSV() {
@@ -11536,7 +11691,7 @@ select:focus-visible {
             const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
 
             if (weeks.length === 0) {
-                alert('No workout data to export!');
+                showToast('No workout data to export.', 'info', 4000);
                 return;
             }
 
@@ -11550,7 +11705,7 @@ select:focus-visible {
                     const dayExercises = weekData[dayNum];
                     dayExercises.forEach(exercise => {
                         const amrapReps = exercise.amrapReps || '';
-                        const completed = appData.completedDays[weekNum]?.[dayNum] ? 'Yes' : 'No';
+                        const completed = isDayComplete(weekNum, parseInt(dayNum)) ? 'Yes' : 'No';
 
                         csvContent += `${weekNum},${dayNum},"${exercise.name}",${exercise.weight},${exercise.reps},${exercise.target},${exercise.sets},${amrapReps},${completed}\n`;
                     });
@@ -11572,7 +11727,7 @@ select:focus-visible {
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
 
-            alert('Workout history exported to CSV!');
+            showToast('Workout history exported to CSV.', 'success');
         }
 
         function importFromJSON() {
@@ -11580,7 +11735,7 @@ select:focus-visible {
             const file = fileInput.files[0];
 
             if (!file) {
-                alert('Please select a JSON file to import');
+                showToast('Please select a JSON file to import.', 'error', 4000);
                 return;
             }
 
@@ -11606,11 +11761,12 @@ select:focus-visible {
                     }
 
                     // Import data
-                    appData = {...appData, ...importedData};
+                    appData = {...appData, ...migrateData(importedData)};
                     saveData();
 
                     // Update UI
                     updateWeekSelectors();
+                    prepareCurrentDay();
                     renderWorkout();
 
                     // Update settings inputs
@@ -11620,13 +11776,13 @@ select:focus-visible {
                     document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
                     document.getElementById('week-selector').value = appData.currentWeek;
 
-                    alert('Backup imported successfully!');
+                    showToast('Backup imported successfully.', 'success', 5000);
 
                     // Clear file input
                     fileInput.value = '';
 
                 } catch (error) {
-                    alert('Error importing backup: ' + error.message + '\n\nPlease ensure you selected a valid SBS Tracker backup file.');
+                    showToast('Error importing backup. Please check the file and try again.', 'error', 6000);
                     console.error('Import error:', error);
                 }
             };
@@ -11796,6 +11952,31 @@ select:focus-visible {
             document.getElementById('label-barbell-weight').textContent = `Barbell Weight (${unitText})`;
         }
 
+        function convertAllWeights(conversionFactor, roundTo) {
+            Object.keys(appData.workouts || {}).forEach(weekNum => {
+                const weekData = appData.workouts[weekNum];
+                Object.keys(weekData || {}).forEach(dayNum => {
+                    weekData[dayNum].forEach(ex => {
+                        if (typeof ex.weight === 'number') {
+                            ex.weight = Math.round((ex.weight * conversionFactor) / roundTo) * roundTo;
+                        }
+                    });
+                });
+            });
+
+            if (appData.personalRecords) {
+                Object.keys(appData.personalRecords).forEach(name => {
+                    const pr = appData.personalRecords[name];
+                    if (typeof pr.weight === 'number') {
+                        pr.weight = Math.round((pr.weight * conversionFactor) / roundTo) * roundTo;
+                    }
+                    if (typeof pr.estimated1RM === 'number') {
+                        pr.estimated1RM = Math.round((pr.estimated1RM * conversionFactor) / roundTo) * roundTo;
+                    }
+                });
+            }
+        }
+
         function updateWeightUnit() {
             const newUnit = document.getElementById('weight-unit').value;
             const oldUnit = appData.weightUnit || 'kg';
@@ -11817,6 +11998,9 @@ select:focus-visible {
                 document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
                 document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
 
+                // Convert stored workout and PR weights
+                convertAllWeights(conversionFactor, roundTo);
+
                 // Convert plate calculator barbell weight
                 appData.plateCalculator.barbellWeight = Math.round((appData.plateCalculator.barbellWeight * conversionFactor) / roundTo) * roundTo;
 
@@ -11833,9 +12017,10 @@ select:focus-visible {
                 document.getElementById('barbell-weight').value = appData.plateCalculator.barbellWeight;
 
                 saveData();
+                prepareCurrentDay();
                 renderWorkout();
 
-                alert(`Weight unit changed to ${newUnit}. All weights have been converted.`);
+                showToast(`Weight unit changed to ${newUnit}. All weights converted.`, 'success', 5000);
             }
         }
 
@@ -11868,14 +12053,16 @@ select:focus-visible {
             appData.plateCalculator.barbellWeight = barbellWeight;
 
             saveData();
+            prepareCurrentDay();
             renderWorkout();
 
-            alert('Plate calculator settings saved!');
+            showToast('Plate calculator settings saved.', 'success');
         }
 
         function togglePlateCalculator() {
             appData.plateCalculator.enabled = document.getElementById('plate-calculator-enabled').checked;
             saveData();
+            prepareCurrentDay();
             renderWorkout();
         }
 
@@ -11892,7 +12079,7 @@ select:focus-visible {
                         <div class="empty-state-icon">📜</div>
                         <h3 class="empty-state-title">No Workout History Yet</h3>
                         <p class="empty-state-description">
-                            Complete your first AMRAP set to start building your workout history and track your progress over time!
+                            Complete your first workout day to start building your workout history and track your progress over time!
                         </p>
                     </div>
                 `;
@@ -11904,10 +12091,10 @@ select:focus-visible {
             container.innerHTML = completedWeeks.map(weekNum => {
                 const weekData = appData.workouts[weekNum];
 
-                // Get only the days that have completed exercises (with AMRAP data)
+                // Get only the days that are marked complete (or have AMRAP data)
                 const completedDays = [];
                 for (let day = 1; day <= numDays; day++) {
-                    if (weekData[day] && weekData[day].some(ex => ex.amrapReps !== undefined)) {
+                    if (weekData[day] && isDayComplete(weekNum, day)) {
                         completedDays.push(day);
                     }
                 }
@@ -11924,7 +12111,7 @@ select:focus-visible {
                                 ${weekData[day].map(ex => `
                                     <div class="history-exercise">
                                         ${ex.name}: ${ex.weight} ${getWeightUnit()} × ${ex.reps} reps × ${ex.sets} sets
-                                        ${ex.amrapReps !== undefined ? `<span class="completed-badge">AMRAP: ${ex.amrapReps}</span>` : ''}
+                                        ${ex.amrapReps !== undefined ? `<span class="completed-badge">AMRAP: ${ex.amrapReps}</span>` : (ex.target ? `<span class="completed-badge muted">AMRAP missing</span>` : '')}
                                     </div>
                                 `).join('')}
                             </div>
@@ -12060,6 +12247,7 @@ select:focus-visible {
             const weeks = Object.keys(appData.workouts).sort((a, b) => parseInt(a) - parseInt(b));
             let totalVolume = 0;
             let workoutsCompleted = 0;
+            let weeksCompleted = 0;
             const weeklyVolume = [];
             const liftData = {};
             const numDays = getNumDays();
@@ -12067,10 +12255,14 @@ select:focus-visible {
             weeks.forEach(weekNum => {
                 const weekData = appData.workouts[weekNum];
                 let weekVolume = 0;
+                let weekComplete = true;
+                let hasDayData = false;
 
                 for (let day = 1; day <= numDays; day++) {
                     if (weekData[day]) {
-                        let dayComplete = true;
+                        hasDayData = true;
+                        const dayComplete = isDayComplete(weekNum, day);
+                        if (!dayComplete) weekComplete = false;
                         weekData[day].forEach(ex => {
                             // Calculate volume for this exercise
                             const volume = ex.weight * ex.reps * ex.sets;
@@ -12090,16 +12282,15 @@ select:focus-visible {
                                 sets: ex.sets
                             });
 
-                            // Check if AMRAP is complete
-                            if (ex.target && ex.amrapReps === undefined) {
-                                dayComplete = false;
-                            }
                         });
                         if (dayComplete) workoutsCompleted++;
                     }
                 }
 
                 weeklyVolume.push({ week: weekNum, volume: weekVolume });
+                if (weekComplete && hasDayData) {
+                    weeksCompleted++;
+                }
             });
 
             const avgVolumePerWeek = weeks.length > 0 ? Math.round(totalVolume / weeks.length) : 0;
@@ -12107,7 +12298,7 @@ select:focus-visible {
             return {
                 totalVolume: Math.round(totalVolume),
                 workoutsCompleted,
-                weeksCompleted: weeks.length,
+                weeksCompleted,
                 avgVolumePerWeek,
                 weeklyVolume,
                 liftData
@@ -12299,7 +12490,7 @@ select:focus-visible {
 
             // Validate inputs
             if (isNaN(squat1RM) || isNaN(bench1RM) || isNaN(deadlift1RM) || isNaN(ohp1RM)) {
-                alert('Please enter valid numbers for all 1RM values');
+                showToast('Please enter valid numbers for all 1RM values.', 'error', 4000);
                 return;
             }
 
@@ -12333,6 +12524,7 @@ select:focus-visible {
             saveData();
             updateWeekSelectors();
             hideSetup();
+            prepareCurrentDay();
             renderWorkout();
 
             // Update settings inputs
@@ -12387,6 +12579,7 @@ select:focus-visible {
         loadTheme(); // Load saved theme preference
         updateWeekSelectors();
         checkSetupNeeded();
+        prepareCurrentDay();
         renderWorkout();
 
         // Update 1RM inputs

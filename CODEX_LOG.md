@@ -47,3 +47,25 @@ Apply the polished UI from `SBS_Codex_preview/index.html` across `sbs_tracker/in
 - Bumped service worker cache version to v35.
 - AMRAP circle restyle: dotted outline, aligned with other circles, label via pseudo-element, and completed color matches set circles.
 - Bumped service worker cache version to v36.
+
+## Implementation Checklist (2026-01-30)
+- [x] Align completion logic across workout, progress, and history views.
+- [x] Move data mutations out of render paths (completed sets init).
+- [x] Convert existing workout weights on unit change.
+- [x] Reduce blocking alerts; replace with toasts where safe.
+- [x] Add AMRAP guidance + completion validation.
+- [x] Improve history to show completed days without AMRAP and flag missing AMRAPs.
+- [x] Add quick set actions (complete/reset).
+- [x] Add data versioning + migrations.
+- [x] Add local diagnostics export.
+- [x] Refine service worker cache strategy and bump version.
+
+## Actions (2026-01-30, continued)
+- Added data versioning/migration, plus a debug snapshot export in settings.
+- Unified completion logic (progress/history/day buttons) with AMRAP-aware completion.
+- Replaced most alerts with toasts; kept destructive confirms.
+- Added AMRAP helper text and completion validation with a non-blocking action toast.
+- Added quick set actions (complete/reset).
+- Converted existing workout/PR weights on unit change.
+- Updated service worker caching for JSON (stale-while-revalidate) and bumped cache version.
+- Bumped service worker cache version to v38.

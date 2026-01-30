@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v36'; // AMRAP circle restyle
+const CACHE_VERSION = 'v38'; // Completion logic + diagnostics updates
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
@@ -36,6 +36,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const acceptsHtml = request.headers.get('accept') && request.headers.get('accept').includes('text/html');
+  const isJson = request.destination === '' && request.url.endsWith('.json');
 
   // Network-first for HTML to avoid stale UI after deploys
   if (request.mode === 'navigate' || acceptsHtml) {
@@ -47,6 +48,23 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  if (isJson) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        const fetchPromise = fetch(request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, networkResponse.clone()));
+            }
+            return networkResponse;
+          })
+          .catch(() => cached);
+        return cached || fetchPromise;
+      })
     );
     return;
   }
