@@ -873,53 +873,33 @@ select:focus-visible {
     color: #fff;
 }
 
-.amrap-chip {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-}
-
 .set-circle.amrap-circle {
     position: relative;
-    border: 2px dashed rgba(14, 165, 164, 0.55);
-    background: rgba(14, 165, 164, 0.08);
-    color: var(--accent);
+    border: 2px dotted rgba(29, 78, 216, 0.5);
+    background: #fff;
+    color: var(--text-soft);
     cursor: default;
 }
 
 .set-circle.amrap-circle:hover {
     transform: none;
-    border-color: rgba(14, 165, 164, 0.6);
-    color: var(--accent);
-}
-
-.set-circle.amrap-circle::after {
-    content: '';
-    position: absolute;
-    inset: 7px;
-    border-radius: 50%;
-    border: 1px solid rgba(14, 165, 164, 0.25);
+    border-color: rgba(29, 78, 216, 0.6);
+    color: var(--text);
 }
 
 .set-circle.amrap-circle.has-value {
-    background: linear-gradient(140deg, rgba(14, 165, 164, 0.95), rgba(29, 78, 216, 0.9));
+    background: var(--brand);
     border-style: solid;
-    border-color: rgba(14, 165, 164, 0.7);
+    border-color: var(--brand);
     color: #fff;
 }
 
-.set-circle.amrap-circle.has-value::after {
-    border-color: rgba(255, 255, 255, 0.35);
-}
-
-.amrap-value {
-    font-size: 19px;
-    font-weight: 800;
-    line-height: 1;
-}
-
-.amrap-label {
+.set-circle.amrap-circle::after {
+    content: 'AMRAP';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 9px;
     letter-spacing: 0.6px;
     text-transform: uppercase;
@@ -927,15 +907,21 @@ select:focus-visible {
     background: #fff;
     padding: 2px 8px;
     border-radius: 999px;
-    border: 1px solid rgba(14, 165, 164, 0.25);
+    border: 1px solid var(--border);
     box-shadow: var(--shadow-xs);
     white-space: nowrap;
 }
 
-.amrap-chip.has-value .amrap-label {
-    color: rgba(255, 255, 255, 0.9);
+.set-circle.amrap-circle.has-value::after {
+    color: #fff;
     background: rgba(15, 23, 42, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+.amrap-value {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1;
 }
 
 .rest-timer {
@@ -10808,15 +10794,11 @@ select:focus-visible {
                 }
 
             // Update AMRAP circle
-            const amrapChip = document.querySelector(`[data-set="${day}-${exIdx}-amrap"]`);
-            if (amrapChip) {
+            const amrapCircle = document.querySelector(`[data-set="${day}-${exIdx}-amrap"]`);
+            if (amrapCircle) {
                 const hasValue = reps > 0;
-                amrapChip.classList.toggle('has-value', hasValue);
-                const circle = amrapChip.querySelector('.amrap-circle');
-                if (circle) {
-                    circle.classList.toggle('has-value', hasValue);
-                }
-                const valueEl = amrapChip.querySelector('.amrap-value');
+                amrapCircle.classList.toggle('has-value', hasValue);
+                const valueEl = amrapCircle.querySelector('.amrap-value');
                 if (valueEl) valueEl.textContent = hasValue ? reps : '?';
             }
 
@@ -11707,12 +11689,9 @@ select:focus-visible {
             }
             if (hasAmrap) {
                 const hasVal = ex.amrapReps !== undefined && ex.amrapReps > 0;
-                html += `<div class="amrap-chip ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap">
-                    <div class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}">
-                        <span class="amrap-value">${hasVal ? ex.amrapReps : '?'}</span>
-                    </div>
-                    <span class="amrap-label">AMRAP</span>
-                </div>`;
+                html += `<button class="set-circle amrap-circle ${hasVal ? 'has-value' : ''}" data-set="${day}-${idx}-amrap">
+                    <span class="amrap-value">${hasVal ? ex.amrapReps : '?'}</span>
+                </button>`;
             }
             html += '</div>';
             return html;

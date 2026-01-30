@@ -45,3 +45,5 @@ Apply the polished UI from `SBS_Codex_preview/index.html` across `sbs_tracker/in
 - Redesigned AMRAP display as a stacked chip (circle + label) and fixed decrement button state sync.
 - Replaced update confirm dialog with an update-available toast action.
 - Bumped service worker cache version to v35.
+- AMRAP circle restyle: dotted outline, aligned with other circles, label via pseudo-element, and completed color matches set circles.
+- Bumped service worker cache version to v36.
