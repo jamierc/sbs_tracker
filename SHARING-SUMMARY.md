@@ -11,7 +11,6 @@ That's it! Everything else in this folder is optional.
 ### Files You Need:
 
 - **`index.html`** - The complete workout tracker (share this!)
-  - Also available as `sbs-tracker-v2-gen.html` or `workout-tracker.html` (same file, different names)
 
 ### Files You DON'T Need to Share:
 
@@ -19,8 +18,7 @@ That's it! Everything else in this folder is optional.
 - **`weeks_data.json`** - Source data (already embedded in the HTML)
 - **`amrap_history.json`** - Historical data (already embedded in the HTML)
 - **`program-data.js`** - Old version data file (not needed)
-- **`sbs-tracker.html`** - Old version (superseded by index.html)
-- **`sbs-tracker-v2.html`** - Old version (superseded by index.html)
+- **Old HTML variants** (removed) - Superseded by `index.html`
 - **Excel file** - Source spreadsheet (not needed for the app)
 - **README.md** - Documentation (helpful but not required)
 - **DEPLOYMENT.md** - Setup instructions (helpful but not required)

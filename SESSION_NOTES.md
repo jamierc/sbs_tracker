@@ -27,7 +27,6 @@ Added comprehensive progress tracking features to `index.html`:
 
 **Files Modified:**
 - `index.html` (main app file)
-- `sbs-tracker-v2-gen.html` (accidentally modified first, but not in use)
 
 ### 2. Roadmap Creation ✅
 **File:** `ROADMAP.md`
@@ -62,7 +61,6 @@ Analyzed the Excel file: `SBS Hypertrophy Template.xlsx`
 
 ### Git Status
 - `index.html` - Progress tab committed and pushed ✅
-- `sbs-tracker-v2-gen.html` - Has uncommitted changes (progress tab added but not in use)
 - `SBS Hypertrophy Template.xlsx` - Untracked file
 
 ### Active Branch
@@ -125,8 +123,7 @@ User said hypertrophy template is in the folder and asked to analyze it for impl
 ## Questions to Ask When Resuming
 
 1. Do you want to continue with hypertrophy implementation or work on other features?
-2. Should we commit/discard changes to `sbs-tracker-v2-gen.html`?
-3. Should we add `SBS Hypertrophy Template.xlsx` to git or keep it local only?
+2. Should we add `SBS Hypertrophy Template.xlsx` to git or keep it local only?
 
 ---
 

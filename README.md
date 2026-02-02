@@ -6,7 +6,7 @@ A simple web app to track your Stronger By Science (SBS) workout program for all
 
 ### First Time Setup
 
-1. Open `sbs-tracker-v2-gen.html` in your web browser (Chrome, Safari, Firefox, etc.)
+1. Open `index.html` in your web browser (Chrome, Safari, Firefox, etc.)
 2. You'll see a setup screen asking for:
    - **Which week you're starting on** (Week 1-20)
    - **Your 1RM (one-rep max) for each lift**: Squat, Bench Press, Deadlift, OHP

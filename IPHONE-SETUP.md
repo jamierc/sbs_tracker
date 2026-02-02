@@ -28,14 +28,9 @@ Since the server is running, you can bypass the file association issue entirely:
 
 6. **Important:** After adding to home screen, it works offline! You don't need the server anymore.
 
-## Alternative: Use Different Filename
+## Alternative: Use the Default File Name
 
-I've created alternate versions you can try downloading:
-
-- `workout-tracker.html` - simpler name
-- `index.html` - even simpler
-
-Try opening these from Files app instead.
+Open `index.html` from the Files app instead.
 
 ## For Permanent Setup (No Server Needed)
 

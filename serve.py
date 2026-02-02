@@ -29,9 +29,9 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("SBS Tracker Server Running")
     print("=" * 60)
     print(f"\nOn this computer, open:")
-    print(f"  http://localhost:{PORT}/sbs-tracker.html")
+    print(f"  http://localhost:{PORT}/index.html")
     print(f"\nOn your phone (same wifi), open:")
-    print(f"  http://{ip}:{PORT}/sbs-tracker.html")
+    print(f"  http://{ip}:{PORT}/index.html")
     print(f"\nPress Ctrl+C to stop the server\n")
     print("=" * 60)
 
