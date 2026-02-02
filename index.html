@@ -10229,6 +10229,49 @@ select:focus-visible {
             return appData.weightUnit || 'kg';
         }
 
+        function getSelectOptions(selectId) {
+            const select = document.getElementById(selectId);
+            if (!select) return [];
+            return Array.from(select.options).map(option => option.value);
+        }
+
+        function normalizeAuxiliaryExercises() {
+            const defaults = {
+                'squat-aux-1': 'Leg Press',
+                'squat-aux-2': 'Hack Squat',
+                'bench-aux-1': 'Incline Press',
+                'bench-aux-2': 'DB Bench',
+                'deadlift-aux': 'Romanian Deadlift',
+                'ohp-aux': 'DB OHP'
+            };
+
+            const stored = appData.auxiliaryExercises || {};
+
+            // Migrate legacy keys to new slots if present.
+            if (stored.squat && !stored['squat-aux-1']) stored['squat-aux-1'] = stored.squat;
+            if (stored.bench && !stored['bench-aux-1']) stored['bench-aux-1'] = stored.bench;
+            if (stored.deadlift && !stored['deadlift-aux']) stored['deadlift-aux'] = stored.deadlift;
+            if (stored.ohp && !stored['ohp-aux']) stored['ohp-aux'] = stored.ohp;
+
+            const slotSelectMap = {
+                'squat-aux-1': 'settings-squat-aux-1',
+                'squat-aux-2': 'settings-squat-aux-2',
+                'bench-aux-1': 'settings-bench-aux-1',
+                'bench-aux-2': 'settings-bench-aux-2',
+                'deadlift-aux': 'settings-deadlift-aux',
+                'ohp-aux': 'settings-ohp-aux'
+            };
+
+            const normalized = {};
+            Object.entries(slotSelectMap).forEach(([slot, selectId]) => {
+                const options = getSelectOptions(selectId);
+                const candidate = stored[slot] || defaults[slot];
+                normalized[slot] = options.includes(candidate) ? candidate : defaults[slot];
+            });
+
+            appData.auxiliaryExercises = normalized;
+        }
+
         function isDayComplete(weekNum, dayNum) {
             const completed = appData.completedDays?.[weekNum]?.[dayNum] === true;
             const weekData = appData.workouts?.[weekNum];
@@ -10286,6 +10329,8 @@ select:focus-visible {
                 const data = migrateData(JSON.parse(saved));
                 appData = {...appData, ...data};
             }
+
+            normalizeAuxiliaryExercises();
 
             // Load current week workout if not in appData
             if (!appData.workouts[appData.currentWeek]) {
@@ -10423,6 +10468,10 @@ select:focus-visible {
                         // Apply the replacement if we have user preferences for this category
                         if (auxCategory && appData.auxiliaryExercises && appData.auxiliaryExercises[auxCategory]) {
                             const newExerciseName = appData.auxiliaryExercises[auxCategory];
+                            // Only replace if we can compute an auxiliary 1RM for the choice.
+                            if (!auxiliary1RMs[newExerciseName]) {
+                                return;
+                            }
 
                             // Calculate weight adjustment ratio
                             const originalRM = auxiliary1RMs[originalExerciseName];
@@ -10450,6 +10499,10 @@ select:focus-visible {
                             const oldCategory = oldCategoryMap[ex.name];
                             if (oldCategory && appData.auxiliaryExercises[oldCategory]) {
                                 const newExerciseName = appData.auxiliaryExercises[oldCategory];
+                                // Skip invalid legacy choices so the default stays intact.
+                                if (!auxiliary1RMs[newExerciseName]) {
+                                    return;
+                                }
 
                                 // Calculate weight adjustment ratio
                                 const originalRM = auxiliary1RMs[originalExerciseName];
@@ -11369,13 +11422,12 @@ select:focus-visible {
 
         function loadAuxiliarySettings() {
             if (appData.auxiliaryExercises) {
-                // Support both old format (squat, bench, etc.) and new format (squat-aux-1, etc.)
-                document.getElementById('settings-squat-aux-1').value = appData.auxiliaryExercises['squat-aux-1'] || appData.auxiliaryExercises.squat || 'Leg Press';
+                document.getElementById('settings-squat-aux-1').value = appData.auxiliaryExercises['squat-aux-1'] || 'Leg Press';
                 document.getElementById('settings-squat-aux-2').value = appData.auxiliaryExercises['squat-aux-2'] || 'Hack Squat';
-                document.getElementById('settings-bench-aux-1').value = appData.auxiliaryExercises['bench-aux-1'] || appData.auxiliaryExercises.bench || 'Incline Press';
+                document.getElementById('settings-bench-aux-1').value = appData.auxiliaryExercises['bench-aux-1'] || 'Incline Press';
                 document.getElementById('settings-bench-aux-2').value = appData.auxiliaryExercises['bench-aux-2'] || 'DB Bench';
-                document.getElementById('settings-deadlift-aux').value = appData.auxiliaryExercises['deadlift-aux'] || appData.auxiliaryExercises.deadlift || 'Romanian Deadlift';
-                document.getElementById('settings-ohp-aux').value = appData.auxiliaryExercises['ohp-aux'] || appData.auxiliaryExercises.ohp || 'DB OHP';
+                document.getElementById('settings-deadlift-aux').value = appData.auxiliaryExercises['deadlift-aux'] || 'Romanian Deadlift';
+                document.getElementById('settings-ohp-aux').value = appData.auxiliaryExercises['ohp-aux'] || 'DB OHP';
             }
 
             // Load weight unit setting
@@ -11762,6 +11814,7 @@ select:focus-visible {
 
                     // Import data
                     appData = {...appData, ...migrateData(importedData)};
+                    normalizeAuxiliaryExercises();
                     saveData();
 
                     // Update UI
@@ -11775,6 +11828,7 @@ select:focus-visible {
                     document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
                     document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
                     document.getElementById('week-selector').value = appData.currentWeek;
+                    loadAuxiliarySettings();
 
                     showToast('Backup imported successfully.', 'success', 5000);
 
