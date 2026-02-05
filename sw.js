@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v38'; // Completion logic + diagnostics updates
+const CACHE_VERSION = 'v39'; // Settings navigation + contrast adjustments
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',

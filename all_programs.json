@@ -1246,46 +1246,46 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 70.0,
+          "weight": 77.5,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
           "weight": 72.5,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 57.5,
+          "name": "DB Bench",
+          "weight": 17.5,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 70.0,
+          "weight": 72.5,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 35.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 115.0,
+          "weight": 150.0,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -1294,28 +1294,28 @@
           "name": "Deadlift",
           "weight": 97.5,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Incline Press",
           "weight": 55.0,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 115.0,
+          "weight": 150.0,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 15.0,
+          "weight": 17.5,
           "reps": 7,
-          "target": 14,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -1324,46 +1324,46 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 75.0,
+          "weight": 82.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 72.5,
+          "weight": 77.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 67.5,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 75.0,
+          "weight": 80.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 37.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 127.5,
+          "weight": 162.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -1372,28 +1372,28 @@
           "name": "Deadlift",
           "weight": 105.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 57.5,
+          "weight": 60.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 120.0,
+          "weight": 162.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 15.0,
+          "weight": 20.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -1402,257 +1402,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 80.0,
+          "weight": 87.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 60.0,
+          "weight": 85.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 60.0,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 5,
-          "target": 10,
-          "sets": 5
-        }
-      ],
-      "2": [
-        {
-          "name": "Bench Press",
-          "weight": 80.0,
-          "reps": 3,
-          "target": 6,
-          "sets": 5
-        },
-        {
-          "name": "OHP",
-          "weight": 40.0,
-          "reps": 3,
-          "target": 6,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 140.0,
-          "reps": 5,
-          "target": 10,
-          "sets": 5
-        }
-      ],
-      "3": [
-        {
-          "name": "Deadlift",
-          "weight": 115.0,
-          "reps": 3,
-          "target": 6,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 67.5,
-          "reps": 5,
-          "target": 10,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 140.0,
-          "reps": 5,
-          "target": 10,
-          "sets": 5
-        },
-        {
-          "name": "DB OHP",
-          "weight": 17.5,
-          "reps": 5,
-          "target": 10,
-          "sets": 5
-        }
-      ]
-    },
-    "4": {
-      "1": [
-        {
-          "name": "Squat",
-          "weight": 72.5,
-          "reps": 5,
-          "target": 9,
-          "sets": 5
-        },
-        {
-          "name": "Romanian Deadlift",
-          "weight": 67.5,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 60.0,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        }
-      ],
-      "2": [
-        {
-          "name": "Bench Press",
-          "weight": 72.5,
-          "reps": 5,
-          "target": 9,
-          "sets": 5
-        },
-        {
-          "name": "OHP",
-          "weight": 37.5,
-          "reps": 5,
-          "target": 9,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 130.0,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        }
-      ],
-      "3": [
-        {
-          "name": "Deadlift",
-          "weight": 107.5,
-          "reps": 5,
-          "target": 9,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 67.5,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 130.0,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        },
-        {
-          "name": "DB OHP",
-          "weight": 15.0,
-          "reps": 7,
-          "target": 13,
-          "sets": 5
-        }
-      ]
-    },
-    "5": {
-      "1": [
-        {
-          "name": "Squat",
-          "weight": 77.5,
-          "reps": 4,
-          "target": 7,
-          "sets": 5
-        },
-        {
-          "name": "Romanian Deadlift",
-          "weight": 72.5,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 65.0,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        }
-      ],
-      "2": [
-        {
-          "name": "Bench Press",
-          "weight": 80.0,
-          "reps": 4,
-          "target": 7,
-          "sets": 5
-        },
-        {
-          "name": "OHP",
-          "weight": 37.5,
-          "reps": 4,
-          "target": 7,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 140.0,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        }
-      ],
-      "3": [
-        {
-          "name": "Deadlift",
-          "weight": 112.5,
-          "reps": 4,
-          "target": 7,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 67.5,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        },
-        {
-          "name": "Leg Press",
-          "weight": 142.5,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        },
-        {
-          "name": "DB OHP",
-          "weight": 17.5,
-          "reps": 6,
-          "target": 11,
-          "sets": 5
-        }
-      ]
-    },
-    "6": {
-      "1": [
-        {
-          "name": "Squat",
-          "weight": 82.5,
-          "reps": 3,
-          "target": 5,
-          "sets": 5
-        },
-        {
-          "name": "Romanian Deadlift",
-          "weight": 80.0,
-          "reps": 5,
-          "target": 9,
-          "sets": 5
-        },
-        {
-          "name": "Incline Press",
-          "weight": 70.0,
-          "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -1661,51 +1427,285 @@
           "name": "Bench Press",
           "weight": 85.0,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 40.0,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 165.0,
+          "weight": 175.0,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 122.5,
+          "weight": 112.5,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 72.5,
+          "weight": 65.0,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 155.0,
+          "weight": 175.0,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 17.5,
+          "weight": 20.0,
           "reps": 5,
-          "target": 9,
+          "target": 3,
+          "sets": 5
+        }
+      ]
+    },
+    "4": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 80.0,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 75.0,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB Bench",
+          "weight": 20.0,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 75.0,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "OHP",
+          "weight": 37.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 157.5,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "3": [
+        {
+          "name": "Deadlift",
+          "weight": 102.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Incline Press",
+          "weight": 57.5,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 157.5,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB OHP",
+          "weight": 20.0,
+          "reps": 7,
+          "target": 3,
+          "sets": 5
+        }
+      ]
+    },
+    "5": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 85.0,
+          "reps": 4,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 80.0,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB Bench",
+          "weight": 20.0,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 82.5,
+          "reps": 4,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "OHP",
+          "weight": 40.0,
+          "reps": 4,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 170.0,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "3": [
+        {
+          "name": "Deadlift",
+          "weight": 107.5,
+          "reps": 4,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Incline Press",
+          "weight": 62.5,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 170.0,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB OHP",
+          "weight": 20.0,
+          "reps": 6,
+          "target": 3,
+          "sets": 5
+        }
+      ]
+    },
+    "6": {
+      "1": [
+        {
+          "name": "Squat",
+          "weight": 90.0,
+          "reps": 3,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Romanian Deadlift",
+          "weight": 87.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB Bench",
+          "weight": 22.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "2": [
+        {
+          "name": "Bench Press",
+          "weight": 87.5,
+          "reps": 3,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "OHP",
+          "weight": 42.5,
+          "reps": 3,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 182.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        }
+      ],
+      "3": [
+        {
+          "name": "Deadlift",
+          "weight": 115.0,
+          "reps": 3,
+          "target": 2,
+          "sets": 5
+        },
+        {
+          "name": "Incline Press",
+          "weight": 67.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "Leg Press",
+          "weight": 182.5,
+          "reps": 5,
+          "target": 3,
+          "sets": 5
+        },
+        {
+          "name": "DB OHP",
+          "weight": 22.5,
+          "reps": 5,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -1714,21 +1714,21 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 60.0,
+          "weight": 65.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 55.0,
+          "weight": 60.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 47.5,
+          "name": "DB Bench",
+          "weight": 15.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -1751,7 +1751,7 @@
         },
         {
           "name": "Leg Press",
-          "weight": 105.0,
+          "weight": 125.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -1760,28 +1760,28 @@
       "3": [
         {
           "name": "Deadlift",
-          "weight": 87.5,
+          "weight": 85.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 52.5,
+          "weight": 45.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 107.5,
+          "weight": 125.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 12.5,
+          "weight": 15.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -1792,76 +1792,76 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 75.0,
+          "weight": 82.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 72.5,
+          "weight": 77.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 62.5,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 77.5,
+          "weight": 80.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 37.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 135.0,
+          "weight": 162.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 110.0,
+          "weight": 105.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 67.5,
+          "weight": 60.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 140.0,
+          "weight": 162.5,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 15.0,
+          "weight": 20.0,
           "reps": 6,
-          "target": 12,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -1870,76 +1870,76 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 80.0,
+          "weight": 87.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 77.5,
+          "weight": 85.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 67.5,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 82.5,
+          "weight": 85.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 40.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 150.0,
+          "weight": 175.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 120.0,
+          "weight": 112.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 72.5,
+          "weight": 65.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 157.5,
+          "weight": 175.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 17.5,
+          "weight": 20.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -1948,23 +1948,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 85.0,
+          "weight": 92.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 82.5,
+          "weight": 90.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 72.5,
+          "name": "DB Bench",
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
@@ -1973,51 +1973,51 @@
           "name": "Bench Press",
           "weight": 90.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 42.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 160.0,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 127.5,
+          "weight": 120.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 77.5,
+          "weight": 70.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 167.5,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2026,23 +2026,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 77.5,
+          "weight": 85.0,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 75.0,
+          "weight": 80.0,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 65.0,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -2051,51 +2051,51 @@
           "name": "Bench Press",
           "weight": 82.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
-          "weight": 37.5,
+          "weight": 40.0,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 145.0,
+          "weight": 170.0,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 115.0,
+          "weight": 107.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 70.0,
+          "weight": 62.5,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 150.0,
+          "weight": 170.0,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 17.5,
+          "weight": 20.0,
           "reps": 6,
-          "target": 11,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -2104,23 +2104,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 82.5,
+          "weight": 90.0,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 80.0,
+          "weight": 87.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 70.0,
+          "name": "DB Bench",
+          "weight": 22.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -2129,51 +2129,51 @@
           "name": "Bench Press",
           "weight": 87.5,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
-          "weight": 40.0,
+          "weight": 42.5,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 160.0,
+          "weight": 182.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 122.5,
+          "weight": 115.0,
           "reps": 3,
-          "target": 5,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 75.0,
+          "weight": 67.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 162.5,
+          "weight": 182.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 17.5,
+          "weight": 22.5,
           "reps": 5,
-          "target": 9,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -2182,23 +2182,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 87.5,
+          "weight": 97.5,
           "reps": 2,
-          "target": 3,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 85.0,
+          "weight": 92.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 75.0,
+          "name": "DB Bench",
+          "weight": 22.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         }
       ],
@@ -2207,51 +2207,51 @@
           "name": "Bench Press",
           "weight": 92.5,
           "reps": 2,
-          "target": 3,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
-          "weight": 42.5,
+          "weight": 45.0,
           "reps": 2,
-          "target": 3,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 170.0,
+          "weight": 195.0,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 132.5,
+          "weight": 122.5,
           "reps": 2,
-          "target": 3,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 75.0,
+          "weight": 72.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 175.0,
+          "weight": 195.0,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 22.5,
           "reps": 4,
-          "target": 7,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2260,21 +2260,21 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 60.0,
+          "weight": 65.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 55.0,
+          "weight": 60.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 47.5,
+          "name": "DB Bench",
+          "weight": 15.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -2283,7 +2283,7 @@
       "2": [
         {
           "name": "Bench Press",
-          "weight": 65.0,
+          "weight": 62.5,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -2297,7 +2297,7 @@
         },
         {
           "name": "Leg Press",
-          "weight": 107.5,
+          "weight": 125.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -2306,28 +2306,28 @@
       "3": [
         {
           "name": "Deadlift",
-          "weight": 90.0,
+          "weight": 85.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 50.0,
+          "weight": 45.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 112.5,
+          "weight": 125.0,
           "reps": 5,
           "target": null,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 12.5,
+          "weight": 15.0,
           "reps": 5,
           "target": null,
           "sets": 5
@@ -2338,23 +2338,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 80.0,
+          "weight": 87.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 77.5,
+          "weight": 85.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 67.5,
+          "name": "DB Bench",
+          "weight": 20.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ],
@@ -2363,51 +2363,51 @@
           "name": "Bench Press",
           "weight": 85.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 40.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 150.0,
+          "weight": 175.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 120.0,
+          "weight": 112.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 67.5,
+          "weight": 65.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 157.5,
+          "weight": 175.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 17.5,
+          "weight": 20.0,
           "reps": 5,
-          "target": 10,
+          "target": 3,
           "sets": 5
         }
       ]
@@ -2416,23 +2416,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 87.5,
+          "weight": 92.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 85.0,
+          "weight": 90.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 72.5,
+          "name": "DB Bench",
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
@@ -2441,51 +2441,51 @@
           "name": "Bench Press",
           "weight": 90.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 42.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 162.5,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 127.5,
+          "weight": 120.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 72.5,
+          "weight": 70.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 167.5,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2494,76 +2494,76 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 92.5,
+          "weight": 100.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 90.0,
+          "weight": 95.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 77.5,
+          "name": "DB Bench",
+          "weight": 25.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 97.5,
+          "weight": 95.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 45.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 172.5,
+          "weight": 200.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 135.0,
+          "weight": 125.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 77.5,
+          "weight": 72.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 180.0,
+          "weight": 200.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 25.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2572,23 +2572,23 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 87.5,
+          "weight": 92.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 85.0,
+          "weight": 90.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 72.5,
+          "name": "DB Bench",
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
@@ -2597,51 +2597,51 @@
           "name": "Bench Press",
           "weight": 90.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 42.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 162.5,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 127.5,
+          "weight": 120.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 72.5,
+          "weight": 70.0,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 167.5,
+          "weight": 187.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 22.5,
           "reps": 4,
-          "target": 8,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2650,76 +2650,76 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 92.5,
+          "weight": 100.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 90.0,
+          "weight": 95.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 77.5,
+          "name": "DB Bench",
+          "weight": 25.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 97.5,
+          "weight": 95.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "OHP",
           "weight": 45.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 172.5,
+          "weight": 200.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 135.0,
+          "weight": 125.0,
           "reps": 1,
-          "target": 2,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 77.5,
+          "weight": 72.5,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 180.0,
+          "weight": 200.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 20.0,
+          "weight": 25.0,
           "reps": 3,
-          "target": 6,
+          "target": 2,
           "sets": 5
         }
       ]
@@ -2728,30 +2728,30 @@
       "1": [
         {
           "name": "Squat",
-          "weight": 97.5,
+          "weight": 105.0,
           "reps": 1,
           "target": 1,
           "sets": 5
         },
         {
           "name": "Romanian Deadlift",
-          "weight": 97.5,
+          "weight": 102.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
-          "name": "Incline Press",
-          "weight": 82.5,
+          "name": "DB Bench",
+          "weight": 25.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         }
       ],
       "2": [
         {
           "name": "Bench Press",
-          "weight": 102.5,
+          "weight": 100.0,
           "reps": 1,
           "target": 1,
           "sets": 5
@@ -2765,39 +2765,39 @@
         },
         {
           "name": "Leg Press",
-          "weight": 182.5,
+          "weight": 212.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         }
       ],
       "3": [
         {
           "name": "Deadlift",
-          "weight": 142.5,
+          "weight": 132.5,
           "reps": 1,
           "target": 1,
           "sets": 5
         },
         {
           "name": "Incline Press",
-          "weight": 82.5,
+          "weight": 77.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "Leg Press",
-          "weight": 190.0,
+          "weight": 212.5,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         },
         {
           "name": "DB OHP",
-          "weight": 22.5,
+          "weight": 25.0,
           "reps": 2,
-          "target": 4,
+          "target": 1,
           "sets": 5
         }
       ]
