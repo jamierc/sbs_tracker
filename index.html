@@ -839,6 +839,11 @@ select:focus-visible {
     border-top: 1px solid rgba(226, 232, 240, 0.6);
 }
 
+html[data-theme="dark"] .setup-actions {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.92) 40%, rgba(15, 23, 42, 0.98) 100%);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
 .setup-modal h2 {
     font-size: 24px;
     margin-bottom: 8px;
@@ -1025,10 +1030,21 @@ select:focus-visible {
     box-shadow: var(--shadow-sm);
 }
 
+html[data-theme="dark"] .set-circle {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+    box-shadow: var(--shadow-xs);
+}
+
 .set-circle:hover {
     border-color: rgba(29, 78, 216, 0.35);
     color: var(--text);
     transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .set-circle:hover {
+    border-color: rgba(96, 165, 250, 0.55);
 }
 
 .set-circle:active {
@@ -1047,6 +1063,12 @@ select:focus-visible {
     background: #fff;
     color: var(--text-soft);
     cursor: default;
+}
+
+html[data-theme="dark"] .set-circle.amrap-circle {
+    background: var(--surface-muted);
+    border-color: rgba(96, 165, 250, 0.6);
+    color: var(--text-muted);
 }
 
 .set-circle.amrap-circle:hover {
@@ -1080,10 +1102,21 @@ select:focus-visible {
     white-space: nowrap;
 }
 
+html[data-theme="dark"] .set-circle.amrap-circle::after {
+    color: var(--text-muted);
+    background: var(--surface);
+    border-color: var(--border);
+}
+
 .set-circle.amrap-circle.has-value::after {
     color: #fff;
     background: rgba(15, 23, 42, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="dark"] .set-circle.amrap-circle.has-value::after {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .amrap-value {
@@ -1116,9 +1149,19 @@ select:focus-visible {
     cursor: pointer;
 }
 
+html[data-theme="dark"] .set-action-btn {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+}
+
 .set-action-btn:hover {
     color: var(--text);
     border-color: rgba(29, 78, 216, 0.4);
+}
+
+html[data-theme="dark"] .set-action-btn:hover {
+    border-color: rgba(96, 165, 250, 0.5);
 }
 
 .completed-badge.muted {
@@ -1325,6 +1368,11 @@ select:focus-visible {
     gap: 10px;
 }
 
+html[data-theme="dark"] .plate-calculator {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(20, 184, 166, 0.18));
+    border-color: rgba(96, 165, 250, 0.35);
+}
+
 .plate-calculator-header {
     display: flex;
     align-items: center;
@@ -1342,6 +1390,12 @@ select:focus-visible {
     border: 1px solid rgba(29, 78, 216, 0.25);
 }
 
+html[data-theme="dark"] .plate-total {
+    color: var(--text);
+    background: rgba(96, 165, 250, 0.2);
+    border-color: rgba(96, 165, 250, 0.4);
+}
+
 .plate-summary {
     font-size: 12px;
 }
@@ -1354,6 +1408,11 @@ select:focus-visible {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
+}
+
+html[data-theme="dark"] .plate-summary-label,
+html[data-theme="dark"] .plate-info-label {
+    color: var(--text-muted);
 }
 
 .plate-summary-value,
@@ -1380,6 +1439,12 @@ select:focus-visible {
     box-shadow: var(--shadow-sm);
 }
 
+html[data-theme="dark"] .plate-chip {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+}
+
 .plate-empty {
     font-size: 12px;
     color: var(--text-muted);
@@ -1393,6 +1458,11 @@ select:focus-visible {
     background: rgba(255, 255, 255, 0.75);
     border-radius: 10px;
     padding: 8px;
+}
+
+html[data-theme="dark"] .plate-info {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--border);
 }
 
 .empty-state-description {
@@ -1490,6 +1560,11 @@ select:focus-visible {
     backdrop-filter: blur(14px);
 }
 
+html[data-theme="dark"] .bottom-nav {
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 -8px 20px rgba(2, 6, 23, 0.6);
+}
+
 .bottom-nav-item {
     flex: 1;
     display: flex;
@@ -1565,6 +1640,12 @@ select:focus-visible {
     transform: translateY(0);
     opacity: 1;
     transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+html[data-theme="dark"] .toast {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
 }
 
 .toast-message {
