@@ -53,6 +53,29 @@
     --shadow-xs: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
+html[data-theme="dark"] {
+    --bg: #0b1119;
+    --bg-accent: #0f172a;
+    --surface: #111827;
+    --surface-muted: #0f172a;
+    --border: #1f2937;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-soft: #64748b;
+    --brand: #60a5fa;
+    --brand-strong: #3b82f6;
+    --brand-contrast: rgba(30, 64, 175, 0.2);
+    --accent: #2dd4bf;
+    --accent-strong: #14b8a6;
+    --success: #22c55e;
+    --danger: #f87171;
+    --warning: #fbbf24;
+    --shadow-sm: 0 8px 22px rgba(2, 6, 23, 0.4);
+    --shadow-md: 0 18px 44px rgba(2, 6, 23, 0.55);
+    --shadow-xs: 0 4px 12px rgba(2, 6, 23, 0.5);
+    --border-color-light: rgba(148, 163, 184, 0.18);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -65,6 +88,12 @@ body {
     min-height: 100vh;
 }
 
+html[data-theme="dark"] body {
+    background: radial-gradient(900px 500px at -10% -10%, rgba(59, 130, 246, 0.18) 0%, transparent 55%),
+                radial-gradient(900px 500px at 110% -20%, rgba(45, 212, 191, 0.15) 0%, transparent 55%),
+                var(--bg);
+}
+
 body::before {
     content: '';
     position: fixed;
@@ -74,6 +103,11 @@ body::before {
     background-size: 36px 36px;
     pointer-events: none;
     z-index: 0;
+}
+
+html[data-theme="dark"] body::before {
+    background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
 }
 
 .header {
@@ -117,12 +151,16 @@ body::before {
     display: flex;
     gap: 6px;
     padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 78px;
     z-index: 99;
     backdrop-filter: blur(16px);
+}
+
+html[data-theme="dark"] .nav-tabs {
+    background: rgba(15, 23, 42, 0.92);
 }
 
 .nav-tab {
@@ -1706,6 +1744,7 @@ select:focus-visible {
                 </svg>
                 Start Rest Timer
             </button>
+            <button class="btn btn-secondary" onclick="sendCurrentDayToHevy()">Sync to Hevy</button>
             <button class="btn btn-primary" onclick="markDayComplete()" id="mark-day-btn">Mark Day Complete</button>
         </div>
     </div>
@@ -1911,6 +1950,7 @@ select:focus-visible {
         <div class="settings-section">
             <h2>Hevy Sync</h2>
             <p class="helper-text">Store your Hevy API key locally to send workouts directly to Hevy.</p>
+            <p class="helper-text">Use the "Send to Hevy" button on the Workout tab to export today’s workout.</p>
 
             <div class="form-group">
                 <label>Hevy API Key</label>
@@ -1937,7 +1977,6 @@ select:focus-visible {
 
             <button class="btn btn-secondary" onclick="saveHevySettings()">Save Hevy Settings</button>
             <button class="btn btn-secondary" onclick="syncHevyExerciseTemplates()">Sync Hevy Exercise Templates</button>
-            <button class="btn btn-secondary" onclick="sendCurrentDayToHevy()">Send Current Day to Hevy</button>
             <p class="helper-text" id="hevy-sync-status"></p>
         </div>
 
@@ -2029,7 +2068,10 @@ select:focus-visible {
             <h2>Appearance</h2>
             <div class="form-group">
                 <label>Theme</label>
-                <button class="btn btn-secondary" onclick="toggleTheme()">Toggle Light/Dark Mode</button>
+                <button class="btn btn-secondary" onclick="toggleTheme()">
+                    <span id="theme-icon" aria-hidden="true">🌙</span>
+                    Toggle Light/Dark Mode
+                </button>
             </div>
         </div>
 
@@ -10156,6 +10198,156 @@ select:focus-visible {
             16: 0.75, 17: 0.80, 18: 0.75, 19: 0.80, 20: 0.85
         };
 
+        const STRENGTH_LIFT_INTENSITY = {
+            'Squat': {
+                1: 0.7, 2: 0.75, 3: 0.8, 4: 0.725, 5: 0.775, 6: 0.825,
+                7: 0.6, 8: 0.75, 9: 0.8, 10: 0.85, 11: 0.775, 12: 0.825,
+                13: 0.875, 14: 0.6, 15: 0.8, 16: 0.85, 17: 0.9, 18: 0.85,
+                19: 0.9, 20: 0.95, 21: 0.6
+            },
+            'Bench Press': {
+                1: 0.7, 2: 0.75, 3: 0.8, 4: 0.725, 5: 0.775, 6: 0.825,
+                7: 0.6, 8: 0.75, 9: 0.8, 10: 0.85, 11: 0.775, 12: 0.825,
+                13: 0.875, 14: 0.6, 15: 0.8, 16: 0.85, 17: 0.9, 18: 0.85,
+                19: 0.9, 20: 0.95, 21: 0.6
+            },
+            'Deadlift': {
+                1: 0.7, 2: 0.75, 3: 0.8, 4: 0.725, 5: 0.775, 6: 0.825,
+                7: 0.6, 8: 0.75, 9: 0.8, 10: 0.85, 11: 0.775, 12: 0.825,
+                13: 0.875, 14: 0.6, 15: 0.8, 16: 0.85, 17: 0.9, 18: 0.85,
+                19: 0.9, 20: 0.95, 21: 0.6
+            },
+            'OHP': {
+                1: 0.7, 2: 0.75, 3: 0.8, 4: 0.725, 5: 0.775, 6: 0.825,
+                7: 0.6, 8: 0.75, 9: 0.8, 10: 0.85, 11: 0.775, 12: 0.825,
+                13: 0.875, 14: 0.6, 15: 0.8, 16: 0.85, 17: 0.9, 18: 0.85,
+                19: 0.9, 20: 0.95, 21: 0.6
+            },
+            'Leg Press': {
+                1: 0.6, 2: 0.65, 3: 0.7000000000000001, 4: 0.625, 5: 0.675, 6: 0.725,
+                7: 0.5, 8: 0.65, 9: 0.7000000000000001, 10: 0.75, 11: 0.675, 12: 0.725,
+                13: 0.775, 14: 0.5, 15: 0.7000000000000001, 16: 0.75, 17: 0.8, 18: 0.75,
+                19: 0.8, 20: 0.85, 21: 0.5
+            },
+            'Incline Press': {
+                1: 0.6, 2: 0.65, 3: 0.7000000000000001, 4: 0.625, 5: 0.675, 6: 0.725,
+                7: 0.5, 8: 0.65, 9: 0.7000000000000001, 10: 0.75, 11: 0.675, 12: 0.725,
+                13: 0.775, 14: 0.5, 15: 0.7000000000000001, 16: 0.75, 17: 0.8, 18: 0.75,
+                19: 0.8, 20: 0.85, 21: 0.5
+            },
+            'Romanian Deadlift': {
+                1: 0.6, 2: 0.65, 3: 0.7000000000000001, 4: 0.625, 5: 0.675, 6: 0.725,
+                7: 0.5, 8: 0.65, 9: 0.7000000000000001, 10: 0.75, 11: 0.675, 12: 0.725,
+                13: 0.775, 14: 0.5, 15: 0.7000000000000001, 16: 0.75, 17: 0.8, 18: 0.75,
+                19: 0.8, 20: 0.85, 21: 0.5
+            },
+            'DB OHP': {
+                1: 0.6, 2: 0.65, 3: 0.7000000000000001, 4: 0.625, 5: 0.675, 6: 0.725,
+                7: 0.5, 8: 0.65, 9: 0.7000000000000001, 10: 0.75, 11: 0.675, 12: 0.725,
+                13: 0.775, 14: 0.5, 15: 0.7000000000000001, 16: 0.75, 17: 0.8, 18: 0.75,
+                19: 0.8, 20: 0.85, 21: 0.5
+            }
+        };
+
+        const HYPERTROPHY_LIFT_INTENSITY = {
+            'Squat': {
+                1: 0.7, 2: 0.725, 3: 0.75, 4: 0.725, 5: 0.75, 6: 0.775,
+                7: 0.6, 8: 0.725, 9: 0.75, 10: 0.775, 11: 0.75, 12: 0.775,
+                13: 0.8, 14: 0.6, 15: 0.75, 16: 0.775, 17: 0.8, 18: 0.775,
+                19: 0.8, 20: 0.825, 21: 0.6
+            },
+            'Bench Press': {
+                1: 0.7, 2: 0.725, 3: 0.75, 4: 0.725, 5: 0.75, 6: 0.775,
+                7: 0.6, 8: 0.725, 9: 0.75, 10: 0.775, 11: 0.75, 12: 0.775,
+                13: 0.8, 14: 0.6, 15: 0.75, 16: 0.775, 17: 0.8, 18: 0.775,
+                19: 0.8, 20: 0.825, 21: 0.6
+            },
+            'Block Pulls': {
+                1: 0.7, 2: 0.725, 3: 0.75, 4: 0.725, 5: 0.75, 6: 0.775,
+                7: 0.6, 8: 0.725, 9: 0.75, 10: 0.775, 11: 0.75, 12: 0.775,
+                13: 0.8, 14: 0.6, 15: 0.75, 16: 0.775, 17: 0.8, 18: 0.775,
+                19: 0.8, 20: 0.825, 21: 0.6
+            },
+            'OHP': {
+                1: 0.7, 2: 0.725, 3: 0.75, 4: 0.725, 5: 0.75, 6: 0.775,
+                7: 0.6, 8: 0.725, 9: 0.75, 10: 0.775, 11: 0.75, 12: 0.775,
+                13: 0.8, 14: 0.6, 15: 0.75, 16: 0.775, 17: 0.8, 18: 0.775,
+                19: 0.8, 20: 0.825, 21: 0.6
+            },
+            'Leg Press': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            },
+            'Hack Squat': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            },
+            'Incline Press': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            },
+            'DB Bench': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            },
+            'Romanian Deadlift': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            },
+            'DB OHP': {
+                1: 0.65, 2: 0.675, 3: 0.7, 4: 0.675, 5: 0.7, 6: 0.725,
+                7: 0.55, 8: 0.675, 9: 0.7, 10: 0.725, 11: 0.7, 12: 0.725,
+                13: 0.75, 14: 0.55, 15: 0.7, 16: 0.725, 17: 0.75, 18: 0.725,
+                19: 0.75, 20: 0.775, 21: 0.55
+            }
+        };
+
+        const STRENGTH_LIFT_INTENSITY_BY_NAME = Object.fromEntries(
+            Object.entries(STRENGTH_LIFT_INTENSITY).map(([name, table]) => [
+                String(name).trim().toLowerCase(),
+                table
+            ])
+        );
+
+        const HYPERTROPHY_LIFT_INTENSITY_BY_NAME = Object.fromEntries(
+            Object.entries(HYPERTROPHY_LIFT_INTENSITY).map(([name, table]) => [
+                String(name).trim().toLowerCase(),
+                table
+            ])
+        );
+
+        function getIntensityForExercise(exerciseName, weekNum) {
+            if (!weekNum) return null;
+            const weekKey = String(weekNum);
+
+            if (exerciseName) {
+                const key = String(exerciseName).trim().toLowerCase();
+                if (appData.programType === 'strength') {
+                    const table = STRENGTH_LIFT_INTENSITY_BY_NAME[key];
+                    if (table && table[weekKey] !== undefined) {
+                        return table[weekKey];
+                    }
+                } else if (appData.programType === 'hypertrophy') {
+                    const table = HYPERTROPHY_LIFT_INTENSITY_BY_NAME[key];
+                    if (table && table[weekKey] !== undefined) {
+                        return table[weekKey];
+                    }
+                }
+            }
+
+            return WEEK_INTENSITY[weekNum] || null;
+        }
+
         // App state
         const DATA_VERSION = 2;
         let appData = {
@@ -10248,6 +10440,7 @@ select:focus-visible {
             // Excel MROUND rounds to nearest multiple
             return Math.round(weight / 2.5) * 2.5;
         }
+
 
         // Load/save data
         // Weight conversion and display helpers
@@ -10646,7 +10839,9 @@ select:focus-visible {
 
             // Update icon
             const icon = document.getElementById('theme-icon');
-            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            if (icon) {
+                icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            }
 
             // Update PWA theme color
             const metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -11284,8 +11479,8 @@ select:focus-visible {
             // Calculate next week's weight using TM-based progression
             const currentWeek = appData.currentWeek;
             const nextWeek = currentWeek + 1;
-            const currentIntensity = WEEK_INTENSITY[currentWeek] || 0.75;
-            const nextIntensity = WEEK_INTENSITY[nextWeek] || 0.80;
+            const currentIntensity = getIntensityForExercise(ex.name, currentWeek) || 0.75;
+            const nextIntensity = getIntensityForExercise(ex.name, nextWeek) || 0.80;
 
             // TM = current_weight / current_intensity
             const trainingMax = ex.weight / currentIntensity;
@@ -11383,9 +11578,6 @@ select:focus-visible {
             }
 
             // Apply TM-based AMRAP progressions to next week's weights
-            const currentIntensity = WEEK_INTENSITY[currentWeek] || 0.75;
-            const nextIntensity = WEEK_INTENSITY[nextWeek] || 0.80;
-
             for (let day = 1; day <= getNumDays(); day++) {
                 const currentDayExercises = appData.workouts[currentWeek][day];
                 const nextDayExercises = appData.workouts[nextWeek][day];
@@ -11399,6 +11591,9 @@ select:focus-visible {
                     // Find matching exercise in next week by name
                     const nextEx = nextDayExercises.find(ex => ex.name === currentEx.name);
                     if (!nextEx) return;
+
+                    const currentIntensity = getIntensityForExercise(currentEx.name, currentWeek) || 0.75;
+                    const nextIntensity = getIntensityForExercise(currentEx.name, nextWeek) || 0.80;
 
                     // Calculate Training Max from current working weight
                     const trainingMax = currentEx.weight / currentIntensity;
@@ -12045,6 +12240,10 @@ select:focus-visible {
             return String(name || '').trim().toLowerCase();
         }
 
+        function normalizeHevyLoose(name) {
+            return normalizeHevyName(name).replace(/[^a-z0-9]+/g, ' ').trim();
+        }
+
         async function syncHevyExerciseTemplates() {
             try {
                 showToast('Syncing Hevy templates...', 'info', 3000);
@@ -12078,7 +12277,12 @@ select:focus-visible {
                     const name = template.title || template.name || template.exercise_name;
                     const id = template.id || template.exercise_template_id;
                     if (!name || !id) return;
-                    templatesByName[normalizeHevyName(name)] = id;
+                    const normalized = normalizeHevyName(name);
+                    const normalizedLoose = normalizeHevyLoose(name);
+                    templatesByName[normalized] = id;
+                    if (normalizedLoose && !templatesByName[normalizedLoose]) {
+                        templatesByName[normalizedLoose] = id;
+                    }
                 });
 
                 hevyState.templatesByName = templatesByName;
@@ -12100,9 +12304,76 @@ select:focus-visible {
 
         function resolveHevyTemplateId(exerciseName) {
             const overrides = hevyState.nameOverrides || {};
-            const overrideName = overrides[exerciseName] || overrides[exerciseName.trim?.() || ''] || exerciseName;
+            const normalizedKey = normalizeHevyName(exerciseName);
+            const overrideName =
+                overrides[exerciseName] ||
+                overrides[exerciseName.trim?.() || ''] ||
+                overrides[normalizedKey] ||
+                exerciseName;
             const normalized = normalizeHevyName(overrideName);
-            return hevyState.templatesByName?.[normalized];
+            const normalizedLoose = normalizeHevyLoose(overrideName);
+            const templatesByName = hevyState.templatesByName || {};
+
+            if (templatesByName[normalized]) {
+                return templatesByName[normalized];
+            }
+            if (normalizedLoose && templatesByName[normalizedLoose]) {
+                return templatesByName[normalizedLoose];
+            }
+
+            const fallbackCandidates = {
+                'deadlift': ['Barbell Deadlift', 'Conventional Deadlift', 'Deadlift (Barbell)'],
+                'squat': ['Barbell Squat', 'Barbell Back Squat', 'Back Squat', 'Low Bar Back Squat', 'High Bar Back Squat', 'Squat (Barbell)'],
+                'bench press': ['Barbell Bench Press', 'Bench Press (Barbell)', 'Flat Barbell Bench Press'],
+                'ohp': ['Overhead Press', 'Standing Overhead Press', 'Barbell Overhead Press', 'OHP'],
+                'hack squat': ['Hack Squat', 'Hack Squat Machine', 'Hack Squat (Machine)', 'Machine Hack Squat'],
+                'leg press': ['Leg Press', '45 Degree Leg Press', 'Horizontal Leg Press', 'Leg Press (Machine)'],
+                'block pulls': ['Block Pull', 'Block Pulls', 'Block Pull (Barbell)', 'Deadlift (Block Pull)'],
+                'romanian deadlift': ['Romanian Deadlift', 'RDL', 'Barbell Romanian Deadlift'],
+                'incline press': ['Incline Bench Press', 'Incline Barbell Bench Press', 'Incline Press (Barbell)'],
+                'db bench': ['Dumbbell Bench Press', 'Dumbbell Bench', 'DB Bench Press', 'DB Bench'],
+                'db ohp': ['Dumbbell Overhead Press', 'Dumbbell Shoulder Press', 'DB Shoulder Press', 'DB OHP']
+            };
+
+            const candidates = [overrideName];
+            if (fallbackCandidates[normalized]) {
+                candidates.push(...fallbackCandidates[normalized]);
+            }
+            if (fallbackCandidates[normalizedLoose]) {
+                candidates.push(...fallbackCandidates[normalizedLoose]);
+            }
+
+            for (const candidate of candidates) {
+                const candidateKey = normalizeHevyName(candidate);
+                if (templatesByName[candidateKey]) {
+                    return templatesByName[candidateKey];
+                }
+                const candidateLoose = normalizeHevyLoose(candidate);
+                if (candidateLoose && templatesByName[candidateLoose]) {
+                    return templatesByName[candidateLoose];
+                }
+            }
+
+            const normalizedEntries = Object.entries(templatesByName);
+            const matches = normalizedEntries.filter(([name]) =>
+                name.includes(normalized) || (normalizedLoose && name.includes(normalizedLoose))
+            );
+            if (matches.length) {
+                const preferred = matches.find(([name]) =>
+                    name === normalized ||
+                    name.endsWith(` ${normalized}`) ||
+                    name.startsWith(`${normalized} `) ||
+                    (normalizedLoose && (name === normalizedLoose || name.endsWith(` ${normalizedLoose}`) || name.startsWith(`${normalizedLoose} `)))
+                );
+                if (preferred) {
+                    return preferred[1];
+                }
+
+                matches.sort((a, b) => a[0].length - b[0].length);
+                return matches[0][1];
+            }
+
+            return undefined;
         }
 
         function convertWeightToKg(weight) {
@@ -12138,7 +12409,7 @@ select:focus-visible {
             const exercises = dayExercises.map(exercise => {
                 const templateId = resolveHevyTemplateId(exercise.name);
                 if (!templateId) {
-                    throw new Error(`Missing Hevy template for "${exercise.name}".`);
+                    throw new Error(`Missing Hevy template for "${exercise.name}". Add an override in Settings → Hevy Sync or sync templates again.`);
                 }
 
                 const totalSets = Math.max(1, parseInt(exercise.sets || 0, 10));
