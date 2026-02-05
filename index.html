@@ -1899,12 +1899,46 @@ select:focus-visible {
 
             <button class="btn btn-secondary" onclick="exportToJSON()">Export Full Backup (JSON)</button>
             <button class="btn btn-secondary" onclick="exportToCSV()">Export Workout History (CSV)</button>
+            <button class="btn btn-secondary" onclick="exportToHevyCSV()">Export Current Day (Hevy CSV)</button>
 
             <div class="form-group form-group-spaced">
                 <label>Import Backup (JSON)</label>
                 <input type="file" id="import-file" accept=".json" class="file-input">
             </div>
             <button class="btn btn-secondary" onclick="importFromJSON()">Import Backup</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Hevy Sync</h2>
+            <p class="helper-text">Store your Hevy API key locally to send workouts directly to Hevy.</p>
+
+            <div class="form-group">
+                <label>Hevy API Key</label>
+                <input type="password" id="hevy-api-key" placeholder="Paste your Hevy API key">
+            </div>
+
+            <div class="form-group">
+                <label>Default Workout Duration (minutes)</label>
+                <input type="number" id="hevy-duration" min="0" step="5">
+            </div>
+
+            <div class="form-group">
+                <label>Privacy</label>
+                <select id="hevy-privacy">
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+            </div>
+
+            <div class="form-group form-group-spaced">
+                <label>Exercise Name Overrides (JSON)</label>
+                <textarea id="hevy-name-overrides" rows="6" placeholder='{"Bench Press":"Barbell Bench Press"}'></textarea>
+            </div>
+
+            <button class="btn btn-secondary" onclick="saveHevySettings()">Save Hevy Settings</button>
+            <button class="btn btn-secondary" onclick="syncHevyExerciseTemplates()">Sync Hevy Exercise Templates</button>
+            <button class="btn btn-secondary" onclick="sendCurrentDayToHevy()">Send Current Day to Hevy</button>
+            <p class="helper-text" id="hevy-sync-status"></p>
         </div>
 
         <div class="settings-section">
@@ -10163,6 +10197,18 @@ select:focus-visible {
             setupComplete: false
         };
 
+        // Hevy integration state (stored separately from appData)
+        const HEVY_STORAGE_KEY = 'sbs-hevy-v1';
+        const HEVY_API_BASE = 'https://api.hevyapp.com';
+        let hevyState = {
+            apiKey: '',
+            templatesByName: {},
+            templatesLastSync: null,
+            nameOverrides: {},
+            defaultDurationMinutes: 60,
+            isPrivate: true
+        };
+
         // Timer state (not persisted)
         let timerState = {
             active: false,
@@ -10345,6 +10391,49 @@ select:focus-visible {
             } catch (error) {
                 console.error('Failed to save data:', error);
                 showToast('Failed to save data. Storage may be full.', 'error', 5000);
+            }
+        }
+
+        function loadHevyState() {
+            const saved = localStorage.getItem(HEVY_STORAGE_KEY);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    hevyState = {...hevyState, ...data};
+                } catch (error) {
+                    console.warn('Failed to parse Hevy settings:', error);
+                }
+            }
+            updateHevySettingsUI();
+        }
+
+        function saveHevyState() {
+            try {
+                localStorage.setItem(HEVY_STORAGE_KEY, JSON.stringify(hevyState));
+            } catch (error) {
+                console.error('Failed to save Hevy settings:', error);
+                showToast('Failed to save Hevy settings.', 'error', 4000);
+            }
+        }
+
+        function updateHevySettingsUI() {
+            const apiKeyInput = document.getElementById('hevy-api-key');
+            const durationInput = document.getElementById('hevy-duration');
+            const privacySelect = document.getElementById('hevy-privacy');
+            const overridesInput = document.getElementById('hevy-name-overrides');
+            const statusEl = document.getElementById('hevy-sync-status');
+
+            if (apiKeyInput) apiKeyInput.value = hevyState.apiKey || '';
+            if (durationInput) durationInput.value = hevyState.defaultDurationMinutes || 60;
+            if (privacySelect) privacySelect.value = hevyState.isPrivate ? 'private' : 'public';
+            if (overridesInput) {
+                overridesInput.value = JSON.stringify(hevyState.nameOverrides || {}, null, 2);
+            }
+            if (statusEl) {
+                const lastSync = hevyState.templatesLastSync
+                    ? new Date(hevyState.templatesLastSync).toLocaleString()
+                    : 'Not synced yet';
+                statusEl.textContent = `Templates: ${Object.keys(hevyState.templatesByName || {}).length} loaded. Last sync: ${lastSync}.`;
             }
         }
 
@@ -11782,6 +11871,340 @@ select:focus-visible {
             showToast('Workout history exported to CSV.', 'success');
         }
 
+        function exportToHevyCSV() {
+            const currentWeek = appData.currentWeek;
+            const currentDay = appData.currentDay;
+
+            ensureDayState(currentWeek, currentDay);
+
+            const dayExercises = appData.workouts?.[currentWeek]?.[currentDay] || [];
+            if (dayExercises.length === 0) {
+                showToast('No workout data to export for the current day.', 'info', 4000);
+                return;
+            }
+
+            const dateObj = new Date();
+            const date = formatLocalDate(dateObj);
+            const dateTime = `${date} 00:00:00`;
+            const programTypeLabel = appData.programType === 'hypertrophy' ? 'Hypertrophy' : 'Strength';
+            const programVariantLabel = appData.selectedProgram || '';
+            const workoutName = `SBS ${programTypeLabel} ${programVariantLabel} - Week ${currentWeek} Day ${currentDay}`.trim();
+
+            const headers = [
+                'Date',
+                'Workout Name',
+                'Duration',
+                'Exercise Name',
+                'Set Order',
+                'Weight',
+                'Reps',
+                'Distance',
+                'Seconds',
+                'Notes',
+                'Workout Notes',
+                'RPE'
+            ];
+
+            const rows = [headers.join(',')];
+
+            dayExercises.forEach(exercise => {
+                const totalSets = Math.max(1, parseInt(exercise.sets || 0, 10));
+                for (let setIndex = 1; setIndex <= totalSets; setIndex++) {
+                    const reps = (setIndex === totalSets && exercise.amrapReps !== undefined && exercise.amrapReps !== null && exercise.amrapReps !== '')
+                        ? exercise.amrapReps
+                        : exercise.reps;
+
+                    const row = [
+                        dateTime,
+                        workoutName,
+                        0,
+                        exercise.name,
+                        setIndex,
+                        exercise.weight,
+                        reps,
+                        0,
+                        0,
+                        '',
+                        '',
+                        ''
+                    ];
+
+                    rows.push(row.map(csvEscape).join(','));
+                }
+            });
+
+            const csvContent = rows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+
+            link.download = `sbs-hevy-week${currentWeek}-day${currentDay}-${date}.csv`;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            showToast('Hevy CSV exported. Import using Hevy\'s Strong CSV option.', 'success', 6000);
+        }
+
+        function formatLocalDate(dateObj) {
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function csvEscape(value) {
+            if (value === null || value === undefined) {
+                return '';
+            }
+            let str = String(value);
+            if (str.includes('"')) {
+                str = str.replace(/"/g, '""');
+            }
+            if (/[",\n]/.test(str)) {
+                return `"${str}"`;
+            }
+            return str;
+        }
+
+        function saveHevySettings() {
+            const apiKeyInput = document.getElementById('hevy-api-key');
+            const durationInput = document.getElementById('hevy-duration');
+            const privacySelect = document.getElementById('hevy-privacy');
+            const overridesInput = document.getElementById('hevy-name-overrides');
+
+            if (apiKeyInput) {
+                hevyState.apiKey = apiKeyInput.value.trim();
+            }
+
+            if (durationInput) {
+                const duration = parseInt(durationInput.value, 10);
+                hevyState.defaultDurationMinutes = Number.isFinite(duration) ? Math.max(0, duration) : 60;
+            }
+
+            if (privacySelect) {
+                hevyState.isPrivate = privacySelect.value === 'private';
+            }
+
+            if (overridesInput) {
+                const raw = overridesInput.value.trim();
+                if (!raw) {
+                    hevyState.nameOverrides = {};
+                } else {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        hevyState.nameOverrides = parsed && typeof parsed === 'object' ? parsed : {};
+                    } catch (error) {
+                        showToast('Invalid JSON in exercise name overrides.', 'error', 5000);
+                        return;
+                    }
+                }
+            }
+
+            saveHevyState();
+            updateHevySettingsUI();
+            showToast('Hevy settings saved.', 'success');
+        }
+
+        async function hevyApiRequest(path, options = {}) {
+            if (!hevyState.apiKey) {
+                showToast('Add your Hevy API key first.', 'error', 5000);
+                throw new Error('Missing Hevy API key');
+            }
+
+            const headers = {
+                'api-key': hevyState.apiKey,
+                ...(options.headers || {})
+            };
+
+            if (options.body && !headers['Content-Type']) {
+                headers['Content-Type'] = 'application/json';
+            }
+
+            const response = await fetch(`${HEVY_API_BASE}${path}`, {
+                ...options,
+                headers
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text().catch(() => '');
+                throw new Error(`Hevy API error ${response.status}: ${errorText || response.statusText}`);
+            }
+
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                return response.json();
+            }
+            return response.text();
+        }
+
+        function normalizeHevyName(name) {
+            return String(name || '').trim().toLowerCase();
+        }
+
+        async function syncHevyExerciseTemplates() {
+            try {
+                showToast('Syncing Hevy templates...', 'info', 3000);
+
+                const pageSize = 100;
+                let page = 1;
+                let templates = [];
+                let totalPages = null;
+
+                while (true) {
+                    const data = await hevyApiRequest(`/v1/exercise_templates?page=${page}&page_size=${pageSize}`);
+                    const items = data?.results || data?.items || data?.exercise_templates || data?.data || data;
+                    if (!Array.isArray(items)) {
+                        throw new Error('Unexpected template response shape.');
+                    }
+
+                    templates = templates.concat(items);
+
+                    if (data?.total_pages) {
+                        totalPages = data.total_pages;
+                        if (page >= totalPages) break;
+                    } else if (items.length < pageSize) {
+                        break;
+                    }
+
+                    page += 1;
+                }
+
+                const templatesByName = {};
+                templates.forEach(template => {
+                    const name = template.title || template.name || template.exercise_name;
+                    const id = template.id || template.exercise_template_id;
+                    if (!name || !id) return;
+                    templatesByName[normalizeHevyName(name)] = id;
+                });
+
+                hevyState.templatesByName = templatesByName;
+                hevyState.templatesLastSync = new Date().toISOString();
+                saveHevyState();
+                updateHevySettingsUI();
+
+                showToast(`Synced ${Object.keys(templatesByName).length} Hevy templates.`, 'success', 5000);
+            } catch (error) {
+                console.error('Hevy template sync failed:', error);
+                const message = String(error?.message || error);
+                if (message.toLowerCase().includes('failed to fetch')) {
+                    showToast('Failed to reach Hevy API. CORS may block direct calls; a proxy may be required.', 'error', 7000);
+                } else {
+                    showToast(`Hevy sync failed: ${message}`, 'error', 7000);
+                }
+            }
+        }
+
+        function resolveHevyTemplateId(exerciseName) {
+            const overrides = hevyState.nameOverrides || {};
+            const overrideName = overrides[exerciseName] || overrides[exerciseName.trim?.() || ''] || exerciseName;
+            const normalized = normalizeHevyName(overrideName);
+            return hevyState.templatesByName?.[normalized];
+        }
+
+        function convertWeightToKg(weight) {
+            if (weight === null || weight === undefined) return 0;
+            const unit = getWeightUnit();
+            const numeric = Number(weight);
+            if (!Number.isFinite(numeric)) return 0;
+            if (unit === 'lbs') {
+                return Math.round(lbsToKg(numeric) * 100) / 100;
+            }
+            return Math.round(numeric * 100) / 100;
+        }
+
+        function buildHevyWorkoutPayload() {
+            const currentWeek = appData.currentWeek;
+            const currentDay = appData.currentDay;
+
+            ensureDayState(currentWeek, currentDay);
+            const dayExercises = appData.workouts?.[currentWeek]?.[currentDay] || [];
+
+            if (dayExercises.length === 0) {
+                throw new Error('No exercises for the current day.');
+            }
+
+            const now = new Date();
+            const durationMinutes = Math.max(0, parseInt(hevyState.defaultDurationMinutes || 0, 10));
+            const endTime = new Date(now.getTime() + durationMinutes * 60 * 1000);
+
+            const programTypeLabel = appData.programType === 'hypertrophy' ? 'Hypertrophy' : 'Strength';
+            const programVariantLabel = appData.selectedProgram || '';
+            const workoutName = `SBS ${programTypeLabel} ${programVariantLabel} - Week ${currentWeek} Day ${currentDay}`.trim();
+
+            const exercises = dayExercises.map(exercise => {
+                const templateId = resolveHevyTemplateId(exercise.name);
+                if (!templateId) {
+                    throw new Error(`Missing Hevy template for "${exercise.name}".`);
+                }
+
+                const totalSets = Math.max(1, parseInt(exercise.sets || 0, 10));
+                const sets = [];
+
+                for (let setIndex = 1; setIndex <= totalSets; setIndex++) {
+                    const reps = (setIndex === totalSets && exercise.amrapReps !== undefined && exercise.amrapReps !== null && exercise.amrapReps !== '')
+                        ? Number(exercise.amrapReps)
+                        : Number(exercise.reps);
+
+                    sets.push({
+                        type: 'normal',
+                        weight_kg: convertWeightToKg(exercise.weight),
+                        reps: Number.isFinite(reps) ? reps : 0,
+                        distance_meters: 0,
+                        duration_seconds: 0
+                    });
+                }
+
+                return {
+                    exercise_template_id: templateId,
+                    superset_id: null,
+                    notes: '',
+                    sets
+                };
+            });
+
+            return {
+                title: workoutName,
+                description: 'Generated by SBS Workout Tracker',
+                start_time: now.toISOString(),
+                end_time: endTime.toISOString(),
+                is_private: hevyState.isPrivate,
+                exercises
+            };
+        }
+
+        async function sendCurrentDayToHevy() {
+            try {
+                if (!hevyState.apiKey) {
+                    showToast('Add your Hevy API key first.', 'error', 5000);
+                    return;
+                }
+
+                if (!hevyState.templatesByName || Object.keys(hevyState.templatesByName).length === 0) {
+                    await syncHevyExerciseTemplates();
+                }
+
+                const payload = buildHevyWorkoutPayload();
+                await hevyApiRequest('/v1/workouts', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                showToast('Workout sent to Hevy.', 'success', 5000);
+            } catch (error) {
+                console.error('Hevy send failed:', error);
+                const message = String(error?.message || error);
+                if (message.toLowerCase().includes('failed to fetch')) {
+                    showToast('Failed to reach Hevy API. CORS may block direct calls; a proxy may be required.', 'error', 7000);
+                } else {
+                    showToast(`Hevy export failed: ${message}`, 'error', 7000);
+                }
+            }
+        }
+
         function importFromJSON() {
             const fileInput = document.getElementById('import-file');
             const file = fileInput.files[0];
@@ -12630,6 +13053,7 @@ select:focus-visible {
 
         // Initialize
         loadData();
+        loadHevyState();
         loadTheme(); // Load saved theme preference
         updateWeekSelectors();
         checkSetupNeeded();
