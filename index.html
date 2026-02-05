@@ -414,6 +414,11 @@ select:focus-visible {
     color: var(--text);
 }
 
+.settings-nav-button:focus-visible {
+    outline: 2px solid var(--brand-strong);
+    outline-offset: 2px;
+}
+
 .settings-nav-button.active {
     background: var(--brand-contrast);
     color: var(--brand-strong);
@@ -1846,19 +1851,19 @@ select:focus-visible {
     <div id="settings-tab" class="tab-content">
         <div class="settings-layout">
             <aside class="settings-sidebar">
-                <div class="settings-nav">
-                    <button class="settings-nav-button" data-section="program" aria-controls="settings-panel-program">Program</button>
-                    <button class="settings-nav-button" data-section="accessories" aria-controls="settings-panel-accessories">Accessories</button>
-                    <button class="settings-nav-button" data-section="tracking" aria-controls="settings-panel-tracking">Tracking</button>
-                    <button class="settings-nav-button" data-section="integrations" aria-controls="settings-panel-integrations">Integrations</button>
-                    <button class="settings-nav-button" data-section="data" aria-controls="settings-panel-data">Data</button>
-                    <button class="settings-nav-button" data-section="appearance" aria-controls="settings-panel-appearance">Appearance</button>
-                    <button class="settings-nav-button" data-section="info" aria-controls="settings-panel-info">Info</button>
+                <div class="settings-nav" role="tablist" aria-label="Settings sections">
+                    <button class="settings-nav-button" id="settings-tab-program" data-section="program" aria-controls="settings-panel-program" role="tab">Program</button>
+                    <button class="settings-nav-button" id="settings-tab-accessories" data-section="accessories" aria-controls="settings-panel-accessories" role="tab">Accessories</button>
+                    <button class="settings-nav-button" id="settings-tab-tracking" data-section="tracking" aria-controls="settings-panel-tracking" role="tab">Tracking</button>
+                    <button class="settings-nav-button" id="settings-tab-integrations" data-section="integrations" aria-controls="settings-panel-integrations" role="tab">Integrations</button>
+                    <button class="settings-nav-button" id="settings-tab-data" data-section="data" aria-controls="settings-panel-data" role="tab">Data</button>
+                    <button class="settings-nav-button" id="settings-tab-appearance" data-section="appearance" aria-controls="settings-panel-appearance" role="tab">Appearance</button>
+                    <button class="settings-nav-button" id="settings-tab-info" data-section="info" aria-controls="settings-panel-info" role="tab">Info</button>
                 </div>
             </aside>
 
             <div class="settings-panels">
-                <section class="settings-panel" data-section="program" id="settings-panel-program">
+                <section class="settings-panel" data-section="program" id="settings-panel-program" role="tabpanel" aria-labelledby="settings-tab-program" tabindex="0">
                     <div class="settings-section">
                         <h2>Weight Unit</h2>
                         <p class="helper-text">Choose your preferred weight unit. All weights throughout the app will display in this unit.</p>
@@ -1948,7 +1953,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="accessories" id="settings-panel-accessories">
+                <section class="settings-panel" data-section="accessories" id="settings-panel-accessories" role="tabpanel" aria-labelledby="settings-tab-accessories" tabindex="0">
                     <div class="settings-section">
                         <h2>Auxiliary Exercises</h2>
                         <p class="helper-text">Choose which auxiliary exercises to use for each main lift. Changes will apply to future workouts.</p>
@@ -2058,7 +2063,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="tracking" id="settings-panel-tracking">
+                <section class="settings-panel" data-section="tracking" id="settings-panel-tracking" role="tabpanel" aria-labelledby="settings-tab-tracking" tabindex="0">
                     <div class="settings-section">
                         <h2>Rest Timer</h2>
                         <p class="helper-text">Configure rest timer between sets.</p>
@@ -2111,7 +2116,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="integrations" id="settings-panel-integrations">
+                <section class="settings-panel" data-section="integrations" id="settings-panel-integrations" role="tabpanel" aria-labelledby="settings-tab-integrations" tabindex="0">
                     <div class="settings-section">
                         <h2>Hevy Sync</h2>
                         <p class="helper-text">Store your Hevy API key locally to send workouts directly to Hevy.</p>
@@ -2146,7 +2151,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="data" id="settings-panel-data">
+                <section class="settings-panel" data-section="data" id="settings-panel-data" role="tabpanel" aria-labelledby="settings-tab-data" tabindex="0">
                     <div class="settings-section">
                         <h2>Export & Backup</h2>
                         <p class="helper-text">Export your workout data for backup or analysis. Import to restore from a backup.</p>
@@ -2176,7 +2181,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="appearance" id="settings-panel-appearance">
+                <section class="settings-panel" data-section="appearance" id="settings-panel-appearance" role="tabpanel" aria-labelledby="settings-tab-appearance" tabindex="0">
                     <div class="settings-section">
                         <h2>Appearance</h2>
                         <div class="form-group">
@@ -2189,7 +2194,7 @@ select:focus-visible {
                     </div>
                 </section>
 
-                <section class="settings-panel" data-section="info" id="settings-panel-info">
+                <section class="settings-panel" data-section="info" id="settings-panel-info" role="tabpanel" aria-labelledby="settings-tab-info" tabindex="0">
                     <div class="settings-section">
                         <h2>App Info</h2>
                         <div class="info-block">
@@ -11962,12 +11967,18 @@ select:focus-visible {
             panels.forEach(panel => {
                 const isActive = panel.dataset.section === sectionId;
                 panel.classList.toggle('active', isActive);
+                panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+                panel.tabIndex = isActive ? 0 : -1;
             });
 
             buttons.forEach(button => {
                 const isActive = button.dataset.section === sectionId;
                 button.classList.toggle('active', isActive);
                 button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                button.setAttribute('tabindex', isActive ? '0' : '-1');
+                if (isActive) {
+                    button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                }
             });
 
             localStorage.setItem('sbs-settings-section', sectionId);
@@ -11978,10 +11989,38 @@ select:focus-visible {
             const panels = document.querySelectorAll('.settings-panel');
             if (!buttons.length || !panels.length) return;
 
-            buttons.forEach(button => {
+            const orderedButtons = Array.from(buttons);
+            const handleArrowKey = (event, index) => {
+                let nextIndex = null;
+                switch (event.key) {
+                    case 'ArrowRight':
+                    case 'ArrowDown':
+                        nextIndex = (index + 1) % orderedButtons.length;
+                        break;
+                    case 'ArrowLeft':
+                    case 'ArrowUp':
+                        nextIndex = (index - 1 + orderedButtons.length) % orderedButtons.length;
+                        break;
+                    case 'Home':
+                        nextIndex = 0;
+                        break;
+                    case 'End':
+                        nextIndex = orderedButtons.length - 1;
+                        break;
+                    default:
+                        return;
+                }
+                event.preventDefault();
+                const nextButton = orderedButtons[nextIndex];
+                nextButton.focus();
+                setSettingsSection(nextButton.dataset.section);
+            };
+
+            orderedButtons.forEach((button, index) => {
                 button.addEventListener('click', () => {
                     setSettingsSection(button.dataset.section);
                 });
+                button.addEventListener('keydown', (event) => handleArrowKey(event, index));
             });
 
             const stored = localStorage.getItem('sbs-settings-section');
