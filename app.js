@@ -10601,6 +10601,7 @@
                 const lastSetNote = (usesRIR && lastSetValue !== undefined)
                     ? `Last set RIR: ${lastSetValue}`
                     : '';
+                const notes = lastSetNote.trim().length > 0 ? lastSetNote : null;
 
                 for (let setIndex = 1; setIndex <= totalSets; setIndex++) {
                     const isLastSet = setIndex === totalSets;
@@ -10620,7 +10621,7 @@
                 return {
                     exercise_template_id: templateId,
                     superset_id: null,
-                    notes: lastSetNote,
+                    notes,
                     sets
                 };
             });
