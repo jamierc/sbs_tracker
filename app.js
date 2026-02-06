@@ -10658,9 +10658,10 @@
                         throw error;
                     }
                 }
+                const requestBody = { workout: payload };
                 await hevyApiRequest('/v1/workouts', {
                     method: 'POST',
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(requestBody)
                 });
 
                 showToast('Workout sent to Hevy.', 'success', 5000);
