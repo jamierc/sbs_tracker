@@ -199,6 +199,29 @@ Updated the `applyAuxiliaryExercises()` function in `index.html` (around line 78
 
 ### Additional Fix: Program Data Bug
 
+---
+
+## Session 3 - Roadmap Execution (Phase 0+)
+
+**Date:** 2026-02-06
+**Status:** In progress
+
+### Checklist
+- [x] Save new roadmap file `WORKOUT_TRACKER_ROADMAP.md`
+- [x] Phase 0 UI: Modularization-lite (extract CSS/JS), data status indicator, empty-state/onboarding hints
+- [x] Phase 0 Backend: Export/import (JSON + CSV), integrity checks, migration warnings
+- [x] Phase 1 UI: Navigation/workflow UX improvements
+- [x] Phase 1 Backend: IndexedDB data layer
+- [ ] Phase 2 UI: Visual design system
+- [ ] Phase 2 Backend: Sync-ready backend foundation
+- [ ] Phase 3 UI: Delight/retention features
+- [ ] Phase 3 Backend: Sync queue + observability
+- [ ] Phase 4 Backend: Hevy integration hardening
+
+### Notes
+- Added a lightweight design system in `styles.css` (font scale, transitions, card/pill patterns).
+- Applied new `card` styling to workout, history, and progress stat cards.
+
 **Problem Discovered:**
 The 3x program data had incorrect exercises on Day 3. Instead of having:
 - Day 2: Leg Press (squat-aux-1)

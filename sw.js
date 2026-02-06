@@ -1,8 +1,12 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v40'; // Mobile settings list layout
+const CACHE_VERSION = 'v42'; // IndexedDB data layer added
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
+  './styles.css',
+  './data-store.js',
+  './app.js',
+  './sw-register.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
