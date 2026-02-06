@@ -581,6 +581,34 @@
                     </div>
 
                     <div class="settings-section">
+                        <h2>Cloud Sync (Supabase)</h2>
+                        <p class="helper-text">Optional multi-device sync. Requires your own Supabase project credentials.</p>
+
+                        <div class="form-group">
+                            <label>Supabase URL</label>
+                            <input type="text" id="sync-url" placeholder="https://xxxx.supabase.co">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Supabase Anon Key</label>
+                            <input type="password" id="sync-anon-key" placeholder="Anon public key">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Account Email</label>
+                            <input type="email" id="sync-email" placeholder="you@example.com">
+                        </div>
+
+                        <button class="btn btn-secondary" id="sync-save-btn">Save Sync Settings</button>
+                        <button class="btn btn-secondary" id="sync-signin-btn">Send Magic Link</button>
+                        <button class="btn btn-secondary" id="sync-now-btn">Sync Now (Push)</button>
+                        <button class="btn btn-secondary" id="sync-signout-btn">Sign Out</button>
+
+                        <p class="helper-text" id="sync-status">Not configured</p>
+                        <p class="helper-text" id="sync-last">Last sync: never</p>
+                    </div>
+
+                    <div class="settings-section">
                         <h2>Diagnostics</h2>
                         <p class="helper-text">Generate a debug snapshot if you need to share details for troubleshooting.</p>
 
@@ -705,7 +733,9 @@
 
 
     <script src="hypertrophy-program-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="data-store.js"></script>
+    <script src="sync.js"></script>
     <script src="app.js"></script>
 
     <!-- PWA Service Worker Registration -->

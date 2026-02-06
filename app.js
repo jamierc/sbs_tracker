@@ -8443,6 +8443,10 @@
             text.textContent = message || 'All changes saved';
         }
 
+        function getAppData() {
+            return appData;
+        }
+
         function validateStoredData(data) {
             const errors = [];
             const warnings = [];
@@ -11459,6 +11463,9 @@
             checkSetupNeeded();
             prepareCurrentDay();
             renderWorkout();
+            if (window.initSyncUI) {
+                window.initSyncUI();
+            }
 
             // Update 1RM inputs
             document.getElementById('1rm-squat').value = appData.oneRepMaxes.squat;
@@ -11473,4 +11480,6 @@
         }
 
         initApp();
+
+        window.getAppData = getAppData;
     

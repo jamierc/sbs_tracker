@@ -1,10 +1,11 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v42'; // IndexedDB data layer added
+const CACHE_VERSION = 'v43'; // Supabase sync UI + client
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
   './styles.css',
   './data-store.js',
+  './sync.js',
   './app.js',
   './sw-register.js',
   './manifest.json',
