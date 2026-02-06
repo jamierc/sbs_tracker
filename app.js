@@ -8927,7 +8927,7 @@
                 }
 
                 return `
-                <div class="exercise-card card">
+                <div class="exercise-card card reveal">
                     <div class="exercise-name">
                         ${ex.name}
                         ${hasPR ? `<span class="pr-badge">PR: ${Math.round(currentPR.estimated1RM)} ${getWeightUnit()}</span>` : ''}
@@ -10972,7 +10972,7 @@
                 if (completedDays.length === 0) return '';
 
                 return `
-                    <div class="history-week card">
+                    <div class="history-week card reveal">
                         <h3>Week ${weekNum}</h3>
                         ${completedDays.map(day => `
                             <div class="history-day">
@@ -11061,19 +11061,19 @@
 
             container.innerHTML = `
                 <div class="stats-grid">
-                    <div class="stat-card card with-ring">
+                    <div class="stat-card card with-ring reveal">
                         ${createProgressRing(completionPercentage, 'gradient-primary', 100, 6)}
                         <div class="stat-label">Program Complete</div>
                     </div>
-                    <div class="stat-card card">
+                    <div class="stat-card card reveal">
                         <div class="stat-value">${stats.totalVolume.toLocaleString()}</div>
                         <div class="stat-label">Total Volume (${getWeightUnit()})</div>
                     </div>
-                    <div class="stat-card card">
+                    <div class="stat-card card reveal">
                         <div class="stat-value">${stats.workoutsCompleted}</div>
                         <div class="stat-label">Workouts Done</div>
                     </div>
-                    <div class="stat-card card">
+                    <div class="stat-card card reveal">
                         <div class="stat-value">${stats.avgVolumePerWeek.toLocaleString()}</div>
                         <div class="stat-label">Avg Volume/Week</div>
                     </div>
