@@ -213,7 +213,7 @@ Updated the `applyAuxiliaryExercises()` function in `index.html` (around line 78
 - [x] Phase 1 UI: Navigation/workflow UX improvements
 - [x] Phase 1 Backend: IndexedDB data layer
 - [x] Phase 2 UI: Visual design system
-- [ ] Phase 2 Backend: Sync-ready backend foundation
+- [x] Phase 2 Backend: Sync-ready backend foundation
 - [ ] Phase 3 UI: Delight/retention features
 - [ ] Phase 3 Backend: Sync queue + observability
 - [ ] Phase 4 Backend: Hevy integration hardening
@@ -222,6 +222,7 @@ Updated the `applyAuxiliaryExercises()` function in `index.html` (around line 78
 - Added a lightweight design system in `styles.css` (font scale, transitions, card/pill patterns).
 - Applied new `card` styling to workout, history, and progress stat cards.
 - Phase 2 UI pass: standardized typography scale, tightened component states, and added reveal motion on cards.
+- Phase 2 Backend: added Supabase schema + RLS policies in `backend/supabase/` with setup notes.
 
 **Problem Discovered:**
 The 3x program data had incorrect exercises on Day 3. Instead of having:
