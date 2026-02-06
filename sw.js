@@ -1,5 +1,5 @@
 // IMPORTANT: Increment this version number whenever you deploy updates
-const CACHE_VERSION = 'v43'; // Supabase sync UI + client
+const CACHE_VERSION = 'v44'; // Strength RIR program data + block pulls 1RM
 const CACHE_NAME = `sbs-tracker-${CACHE_VERSION}`;
 const urlsToCache = [
   './index.html',
@@ -16,7 +16,8 @@ const urlsToCache = [
   './all_programs.json',
   './programs_filtered.json',
   './program-data.js',
-  './hypertrophy-program-data.js'
+  './hypertrophy-program-data.js',
+  './strength-rir-program-data.js'
 ];
 
 self.addEventListener('install', (event) => {

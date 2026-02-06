@@ -8149,12 +8149,12 @@
 
             if (exerciseName) {
                 const key = String(exerciseName).trim().toLowerCase();
-                if (appData.programType === 'strength') {
+                if (isStrengthProgram()) {
                     const table = STRENGTH_LIFT_INTENSITY_BY_NAME[key];
                     if (table && table[weekKey] !== undefined) {
                         return table[weekKey];
                     }
-                } else if (appData.programType === 'hypertrophy') {
+                } else if (isHypertrophyProgram()) {
                     const table = HYPERTROPHY_LIFT_INTENSITY_BY_NAME[key];
                     if (table && table[weekKey] !== undefined) {
                         return table[weekKey];
@@ -8170,7 +8170,7 @@
         const DATA_STORAGE_KEY = 'sbs-tracker-v2';
         let appData = {
             version: DATA_VERSION,
-            programType: 'strength',  // 'strength' or 'hypertrophy'
+            programType: 'strength_rtf',  // 'strength_rtf', 'strength_rir', or 'hypertrophy'
             selectedProgram: '3x',  // 2x, 3x, 4x, 5x (or 6x for hypertrophy)
             currentWeek: 16,
             currentDay: 1,
@@ -8181,7 +8181,8 @@
                 squat: 100,
                 bench: 100,
                 deadlift: 140,
-                ohp: 50
+                ohp: 50,
+                blockPulls: 147.5
             },
             auxiliaryExercises: {
                 'squat-aux-1': 'Leg Press',
@@ -8210,6 +8211,19 @@
         // Hevy integration state (stored separately from appData)
         const HEVY_STORAGE_KEY = 'sbs-hevy-v1';
         const HEVY_API_BASE = 'https://api.hevyapp.com';
+        const DEFAULT_HEVY_NAME_OVERRIDES = {
+            'Bench Press': 'Bench Press (Barbell)',
+            'Block Pulls': 'Rack Pull',
+            'DB Bench': 'Bench Press (Dumbbell)',
+            'DB OHP': 'Overhead Press (Dumbbell)',
+            'Deadlift': 'Deadlift (Barbell)',
+            'Hack Squat': 'Hack Squat',
+            'Incline Press': 'Incline Bench Press (Barbell)',
+            'Leg Press': 'Leg Press (Machine)',
+            'OHP': 'Overhead Press (Barbell)',
+            'Romanian Deadlift': 'Romanian Deadlift (Barbell)',
+            'Squat': 'Squat (Barbell)'
+        };
         let hevyState = {
             apiKey: '',
             templatesByName: {},
@@ -8228,12 +8242,20 @@
         };
 
         // Helper function to get max week based on program type
+        function isStrengthProgram() {
+            return appData.programType === 'strength_rtf' || appData.programType === 'strength_rir';
+        }
+
+        function isHypertrophyProgram() {
+            return appData.programType === 'hypertrophy';
+        }
+
         function getMaxWeek() {
-            return appData.programType === 'hypertrophy' ? 21 : 20;
+            return isHypertrophyProgram() ? 21 : 20;
         }
 
         function isRIRProgram() {
-            return appData.programType === 'strength';
+            return appData.programType === 'strength_rir';
         }
 
         // Progression table
@@ -8256,8 +8278,9 @@
         }
 
         function roundWeight(weight) {
-            // Excel MROUND rounds to nearest multiple
-            return Math.round(weight / 2.5) * 2.5;
+            // Excel MROUND rounds to nearest multiple (kg: 2.5, lbs: 5)
+            const rounding = (appData.weightUnit || 'kg') === 'lbs' ? 5 : 2.5;
+            return Math.round(weight / rounding) * rounding;
         }
 
 
@@ -8350,6 +8373,9 @@
             if (!migrated.restTimer) {
                 migrated.restTimer = { enabled: true, duration: 180, autoStart: false };
             }
+            if (!migrated.programType || migrated.programType === 'strength') {
+                migrated.programType = 'strength_rtf';
+            }
             if (!migrated.plateCalculator) {
                 migrated.plateCalculator = {
                     enabled: true,
@@ -8358,6 +8384,22 @@
                         ? [20, 15, 10, 5, 2.5, 1.25]
                         : [45, 35, 25, 10, 5, 2.5]
                 };
+            } else {
+                // Ensure plate list exists and includes small plates
+                const unit = migrated.weightUnit || 'kg';
+                if (!Array.isArray(migrated.plateCalculator.availablePlates) || migrated.plateCalculator.availablePlates.length === 0) {
+                    migrated.plateCalculator.availablePlates = unit === 'kg'
+                        ? [20, 15, 10, 5, 2.5, 1.25]
+                        : [45, 35, 25, 10, 5, 2.5];
+                } else if (unit === 'kg' && !migrated.plateCalculator.availablePlates.includes(1.25)) {
+                    migrated.plateCalculator.availablePlates = [...migrated.plateCalculator.availablePlates, 1.25].sort((a, b) => b - a);
+                }
+            }
+            if (!migrated.oneRepMaxes) {
+                migrated.oneRepMaxes = { squat: 100, bench: 100, deadlift: 140, ohp: 50, blockPulls: 147.5 };
+            } else if (migrated.oneRepMaxes.blockPulls === undefined || migrated.oneRepMaxes.blockPulls === null) {
+                const deadlift = Number(migrated.oneRepMaxes.deadlift) || 0;
+                migrated.oneRepMaxes.blockPulls = deadlift ? Math.round(deadlift * 1.05 * 4) / 4 : 147.5;
             }
 
             migrated.version = DATA_VERSION;
@@ -8460,7 +8502,7 @@
             if (data.workouts && typeof data.workouts !== 'object') errors.push('Workouts data is invalid.');
             if (data.oneRepMaxes && typeof data.oneRepMaxes !== 'object') warnings.push('1RM data missing or invalid.');
 
-            if (data.programType && !['strength', 'hypertrophy'].includes(data.programType)) {
+            if (data.programType && !['strength_rtf', 'strength_rir', 'hypertrophy', 'strength'].includes(data.programType)) {
                 warnings.push('Unknown program type. Defaulting to strength.');
             }
 
@@ -8559,6 +8601,10 @@
                     console.warn('Failed to parse Hevy settings:', error);
                 }
             }
+            hevyState.nameOverrides = {
+                ...DEFAULT_HEVY_NAME_OVERRIDES,
+                ...(hevyState.nameOverrides || {})
+            };
             updateHevySettingsUI();
         }
 
@@ -8594,12 +8640,14 @@
 
         function getWeekData(weekNum) {
             // Get week data based on program type
-            const programSource = appData.programType === 'hypertrophy'
+            const programSource = isHypertrophyProgram()
                 ? (typeof HYPERTROPHY_PROGRAM_WEEKS !== 'undefined' ? HYPERTROPHY_PROGRAM_WEEKS : null)
-                : ALL_PROGRAMS;
+                : (appData.programType === 'strength_rir'
+                    ? (typeof STRENGTH_RIR_PROGRAM_WEEKS !== 'undefined' ? STRENGTH_RIR_PROGRAM_WEEKS : null)
+                    : ALL_PROGRAMS);
 
             if (!programSource) {
-                showToast('Hypertrophy program data not loaded yet. Please refresh.', 'error', 5000);
+                showToast('Program data not loaded yet. Please refresh.', 'error', 5000);
                 return {1: []};
             }
 
@@ -8619,7 +8667,99 @@
             const copiedData = JSON.parse(JSON.stringify(weekData));
 
             // Apply user's auxiliary exercise selections
-            return applyAuxiliaryExercises(copiedData);
+            const adjustedData = applyAuxiliaryExercises(copiedData);
+
+            // Recalculate weights based on user's 1RMs and program intensities
+            return applyTrainingMaxWeights(adjustedData, weekNum);
+        }
+
+        function buildAuxiliaryTrainingMaxes(isHypertrophy) {
+            return {
+                // Squat auxiliaries - template defaults (multiplier differs by program)
+                'Leg Press': appData.oneRepMaxes.squat * (isHypertrophy ? 0.857 : (250 / 110)),
+                'Hack Squat': appData.oneRepMaxes.squat * (isHypertrophy ? 0.939 : 1.10),
+                // Squat auxiliaries - user-selectable options (% of squat 1RM)
+                'Front Squat': appData.oneRepMaxes.squat * 0.85,
+                'Paused Squat': appData.oneRepMaxes.squat * 0.88,
+                'High Bar Squat': appData.oneRepMaxes.squat * 0.98,
+                'Beltless Squat': appData.oneRepMaxes.squat * 0.90,
+                'Wider Stance Squat': appData.oneRepMaxes.squat * 0.95,
+                'Narrower Stance Squat': appData.oneRepMaxes.squat * 0.95,
+                'Box Squat': appData.oneRepMaxes.squat * 0.90,
+                'Pin Squat': appData.oneRepMaxes.squat * 0.85,
+                'Half Squat': appData.oneRepMaxes.squat * 1.15,
+                'Good Morning': appData.oneRepMaxes.squat * 0.50,
+                'Squat With Slow Eccentric': appData.oneRepMaxes.squat * 0.85,
+                'Bulgarian Split Squat': appData.oneRepMaxes.squat * 0.55,
+                'Lunges': appData.oneRepMaxes.squat * 0.50,
+
+                // Bench auxiliaries - template defaults
+                'Incline Press': appData.oneRepMaxes.bench * (isHypertrophy ? 0.954 : (92 / 105)),
+                'DB Bench': appData.oneRepMaxes.bench * (isHypertrophy ? 0.862 : (30 / 105)),
+                // Bench auxiliaries - user-selectable options (% of bench 1RM)
+                'Close Grip Bench': appData.oneRepMaxes.bench * 0.88,
+                'Long Pause Bench': appData.oneRepMaxes.bench * 0.88,
+                'Spoto Press': appData.oneRepMaxes.bench * 0.85,
+                'Wider Grip Bench': appData.oneRepMaxes.bench * 0.95,
+                'Board Press': appData.oneRepMaxes.bench * 1.05,
+                'Pin Press': appData.oneRepMaxes.bench * 0.85,
+                'Slingshot Bench': appData.oneRepMaxes.bench * 1.10,
+                'Bench With Feet Up': appData.oneRepMaxes.bench * 0.85,
+                'Bench With Slow Eccentric': appData.oneRepMaxes.bench * 0.85,
+
+                // Deadlift auxiliaries - template defaults
+                'Romanian Deadlift': appData.oneRepMaxes.deadlift * (isHypertrophy ? 0.952 : (120 / 140)),
+                // Deadlift auxiliaries - user-selectable options (% of deadlift 1RM)
+                'Sumo Deadlift': appData.oneRepMaxes.deadlift * 0.95,
+                'Conventional Deadlift': appData.oneRepMaxes.deadlift * 1.00,
+                'Block Pull': appData.oneRepMaxes.deadlift * 1.05,
+                'Block Pulls': appData.oneRepMaxes.deadlift * 1.05,
+                'Rack Pull': appData.oneRepMaxes.deadlift * 1.10,
+                'Deficit Deadlift': appData.oneRepMaxes.deadlift * 0.85,
+                'Stiff Leg Deadlift': appData.oneRepMaxes.deadlift * 0.75,
+                'Snatch Grip Deadlift': appData.oneRepMaxes.deadlift * 0.80,
+                'Trap Bar Deadlift': appData.oneRepMaxes.deadlift * 1.05,
+                'Paused Deadlift': appData.oneRepMaxes.deadlift * 0.88,
+
+                // OHP auxiliaries - template defaults
+                'DB OHP': appData.oneRepMaxes.ohp * (isHypertrophy ? 1.225 : (30 / 50)),
+                // OHP auxiliaries - user-selectable options (% of OHP 1RM)
+                'Push Press': appData.oneRepMaxes.ohp * 1.15,
+                'Behind The Neck OHP': appData.oneRepMaxes.ohp * 0.85,
+                'Seated OHP': appData.oneRepMaxes.ohp * 0.95
+            };
+        }
+
+        function getTrainingMaxForExercise(exerciseName) {
+            if (!exerciseName) return null;
+            const name = String(exerciseName).trim();
+            const isHypertrophy = isHypertrophyProgram();
+            const auxiliary1RMs = buildAuxiliaryTrainingMaxes(isHypertrophy);
+
+            const mainLiftMap = {
+                'Squat': appData.oneRepMaxes.squat,
+                'Bench Press': appData.oneRepMaxes.bench,
+                'Deadlift': appData.oneRepMaxes.deadlift,
+                'OHP': appData.oneRepMaxes.ohp,
+                // Hypertrophy main lift variant
+                'Block Pulls': appData.oneRepMaxes.blockPulls
+            };
+
+            return mainLiftMap[name] || auxiliary1RMs[name] || null;
+        }
+
+        function applyTrainingMaxWeights(weekData, weekNum) {
+            for (let day in weekData) {
+                const exercises = weekData[day];
+                exercises.forEach(ex => {
+                    const intensity = getIntensityForExercise(ex.name, weekNum);
+                    const trainingMax = getTrainingMaxForExercise(ex.name);
+                    if (intensity && trainingMax) {
+                        ex.weight = roundWeight(trainingMax * intensity);
+                    }
+                });
+            }
+            return weekData;
         }
 
         function applyAuxiliaryExercises(weekData) {
@@ -8641,60 +8781,8 @@
             // Template default exercises use multipliers derived from their respective Excel templates.
             // Strength: Squat=100, Bench=100, Deadlift=140, OHP=50, LegPress=190, Incline=90, RDL=100, DBOHP=25
             // Hypertrophy: Squat=490, Bench=325, BlockPulls=525, OHP=200, LegPress=420, HackSquat=460, Incline=310, DBBench=280, RDL=500, DBOHP=245
-            const isHypertrophy = appData.programType === 'hypertrophy';
-            const auxiliary1RMs = {
-                // Squat auxiliaries - template defaults (multiplier differs by program)
-                'Leg Press': appData.oneRepMaxes.squat * (isHypertrophy ? 0.857 : 1.90),
-                'Hack Squat': appData.oneRepMaxes.squat * (isHypertrophy ? 0.939 : 1.10),
-                // Squat auxiliaries - user-selectable options (% of squat 1RM)
-                'Front Squat': appData.oneRepMaxes.squat * 0.85,
-                'Paused Squat': appData.oneRepMaxes.squat * 0.88,
-                'High Bar Squat': appData.oneRepMaxes.squat * 0.98,
-                'Beltless Squat': appData.oneRepMaxes.squat * 0.90,
-                'Wider Stance Squat': appData.oneRepMaxes.squat * 0.95,
-                'Narrower Stance Squat': appData.oneRepMaxes.squat * 0.95,
-                'Box Squat': appData.oneRepMaxes.squat * 0.90,
-                'Pin Squat': appData.oneRepMaxes.squat * 0.85,
-                'Half Squat': appData.oneRepMaxes.squat * 1.15,
-                'Good Morning': appData.oneRepMaxes.squat * 0.50,
-                'Squat With Slow Eccentric': appData.oneRepMaxes.squat * 0.85,
-                'Bulgarian Split Squat': appData.oneRepMaxes.squat * 0.55,
-                'Lunges': appData.oneRepMaxes.squat * 0.50,
-
-                // Bench auxiliaries - template defaults
-                'Incline Press': appData.oneRepMaxes.bench * (isHypertrophy ? 0.954 : 0.90),
-                'DB Bench': appData.oneRepMaxes.bench * (isHypertrophy ? 0.862 : 0.85),
-                // Bench auxiliaries - user-selectable options (% of bench 1RM)
-                'Close Grip Bench': appData.oneRepMaxes.bench * 0.88,
-                'Long Pause Bench': appData.oneRepMaxes.bench * 0.88,
-                'Spoto Press': appData.oneRepMaxes.bench * 0.85,
-                'Wider Grip Bench': appData.oneRepMaxes.bench * 0.95,
-                'Board Press': appData.oneRepMaxes.bench * 1.05,
-                'Pin Press': appData.oneRepMaxes.bench * 0.85,
-                'Slingshot Bench': appData.oneRepMaxes.bench * 1.10,
-                'Bench With Feet Up': appData.oneRepMaxes.bench * 0.85,
-                'Bench With Slow Eccentric': appData.oneRepMaxes.bench * 0.85,
-
-                // Deadlift auxiliaries - template defaults
-                'Romanian Deadlift': appData.oneRepMaxes.deadlift * (isHypertrophy ? 0.952 : 0.714),
-                // Deadlift auxiliaries - user-selectable options (% of deadlift 1RM)
-                'Sumo Deadlift': appData.oneRepMaxes.deadlift * 0.95,
-                'Conventional Deadlift': appData.oneRepMaxes.deadlift * 1.00,
-                'Block Pull': appData.oneRepMaxes.deadlift * 1.05,
-                'Rack Pull': appData.oneRepMaxes.deadlift * 1.10,
-                'Deficit Deadlift': appData.oneRepMaxes.deadlift * 0.85,
-                'Stiff Leg Deadlift': appData.oneRepMaxes.deadlift * 0.75,
-                'Snatch Grip Deadlift': appData.oneRepMaxes.deadlift * 0.80,
-                'Trap Bar Deadlift': appData.oneRepMaxes.deadlift * 1.05,
-                'Paused Deadlift': appData.oneRepMaxes.deadlift * 0.88,
-
-                // OHP auxiliaries - template defaults
-                'DB OHP': appData.oneRepMaxes.ohp * (isHypertrophy ? 1.225 : 0.50),
-                // OHP auxiliaries - user-selectable options (% of OHP 1RM)
-                'Push Press': appData.oneRepMaxes.ohp * 1.15,
-                'Behind The Neck OHP': appData.oneRepMaxes.ohp * 0.85,
-                'Seated OHP': appData.oneRepMaxes.ohp * 0.95
-            };
+            const isHypertrophy = isHypertrophyProgram();
+            const auxiliary1RMs = buildAuxiliaryTrainingMaxes(isHypertrophy);
 
             // Process each day in the week
             for (let day in weekData) {
@@ -8717,15 +8805,6 @@
                                 return;
                             }
 
-                            // Calculate weight adjustment ratio
-                            const originalRM = auxiliary1RMs[originalExerciseName];
-                            const newRM = auxiliary1RMs[newExerciseName];
-
-                            if (originalRM && newRM && originalExerciseName !== newExerciseName) {
-                                const weightRatio = newRM / originalRM;
-                                ex.weight = Math.round(ex.weight * weightRatio * 4) / 4; // Round to nearest 0.25kg
-                            }
-
                             ex.name = newExerciseName;
                         }
                         // Also check old format for backwards compatibility
@@ -8746,15 +8825,6 @@
                                 // Skip invalid legacy choices so the default stays intact.
                                 if (!auxiliary1RMs[newExerciseName]) {
                                     return;
-                                }
-
-                                // Calculate weight adjustment ratio
-                                const originalRM = auxiliary1RMs[originalExerciseName];
-                                const newRM = auxiliary1RMs[newExerciseName];
-
-                                if (originalRM && newRM && originalExerciseName !== newExerciseName) {
-                                    const weightRatio = newRM / originalRM;
-                                    ex.weight = Math.round(ex.weight * weightRatio * 4) / 4; // Round to nearest 0.25kg
                                 }
 
                                 ex.name = newExerciseName;
@@ -8999,7 +9069,9 @@
             // Update week displays
             document.getElementById('current-week').textContent = appData.currentWeek;
             document.getElementById('workout-week-display').textContent = appData.currentWeek;
-            const programTypeLabel = appData.programType === 'hypertrophy' ? 'Hypertrophy' : 'Strength';
+            const programTypeLabel = isHypertrophyProgram()
+                ? 'Hypertrophy'
+                : (isRIRProgram() ? 'Strength (RIR)' : 'Strength (RTF)');
             const programVariantLabel = appData.selectedProgram || '3x';
             document.getElementById('program-type-display').textContent = programTypeLabel;
             document.getElementById('program-variant-display').textContent = programVariantLabel;
@@ -9673,7 +9745,8 @@
                 squat: parseFloat(document.getElementById('1rm-squat').value),
                 bench: parseFloat(document.getElementById('1rm-bench').value),
                 deadlift: parseFloat(document.getElementById('1rm-deadlift').value),
-                ohp: parseFloat(document.getElementById('1rm-ohp').value)
+                ohp: parseFloat(document.getElementById('1rm-ohp').value),
+                blockPulls: parseFloat(document.getElementById('1rm-block-pulls').value)
             };
             saveData();
             showToast('1RMs saved.', 'success');
@@ -9745,7 +9818,7 @@
             document.getElementById('rest-timer-autostart').checked = appData.restTimer.autoStart === true;
 
             // Load program settings
-            document.getElementById('settings-program-type').value = appData.programType || 'strength';
+            document.getElementById('settings-program-type').value = appData.programType || 'strength_rtf';
             document.getElementById('settings-program-variant').value = appData.selectedProgram || '3x';
             updateSettingsProgramVariants();
         }
@@ -9775,7 +9848,7 @@
             }
 
             // Restore previous selection if valid
-            if (currentValue && (programType !== 'strength' || currentValue !== '6x')) {
+            if (currentValue && (programType === 'hypertrophy' || currentValue !== '6x')) {
                 programSelect.value = currentValue;
             }
         }
@@ -9935,6 +10008,10 @@
         }
 
         function loadHistoricalData() {
+            if (isRIRProgram()) {
+                showToast('AMRAP history applies to RTF programs only.', 'error', 5000);
+                return;
+            }
             if (!confirm('Load weeks 1-15 AMRAP history from Excel? This will overwrite any existing data for those weeks.')) {
                 return;
             }
@@ -10093,7 +10170,7 @@
 
             // Generate filename with date
             const date = new Date().toISOString().split('T')[0];
-            const programType = appData.programType || 'strength';
+            const programType = appData.programType || 'strength_rtf';
             link.download = `sbs-tracker-backup-${programType}-week${appData.currentWeek}-${date}.json`;
 
             document.body.appendChild(link);
@@ -10138,7 +10215,7 @@
             link.href = url;
 
             const date = new Date().toISOString().split('T')[0];
-            const programType = appData.programType || 'strength';
+            const programType = appData.programType || 'strength_rtf';
             link.download = `sbs-tracker-history-${programType}-${date}.csv`;
 
             document.body.appendChild(link);
@@ -10164,7 +10241,9 @@
             const dateObj = new Date();
             const date = formatLocalDate(dateObj);
             const dateTime = `${date} 00:00:00`;
-            const programTypeLabel = appData.programType === 'hypertrophy' ? 'Hypertrophy' : 'Strength';
+            const programTypeLabel = isHypertrophyProgram()
+                ? 'Hypertrophy'
+                : (isRIRProgram() ? 'Strength (RIR)' : 'Strength (RTF)');
             const programVariantLabel = appData.selectedProgram || '';
             const workoutName = `SBS ${programTypeLabel} ${programVariantLabel} - Week ${currentWeek} Day ${currentDay}`.trim();
 
@@ -10503,7 +10582,9 @@
             const durationMinutes = Math.max(0, parseInt(hevyState.defaultDurationMinutes || 0, 10));
             const endTime = new Date(now.getTime() + durationMinutes * 60 * 1000);
 
-            const programTypeLabel = appData.programType === 'hypertrophy' ? 'Hypertrophy' : 'Strength';
+            const programTypeLabel = isHypertrophyProgram()
+                ? 'Hypertrophy'
+                : (isRIRProgram() ? 'Strength (RIR)' : 'Strength (RTF)');
             const programVariantLabel = appData.selectedProgram || '';
             const workoutName = `SBS ${programTypeLabel} ${programVariantLabel} - Week ${currentWeek} Day ${currentDay}`.trim();
             const usesRIR = isRIRProgram();
@@ -10617,7 +10698,7 @@
                         ? `Warnings:\n- ${validation.warnings.join('\n- ')}\n\n`
                         : '';
                     const confirmMsg = `Import backup data?\n\n` +
-                        `Program: ${importedData.programType || 'strength'} ${importedData.selectedProgram}\n` +
+                        `Program: ${importedData.programType || 'strength_rtf'} ${importedData.selectedProgram}\n` +
                         `Current Week: ${importedData.currentWeek}\n` +
                         `Workouts: ${Object.keys(importedData.workouts || {}).length} weeks\n\n` +
                         warningText +
@@ -10642,6 +10723,7 @@
                     document.getElementById('1rm-bench').value = appData.oneRepMaxes.bench;
                     document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
                     document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
+                    document.getElementById('1rm-block-pulls').value = appData.oneRepMaxes.blockPulls;
                     document.getElementById('week-selector').value = appData.currentWeek;
                     loadAuxiliarySettings();
 
@@ -10802,12 +10884,14 @@
             document.getElementById('label-bench-1rm').textContent = `Bench Press 1RM (${unitText})`;
             document.getElementById('label-deadlift-1rm').textContent = `Deadlift 1RM (${unitText})`;
             document.getElementById('label-ohp-1rm').textContent = `OHP 1RM (${unitText})`;
+            document.getElementById('label-block-pulls-1rm').textContent = `Block Pulls 1RM (${unitText})`;
 
             // Update step values
             document.getElementById('1rm-squat').step = step;
             document.getElementById('1rm-bench').step = step;
             document.getElementById('1rm-deadlift').step = step;
             document.getElementById('1rm-ohp').step = step;
+            document.getElementById('1rm-block-pulls').step = step;
 
             // Update quick setup labels
             if (document.getElementById('setup-1rm-header')) {
@@ -10818,6 +10902,7 @@
                 document.getElementById('setup-bench').step = step;
                 document.getElementById('setup-deadlift').step = step;
                 document.getElementById('setup-ohp').step = step;
+                document.getElementById('setup-block-pulls').step = step;
             }
 
             // Update barbell weight label
@@ -10863,12 +10948,14 @@
                 appData.oneRepMaxes.bench = Math.round((appData.oneRepMaxes.bench * conversionFactor) / roundTo) * roundTo;
                 appData.oneRepMaxes.deadlift = Math.round((appData.oneRepMaxes.deadlift * conversionFactor) / roundTo) * roundTo;
                 appData.oneRepMaxes.ohp = Math.round((appData.oneRepMaxes.ohp * conversionFactor) / roundTo) * roundTo;
+                appData.oneRepMaxes.blockPulls = Math.round((appData.oneRepMaxes.blockPulls * conversionFactor) / roundTo) * roundTo;
 
                 // Update 1RM inputs
                 document.getElementById('1rm-squat').value = appData.oneRepMaxes.squat;
                 document.getElementById('1rm-bench').value = appData.oneRepMaxes.bench;
                 document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
                 document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
+                document.getElementById('1rm-block-pulls').value = appData.oneRepMaxes.blockPulls;
 
                 // Convert stored workout and PR weights
                 convertAllWeights(conversionFactor, roundTo);
@@ -11060,7 +11147,7 @@
             const stats = calculateProgressStats();
 
             // Calculate program completion percentage
-            const maxWeeks = appData.programType === 'hypertrophy' ? 21 : 20;
+            const maxWeeks = isHypertrophyProgram() ? 21 : 20;
             const completionPercentage = (stats.weeksCompleted / maxWeeks) * 100;
 
             container.innerHTML = `
@@ -11339,7 +11426,7 @@
             }
 
             // Restore previous selection if still valid, otherwise default to 3x
-            if (currentValue && (programType !== 'strength' || currentValue !== '6x')) {
+            if (currentValue && (programType === 'hypertrophy' || currentValue !== '6x')) {
                 programSelect.value = currentValue;
             } else {
                 programSelect.value = '3x';
@@ -11361,6 +11448,7 @@
             const bench1RM = parseFloat(document.getElementById('setup-bench').value);
             const deadlift1RM = parseFloat(document.getElementById('setup-deadlift').value);
             const ohp1RM = parseFloat(document.getElementById('setup-ohp').value);
+            const blockPulls1RM = parseFloat(document.getElementById('setup-block-pulls').value);
 
             // Get auxiliary exercise selections
             const squatAux1 = document.getElementById('setup-squat-aux-1').value;
@@ -11385,7 +11473,8 @@
                 squat: squat1RM,
                 bench: bench1RM,
                 deadlift: deadlift1RM,
-                ohp: ohp1RM
+                ohp: ohp1RM,
+                blockPulls: Number.isFinite(blockPulls1RM) ? blockPulls1RM : Math.round(deadlift1RM * 1.05 * 4) / 4
             };
             appData.auxiliaryExercises = {
                 'squat-aux-1': squatAux1,
@@ -11414,6 +11503,7 @@
             document.getElementById('1rm-bench').value = bench1RM;
             document.getElementById('1rm-deadlift').value = deadlift1RM;
             document.getElementById('1rm-ohp').value = ohp1RM;
+            document.getElementById('1rm-block-pulls').value = appData.oneRepMaxes.blockPulls;
             document.getElementById('week-selector').value = startWeek;
         }
 
@@ -11472,6 +11562,7 @@
             document.getElementById('1rm-bench').value = appData.oneRepMaxes.bench;
             document.getElementById('1rm-deadlift').value = appData.oneRepMaxes.deadlift;
             document.getElementById('1rm-ohp').value = appData.oneRepMaxes.ohp;
+            document.getElementById('1rm-block-pulls').value = appData.oneRepMaxes.blockPulls;
             document.getElementById('week-selector').value = appData.currentWeek;
 
             // Load auxiliary exercise settings
